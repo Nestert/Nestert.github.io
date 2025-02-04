@@ -49,17 +49,44 @@
       color: #555;
     }
     .hero {
-      height: 100vh;
-      background: url('src/img/hero-image.jpg') center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      height: 100vh;
+      padding: 20px;
+      background: transparent;
     }
-    .hero h1 {
-      font-size: 3em;
+    .hero-content {
+      display: flex;
+      max-width: 1200px;
+      width: 100%;
+      gap: 40px;
     }
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0;
+    }
+    .hero-description {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 1.1em;
+      line-height: 1.5;
+      padding: 0 10px;
+    }
+    .hero-description h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    /* Раздел Работы */
     section {
       padding: 40px 20px;
     }
@@ -73,17 +100,76 @@
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 20px;
     }
+
     .gallery-item {
       position: relative;
-      overflow: hidden;
     }
     .gallery-item img {
       width: 100%;
       display: block;
       transition: transform 0.3s;
+      cursor: pointer;
     }
     .gallery-item:hover img {
       transform: scale(1.05);
+    }
+    .artwork-description {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #555;
+      text-align: center;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+    .lightbox-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+      margin-top: 5%;
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .exhibitions-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      padding: 20px;
+    }
+    .exhibition-year {
+      background: transparent;
+      padding: 0;
+      border: none;
+    }
+    .exhibition-year h3 {
+      margin-bottom: 10px;
+      font-size: 1.5em;
+      color: #333;
+    }
+    .exhibition-year ul {
+      list-style: disc;
+      padding-left: 20px;
+    }
+    .exhibition-year li {
+      margin-bottom: 8px;
+      font-size: 1em;
     }
     footer {
       background: #f8f8f8;
@@ -91,13 +177,32 @@
       padding: 20px;
       border-top: 1px solid #ddd;
     }
-    /* Адаптивность */
     @media (max-width: 768px) {
-      .hero h1 {
+      .hero-content {
+        flex-direction: column;
+        gap: 20px;
+      }
+      .hero-description h1 {
         font-size: 2em;
       }
       nav ul {
         flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-description {
+        font-size: 1em;
+        padding: 0 10px;
+      }
+      nav .logo a {
+        font-size: 1.3em;
+      }
+      nav ul li {
+        margin: 5px 0;
+      }
+      .gallery {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -117,74 +222,148 @@
     </nav>
   </header>
   
-  <!-- Блок с большим изображением (Hero Section) -->
+  <!-- Hero Section: слева изображение, справа описание -->
   <div class="hero" id="home">
-    <h1>Екатерина Романова</h1>
+    <div class="hero-content">
+      <div class="hero-image">
+        <img src="src/img/hero-image.jpg" alt="Екатерина Романова">
+      </div>
+      <div class="hero-description">
+        <h1>ЕКАТЕРИНА РОМАНОВА</h1>
+        <p>р. 1998, Санкт-Петербург</p>
+        <p>Художник, дизайнер.</p>
+        <p>
+          Основным творческим методом является изучение человека, его быта и эмоций через призму русского культурного кода, личного опыта и собственного отношения. Художник работает как в живописи, так и в печатных техниках, сочетая аспекты классической школы и собственного экспрессивного языка. Неоднократный лауреат и победитель конкурсов в сфере живописи и графики.
+        </p>
+      </div>
+    </div>
   </div>
   
   <!-- Раздел Работы -->
   <section id="artworks">
     <h2>Работы</h2>
     <div class="gallery">
-      <!-- Пример элемента галереи -->
       <div class="gallery-item">
-        <img src="src/img/аист1.jpg" alt="Аисты">
+        <img src="src/img/аист1.jpg" alt="Аисты" class="gallery-img">
+        <p class="artwork-description">Аисты</p>
       </div>
       <div class="gallery-item">
-        <img src="src/img/аист2.jpg" alt="Аисты">
+        <img src="src/img/аист2.jpg" alt="Аисты" class="gallery-img">
+        <p class="artwork-description">Аисты</p>
       </div>
       <div class="gallery-item">
-        <img src="src/img/Ванька-встанька 1.jpg" alt="Ванька-встанька">
+        <img src="src/img/Ванька-встанька 1.jpg" alt="Ванька-встанька" class="gallery-img">
+        <p class="artwork-description">Ванька-встанька</p>
       </div>
       <div class="gallery-item">
-        <img src="src/img/голова.jpg" alt="Голова">
+        <img src="src/img/голова.jpg" alt="Голова" class="gallery-img">
+        <p class="artwork-description">Голова</p>
       </div>
       <div class="gallery-item">
-        <img src="src/img/девяткино.jpg" alt="Девяткино">
+        <img src="src/img/девяткино.jpg" alt="Девяткино" class="gallery-img">
+        <p class="artwork-description">Девяткино</p>
       </div>
       <div class="gallery-item">
-        <img src="src/img/любовь.jpg" alt="Поговорки.Любовь">
+        <img src="src/img/любовь.jpg" alt="Поговорки. Любовь" class="gallery-img">
+        <p class="artwork-description">Поговорки. Любовь</p>
       </div>
       <div class="gallery-item">
-        <img src="src/img/мухи.JPG" alt="Мухи у нас">
+        <img src="src/img/мухи.JPG" alt="Мухи у нас" class="gallery-img">
+        <p class="artwork-description">Мухи у нас</p>
       </div>
       <div class="gallery-item">
-        <img src="src/img/парень.jpg" alt="Поговорки.Парень">
+        <img src="src/img/парень.jpg" alt="Поговорки. Парень" class="gallery-img">
+        <p class="artwork-description">Поговорки. Парень</p>
       </div>
       <div class="gallery-item">
-        <img src="src/img/пироги.jpg" alt="Поговорки.Пироги">
+        <img src="src/img/пироги.jpg" alt="Поговорки. Пироги" class="gallery-img">
+        <p class="artwork-description">Поговорки. Пироги</p>
       </div>
       <div class="gallery-item">
-        <img src="src/img/тверь.jpg" alt="Тверь">
+        <img src="src/img/тверь.jpg" alt="Тверь" class="gallery-img">
+        <p class="artwork-description">Тверь</p>
       </div>
-
     </div>
   </section>
   
-  <!-- Раздел Выставки -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img">
+    <div id="caption"></div>
+  </div>
+  
   <section id="exhibitions">
     <h2>Выставки</h2>
-    <p><b>2016, 2017</b></p>
-    <p>Персональные выставки «Галерея 15», РХГА, СПб.</p>
-    <p><b>2018</b></p>
-    <p>Takeda «Преодоление», ЦВЗ «Манеж», СПб.</p>
-    <p><b>2019</b></p>      
-    <p>«Двуликий Янус (СССР/ГДР)», Научно-исследовательский музей РАХ, Спб.</p>
-    <p><b>2023</b></p>  
-    <p>«Ежегодная выставка дипломных работ», Научно-исследовательский музей РАХ, СПб.</p>  
-    <p>«Limited edition», галерея One’s mind, СПб.</p>
-    <p>«Дети», Итальянский зал Академии художеств, СПб.</p>
-    <p><b>2024</b></p>  
-    <p>«A la russe», Beriozka gallery, СПб.</p>  
-    <p>«Контур», стенд «Из профессорской квартиры by KGallery».</p>
-    <p>Sheraton Kremlin, Нижний Новгород.</p>  
-    <p>«1703», стенд «Из профессорской квартиры by KGallery», ЦВЗ «Манеж», «Смотрю в человека», Итальянский зал Академии художеств имени Ильи Репина</p>  
-    <!-- Здесь можно добавить список или календарь выставок -->
+    <div class="exhibitions-grid">
+      <div class="exhibition-year">
+        <h3>2016-2017</h3>
+        <ul>
+          <li>Персональные выставки «Галерея 15», РХГА, СПб.</li>
+        </ul>
+      </div>
+      <div class="exhibition-year">
+        <h3>2018</h3>
+        <ul>
+          <li>Takeda «Преодоление», ЦВЗ «Манеж», СПб.</li>
+        </ul>
+      </div>
+      <div class="exhibition-year">
+        <h3>2019</h3>
+        <ul>
+          <li>«Двуликий Янус (СССР/ГДР)», Научно-исследовательский музей РАХ, СПб.</li>
+        </ul>
+      </div>
+      <div class="exhibition-year">
+        <h3>2023</h3>
+        <ul>
+          <li>«Ежегодная выставка дипломных работ», Научно-исследовательский музей РАХ, СПб.</li>
+          <li>«Limited edition», галерея One’s mind, СПб.</li>
+          <li>«Дети», Итальянский зал Академии художеств, СПб.</li>
+        </ul>
+      </div>
+      <div class="exhibition-year">
+        <h3>2024</h3>
+        <ul>
+          <li>«A la russe», Beriozka gallery, СПб.</li>
+          <li>«Контур», стенд «Из профессорской квартиры by KGallery».</li>
+          <li>Sheraton Kremlin, Нижний Новгород.</li>
+          <li>«1703», стенд «Из профессорской квартиры by KGallery», ЦВЗ «Манеж», «Смотрю в человека», Итальянский зал Академии художеств имени Ильи Репина.</li>
+        </ul>
+      </div>
+    </div>
   </section>
   
   <!-- Футер -->
   <footer>
-    <p> 2025 </p>
+    <p>2025</p>
   </footer>
+  
+  <!-- JavaScript для работы lightbox -->
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const captionText = document.getElementById('caption');
+    const galleryImages = document.querySelectorAll('.gallery-img');
+    const closeBtn = document.querySelector('.close');
+
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => {
+        lightbox.style.display = 'block';
+        lightboxImg.src = img.src;
+        captionText.innerText = img.alt;
+      });
+    });
+
+    closeBtn.addEventListener('click', () => {
+      lightbox.style.display = 'none';
+    });
+
+    // Закрытие lightbox при клике вне изображения
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        lightbox.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
