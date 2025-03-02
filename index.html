@@ -257,6 +257,8 @@
         padding: 20px 0;
         transition: right var(--transition-speed);
         box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
       nav ul.active {
         right: 0;
@@ -311,6 +313,9 @@
       }
       nav ul {
         width: 80%;
+        top: 50px;
+        height: calc(100% - 50px);
+        z-index: 999;
       }
       nav ul li {
         margin: 10px 0;
@@ -382,6 +387,28 @@
       }
       .hero-description p {
         margin-bottom: 8px;
+      }
+    }
+    /* Специфичные улучшения для iPhone */
+    @supports (-webkit-touch-callout: none) {
+      /* CSS специфичный только для iOS устройств */
+      nav ul {
+        -webkit-transform: translateZ(0); /* Устраняет проблемы с отображением на iOS */
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden; /* Исправляет проблемы рендеринга */
+        backface-visibility: hidden;
+      }
+      
+      /* Фиксируем позицию бургер-меню на iOS */
+      .hamburger {
+        position: relative;
+        z-index: 1000;
+      }
+      
+      /* Улучшаем тач-отклик */
+      .hamburger span {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
       }
     }
   </style>
