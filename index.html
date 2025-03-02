@@ -52,46 +52,172 @@
     <!-- Работы -->
     <section id="artworks">
       <h2>Работы</h2>
+      
+      <!-- Блок фильтров для галереи -->
+      <div class="filter-container">
+        <h3 class="filter-title">Фильтры</h3>
+        
+        <div class="filters-wrapper">
+          <!-- Фильтры по серии -->
+          <div class="filter-group">
+            <h4>Серия</h4>
+            <div class="gallery-filters series-filters">
+              <button class="filter-btn active" data-filter="series" data-value="all">Все</button>
+              <button class="filter-btn" data-filter="series" data-value="series-аисты">Аисты</button>
+              <button class="filter-btn" data-filter="series" data-value="series-портреты">Портреты</button>
+              <button class="filter-btn" data-filter="series" data-value="series-поговорки">Поговорки</button>
+              <button class="filter-btn" data-filter="series" data-value="series-места">Места</button>
+            </div>
+          </div>
+          
+          <!-- Фильтры по годам -->
+          <div class="filter-group">
+            <h4>Год</h4>
+            <div class="gallery-filters year-filters">
+              <button class="filter-btn active" data-filter="year" data-value="all">Все</button>
+              <button class="filter-btn" data-filter="year" data-value="2022">2022</button>
+              <button class="filter-btn" data-filter="year" data-value="2023">2023</button>
+              <button class="filter-btn" data-filter="year" data-value="2024">2024</button>
+            </div>
+          </div>
+          
+          <!-- Фильтры по материалам -->
+          <div class="filter-group">
+            <h4>Техника</h4>
+            <div class="gallery-filters material-filters">
+              <button class="filter-btn active" data-filter="material" data-value="all">Все</button>
+              <button class="filter-btn" data-filter="material" data-value="oil">Масло</button>
+              <button class="filter-btn" data-filter="material" data-value="linocut">Линогравюра</button>
+              <button class="filter-btn" data-filter="material" data-value="acrylic">Акрил</button>
+              <button class="filter-btn" data-filter="material" data-value="lithography">Литография</button>
+              <button class="filter-btn" data-filter="material" data-value="silkscreen">Шелкография</button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Кнопка сброса всех фильтров -->
+        <button class="reset-filters-btn">Сбросить фильтры</button>
+      </div>
+      
       <div class="gallery">
-        <article class="gallery-item">
+        <article class="gallery-item" 
+          data-category="series-аисты" 
+          data-year="2023" 
+          data-material="linocut" 
+          data-format="30x40">
           <img src="src/img/gallery/аист1.jpg" alt="Аисты" class="gallery-img" loading="lazy">
-          <p class="artwork-description">Аисты</p>
+          <div class="artwork-info">
+            <p class="artwork-description">Аисты</p>
+            <p class="artwork-details">Линогравюра, 30×40 см, 2023</p>
+          </div>
         </article>
-        <article class="gallery-item">
+        
+        <article class="gallery-item" 
+          data-category="series-аисты" 
+          data-year="2023" 
+          data-material="linocut" 
+          data-format="30x40">
           <img src="src/img/gallery/аист2.jpg" alt="Аисты" class="gallery-img" loading="lazy">
-          <p class="artwork-description">Аисты</p>
+          <div class="artwork-info">
+            <p class="artwork-description">Аисты</p>
+            <p class="artwork-details">Линогравюра, 30×40 см, 2023</p>
+          </div>
         </article>
-        <article class="gallery-item">
+        
+        <article class="gallery-item" 
+          data-category="series-портреты" 
+          data-year="2022" 
+          data-material="lithography" 
+          data-format="50x70">
           <img src="src/img/gallery/Ванька-встанька 1.jpg" alt="Ванька-встанька" class="gallery-img" loading="lazy">
-          <p class="artwork-description">Ванька-встанька</p>
+          <div class="artwork-info">
+            <p class="artwork-description">Ванька-встанька</p>
+            <p class="artwork-details">Литография, бумага, 50×70 см, 2022</p>
+          </div>
         </article>
-        <article class="gallery-item">
+        
+        <article class="gallery-item" 
+          data-category="series-портреты" 
+          data-year="2022" 
+          data-material="lithography" 
+          data-format="40x60">
           <img src="src/img/gallery/голова.jpg" alt="Голова" class="gallery-img" loading="lazy">
-          <p class="artwork-description">Голова</p>
+          <div class="artwork-info">
+            <p class="artwork-description">Голова</p>
+            <p class="artwork-details">Литография, бумага, 40×60 см, 2022</p>
+          </div>
         </article>
-        <article class="gallery-item">
+        
+        <article class="gallery-item" 
+          data-category="series-места" 
+          data-year="2023" 
+          data-material="lithography" 
+          data-format="60x80">
           <img src="src/img/gallery/девяткино.jpg" alt="Девяткино" class="gallery-img" loading="lazy">
-          <p class="artwork-description">Девяткино</p>
+          <div class="artwork-info">
+            <p class="artwork-description">Девяткино</p>
+            <p class="artwork-details">Литография, бумага, 60×80 см, 2023</p>
+          </div>
         </article>
-        <article class="gallery-item">
+        
+        <article class="gallery-item" 
+          data-category="series-поговорки" 
+          data-year="2024" 
+          data-material="silkscreen" 
+          data-format="70x90">
           <img src="src/img/gallery/любовь.jpg" alt="Поговорки. Любовь" class="gallery-img" loading="lazy">
-          <p class="artwork-description">Поговорки. Любовь</p>
+          <div class="artwork-info">
+            <p class="artwork-description">Поговорки. Любовь</p>
+            <p class="artwork-details">Шелкография, бумага, 70×90 см, 2024</p>
+          </div>
         </article>
-        <article class="gallery-item">
+        
+        <article class="gallery-item" 
+          data-category="series-портреты" 
+          data-year="2023" 
+          data-material="lithography" 
+          data-format="50x70">
           <img src="src/img/gallery/мухи.JPG" alt="Мухи у нас" class="gallery-img" loading="lazy">
-          <p class="artwork-description">Мухи у нас</p>
+          <div class="artwork-info">
+            <p class="artwork-description">Мухи у нас</p>
+            <p class="artwork-details">Литография, бумага, 50×70 см, 2023</p>
+          </div>
         </article>
-        <article class="gallery-item">
+        
+        <article class="gallery-item" 
+          data-category="series-поговорки" 
+          data-year="2024" 
+          data-material="silkscreen" 
+          data-format="70x90">
           <img src="src/img/gallery/парень.jpg" alt="Поговорки. Парень" class="gallery-img" loading="lazy">
-          <p class="artwork-description">Поговорки. Парень</p>
+          <div class="artwork-info">
+            <p class="artwork-description">Поговорки. Парень</p>
+            <p class="artwork-details">Шелкография, бумага, 70×90 см, 2024</p>
+          </div>
         </article>
-        <article class="gallery-item">
+        
+        <article class="gallery-item" 
+          data-category="series-поговорки" 
+          data-year="2024" 
+          data-material="silkscreen" 
+          data-format="70x90">
           <img src="src/img/gallery/пироги.jpg" alt="Поговорки. Пироги" class="gallery-img" loading="lazy">
-          <p class="artwork-description">Поговорки. Пироги</p>
+          <div class="artwork-info">
+            <p class="artwork-description">Поговорки. Пироги</p>
+            <p class="artwork-details">Шелкография, бумага, 70×90 см, 2024</p>
+          </div>
         </article>
-        <article class="gallery-item">
+        
+        <article class="gallery-item" 
+          data-category="series-места" 
+          data-year="2023" 
+          data-material="linocut" 
+          data-format="60x80">
           <img src="src/img/gallery/тверь.jpg" alt="Тверь" class="gallery-img" loading="lazy">
-          <p class="artwork-description">Тверь</p>
+          <div class="artwork-info">
+            <p class="artwork-description">Тверь</p>
+            <p class="artwork-details">Линогравюра, бумага, 60×80 см, 2023</p>
+          </div>
         </article>
       </div>
     </section>
@@ -140,11 +266,17 @@
   <footer>
     <p>2025</p>
   </footer>
-  <!-- Lightbox Modal -->
+  <!-- Lightbox Modal с улучшенной навигацией -->
   <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Просмотр изображения">
-    <span class="close" role="button" tabindex="0" aria-label="Закрыть">&times;</span>
-    <img class="lightbox-content" id="lightbox-img" alt="">
-    <div id="caption" style="color: #fff; text-align: center; padding: 10px;"></div>
+    <button class="nav-btn prev-btn" aria-label="Предыдущее изображение">&#10094;</button>
+    <div class="lightbox-container">
+      <span class="close" role="button" tabindex="0" aria-label="Закрыть">&times;</span>
+      <img class="lightbox-content" id="lightbox-img" alt="">
+      <div id="caption"></div>
+      <div id="details" class="details"></div>
+      <div id="counter" class="counter"></div>
+    </div>
+    <button class="nav-btn next-btn" aria-label="Следующее изображение">&#10095;</button>
   </div>
   <script src="js/scripts.js"></script>
 </body>
