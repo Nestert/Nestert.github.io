@@ -9,409 +9,9 @@
   <meta property="og:title" content="Omanovar">
   <meta property="og:description" content="Сайт Екатерины Романовой – художника и дизайнера. Галерея работ и выставки в Санкт-Петербурге.">
   <meta property="og:image" content="src/img/hero-image.jpg">
-  <meta property="og:url" content="URL_ВАШЕГО_САЙТА">
+  <meta property="og:url" content="omanovar.ru">
   <link rel="icon" href="src/img/favicon.ico">
-  <style>
-    :root {
-      --primary-color: #333;
-      --secondary-color: #555;
-      --background-color: #fff;
-      --header-background: #f8f8f8;
-      --border-color: #ddd;
-      --transition-speed: 0.3s;
-      --font-family: Arial, sans-serif;
-      --line-height: 1.6;
-      --max-width: 1200px;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: var(--font-family);
-      line-height: var(--line-height);
-      background-color: var(--background-color);
-      color: var(--primary-color);
-      overflow-x: hidden;
-    }
-    header {
-      background: var(--header-background);
-      padding: 10px;
-      border-bottom: 1px solid var(--border-color);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      z-index: 100;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    nav .logo {
-      display: flex;
-      align-items: center;
-    }
-    nav .logo img {
-      height: 40px;
-      margin-right: 10px;
-      transition: transform var(--transition-speed);
-    }
-    nav .logo:hover img {
-      transform: scale(1.05);
-    }
-    nav .logo a {
-      text-decoration: none;
-      font-size: 1.5em;
-      color: var(--primary-color);
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-    }
-    nav ul li {
-      margin: 0 10px;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: var(--primary-color);
-      font-weight: bold;
-      transition: color var(--transition-speed);
-    }
-    nav ul li a:hover {
-      color: var(--secondary-color);
-    }
-    .hamburger {
-      display: none;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 5px;
-      z-index: 101;
-    }
-    .hamburger span {
-      display: block;
-      width: 25px;
-      height: 3px;
-      margin: 5px 0;
-      background-color: var(--primary-color);
-      transition: all var(--transition-speed);
-    }
-    main {
-      display: flex;
-      flex-direction: column;
-      margin-top: 70px;
-    }
-    .hero {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 20px;
-      background: transparent;
-    }
-    .hero-content {
-      display: flex;
-      max-width: var(--max-width);
-      width: 100%;
-      gap: 40px;
-    }
-    .hero-image {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .hero-image img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 0;
-    }
-    .hero-description {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      font-size: 1.1em;
-      line-height: 1.5;
-      padding: 0 10px;
-    }
-    .hero-description h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-    section {
-      padding: 40px 20px;
-    }
-    section h2 {
-      margin-bottom: 20px;
-      font-size: 2em;
-      text-align: center;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .gallery-item {
-      position: relative;
-    }
-    .gallery-item img {
-      width: 100%;
-      display: block;
-      transition: transform var(--transition-speed);
-      cursor: pointer;
-    }
-    .gallery-item:hover img {
-      transform: scale(1.05);
-    }
-    .artwork-description {
-      margin-top: 10px;
-      font-size: 0.9em;
-      color: var(--secondary-color);
-      text-align: center;
-    }
-    .lightbox {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    .lightbox[aria-hidden="false"] {
-      display: block;
-    }
-    .lightbox-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 80%;
-      margin-top: 5%;
-    }
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 35px;
-      color: #fff;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .exhibitions-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-      padding: 20px;
-    }
-    .exhibition-year {
-      background: transparent;
-      padding: 0;
-      border: none;
-    }
-    .exhibition-year h3 {
-      margin-bottom: 10px;
-      font-size: 1.5em;
-      color: var(--primary-color);
-    }
-    .exhibition-year ul {
-      list-style: disc;
-      padding-left: 20px;
-    }
-    .exhibition-year li {
-      margin-bottom: 8px;
-      font-size: 1em;
-    }
-    footer {
-      background: var(--header-background);
-      text-align: center;
-      padding: 20px;
-      border-top: 1px solid var(--border-color);
-    }
-    @media (max-width: 768px) {
-      .hero-content {
-        flex-direction: column;
-        gap: 20px;
-      }
-      .hero-description h1 {
-        font-size: 2em;
-      }
-      nav ul {
-        position: fixed;
-        right: -100%;
-        top: 70px;
-        flex-direction: column;
-        background: var(--header-background);
-        width: 60%;
-        height: calc(100% - 70px);
-        text-align: center;
-        padding: 20px 0;
-        transition: right var(--transition-speed);
-        box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      nav ul.active {
-        right: 0;
-      }
-      .hamburger {
-        display: block;
-      }
-      .hamburger.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 6px);
-      }
-      .hamburger.active span:nth-child(2) {
-        opacity: 0;
-      }
-      .hamburger.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -6px);
-      }
-      nav ul li {
-        margin: 15px 0;
-      }
-      nav .logo img {
-        height: 30px;
-      }
-      header {
-        padding: 15px;
-      }
-      main {
-        margin-top: 60px;
-      }
-      .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      }
-      section {
-        padding: 30px 15px;
-      }
-      section h2 {
-        font-size: 1.8em;
-      }
-    }
-    @media (max-width: 480px) {
-      .hero-description {
-        font-size: 1em;
-        padding: 0 10px;
-      }
-      .hero-description h1 {
-        font-size: 1.8em;
-      }
-      nav .logo a {
-        font-size: 1.3em;
-      }
-      nav .logo img {
-        height: 25px;
-      }
-      nav ul {
-        width: 80%;
-        top: 50px;
-        height: calc(100% - 50px);
-        z-index: 999;
-      }
-      nav ul li {
-        margin: 10px 0;
-      }
-      .gallery {
-        grid-template-columns: 1fr;
-        gap: 15px;
-      }
-      header {
-        padding: 10px;
-      }
-      main {
-        margin-top: 50px;
-      }
-      .hero {
-        min-height: auto;
-        padding: 40px 10px;
-      }
-      .hero-content {
-        gap: 30px;
-      }
-      section {
-        padding: 20px 10px;
-      }
-      section h2 {
-        font-size: 1.5em;
-        margin-bottom: 15px;
-      }
-      .artwork-description {
-        font-size: 0.8em;
-      }
-      .exhibition-year h3 {
-        font-size: 1.3em;
-      }
-      .exhibition-year li {
-        font-size: 0.9em;
-      }
-      /* Оптимизации для сенсорных устройств */
-      .gallery-item img {
-        transform: none; /* Отключаем эффект наведения на мобильных */
-      }
-      .gallery-item:active img {
-        transform: scale(1.02); /* Легкое увеличение при нажатии */
-      }
-      /* Улучшение для дизплея lightbox на мобильных */
-      .lightbox-content {
-        max-width: 95%;
-        max-height: 85%;
-      }
-      .close {
-        top: 10px;
-        right: 15px;
-        font-size: 35px;
-      }
-    }
-    /* Дополнительные улучшения для очень маленьких экранов */
-    @media (max-width: 360px) {
-      nav .logo a {
-        font-size: 1.1em;
-      }
-      nav .logo img {
-        height: 22px;
-      }
-      .hero-description h1 {
-        font-size: 1.5em;
-      }
-      section h2 {
-        font-size: 1.4em;
-      }
-      .hero-description p {
-        margin-bottom: 8px;
-      }
-    }
-    /* Специфичные улучшения для iPhone */
-    @supports (-webkit-touch-callout: none) {
-      /* CSS специфичный только для iOS устройств */
-      nav ul {
-        -webkit-transform: translateZ(0); /* Устраняет проблемы с отображением на iOS */
-        transform: translateZ(0);
-        -webkit-backface-visibility: hidden; /* Исправляет проблемы рендеринга */
-        backface-visibility: hidden;
-      }
-      
-      /* Фиксируем позицию бургер-меню на iOS */
-      .hamburger {
-        position: relative;
-        z-index: 1000;
-      }
-      
-      /* Улучшаем тач-отклик */
-      .hamburger span {
-        -webkit-transform: translateZ(0);
-        transform: translateZ(0);
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header>
@@ -454,43 +54,43 @@
       <h2>Работы</h2>
       <div class="gallery">
         <article class="gallery-item">
-          <img src="src/img/аист1.jpg" alt="Аисты" class="gallery-img" loading="lazy">
+          <img src="src/img/gallery/аист1.jpg" alt="Аисты" class="gallery-img" loading="lazy">
           <p class="artwork-description">Аисты</p>
         </article>
         <article class="gallery-item">
-          <img src="src/img/аист2.jpg" alt="Аисты" class="gallery-img" loading="lazy">
+          <img src="src/img/gallery/аист2.jpg" alt="Аисты" class="gallery-img" loading="lazy">
           <p class="artwork-description">Аисты</p>
         </article>
         <article class="gallery-item">
-          <img src="src/img/Ванька-встанька 1.jpg" alt="Ванька-встанька" class="gallery-img" loading="lazy">
+          <img src="src/img/gallery/Ванька-встанька 1.jpg" alt="Ванька-встанька" class="gallery-img" loading="lazy">
           <p class="artwork-description">Ванька-встанька</p>
         </article>
         <article class="gallery-item">
-          <img src="src/img/голова.jpg" alt="Голова" class="gallery-img" loading="lazy">
+          <img src="src/img/gallery/голова.jpg" alt="Голова" class="gallery-img" loading="lazy">
           <p class="artwork-description">Голова</p>
         </article>
         <article class="gallery-item">
-          <img src="src/img/девяткино.jpg" alt="Девяткино" class="gallery-img" loading="lazy">
+          <img src="src/img/gallery/девяткино.jpg" alt="Девяткино" class="gallery-img" loading="lazy">
           <p class="artwork-description">Девяткино</p>
         </article>
         <article class="gallery-item">
-          <img src="src/img/любовь.jpg" alt="Поговорки. Любовь" class="gallery-img" loading="lazy">
+          <img src="src/img/gallery/любовь.jpg" alt="Поговорки. Любовь" class="gallery-img" loading="lazy">
           <p class="artwork-description">Поговорки. Любовь</p>
         </article>
         <article class="gallery-item">
-          <img src="src/img/мухи.JPG" alt="Мухи у нас" class="gallery-img" loading="lazy">
+          <img src="src/img/gallery/мухи.JPG" alt="Мухи у нас" class="gallery-img" loading="lazy">
           <p class="artwork-description">Мухи у нас</p>
         </article>
         <article class="gallery-item">
-          <img src="src/img/парень.jpg" alt="Поговорки. Парень" class="gallery-img" loading="lazy">
+          <img src="src/img/gallery/парень.jpg" alt="Поговорки. Парень" class="gallery-img" loading="lazy">
           <p class="artwork-description">Поговорки. Парень</p>
         </article>
         <article class="gallery-item">
-          <img src="src/img/пироги.jpg" alt="Поговорки. Пироги" class="gallery-img" loading="lazy">
+          <img src="src/img/gallery/пироги.jpg" alt="Поговорки. Пироги" class="gallery-img" loading="lazy">
           <p class="artwork-description">Поговорки. Пироги</p>
         </article>
         <article class="gallery-item">
-          <img src="src/img/тверь.jpg" alt="Тверь" class="gallery-img" loading="lazy">
+          <img src="src/img/gallery/тверь.jpg" alt="Тверь" class="gallery-img" loading="lazy">
           <p class="artwork-description">Тверь</p>
         </article>
       </div>
@@ -546,81 +146,6 @@
     <img class="lightbox-content" id="lightbox-img" alt="">
     <div id="caption" style="color: #fff; text-align: center; padding: 10px;"></div>
   </div>
-  <script>
-    // Ждем загрузки DOM
-    document.addEventListener('DOMContentLoaded', function() {
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightbox-img');
-      const captionText = document.getElementById('caption');
-      const gallery = document.querySelector('.gallery');
-      const closeBtn = document.querySelector('.close');
-      const hamburger = document.querySelector('.hamburger');
-      const navMenu = document.querySelector('nav ul');
-
-      // Мобильное меню
-      hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-      });
-
-      // Закрытие мобильного меню при клике на ссылку
-      document.querySelectorAll('nav ul li a').forEach(item => {
-        item.addEventListener('click', function() {
-          hamburger.classList.remove('active');
-          navMenu.classList.remove('active');
-        });
-      });
-
-      // Плавная прокрутка для всех внутренних ссылок
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          
-          const targetId = this.getAttribute('href');
-          const targetElement = document.querySelector(targetId);
-          
-          if (targetElement) {
-            // Учитываем высоту фиксированного header при прокрутке
-            const headerHeight = document.querySelector('header').offsetHeight;
-            const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-            
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
-
-      // Делегирование событий для кликов по изображениям галереи
-      gallery.addEventListener('click', function(e) {
-        const target = e.target;
-        if (target && target.classList.contains('gallery-img')) {
-          lightbox.setAttribute('aria-hidden', 'false');
-          lightboxImg.src = target.src;
-          captionText.innerText = target.alt;
-        }
-      });
-
-      // Закрытие lightbox по клику на кнопку закрытия
-      closeBtn.addEventListener('click', function() {
-        lightbox.setAttribute('aria-hidden', 'true');
-      });
-
-      // Закрытие lightbox при клике вне изображения
-      lightbox.addEventListener('click', function(e) {
-        if (e.target === lightbox) {
-          lightbox.setAttribute('aria-hidden', 'true');
-        }
-      });
-
-      // Закрытие lightbox по нажатию клавиши Esc
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && lightbox.getAttribute('aria-hidden') === 'false') {
-          lightbox.setAttribute('aria-hidden', 'true');
-        }
-      });
-    });
-  </script>
+  <script src="js/scripts.js"></script>
 </body>
 </html>
