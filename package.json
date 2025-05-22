@@ -1,0 +1,57 @@
+{
+  "name": "omanovar-portfolio",
+  "version": "1.0.0",
+  "description": "Портфолио художника Екатерины Романовой",
+  "main": "js/app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "dev:node": "npx http-server -p 8000 -c-1",
+    "build:css": "npm run concat:css && npm run minify:css",
+    "build:js": "npm run minify:js",
+    "build": "npm run build:css && npm run build:js",
+    "concat:css": "cat css/base.css css/layout.css css/components.css > css/styles.min.css",
+    "minify:css": "cleancss -o css/styles.min.css css/styles.min.css",
+    "minify:js": "terser js/app.js -o js/app.min.js --compress --mangle",
+    "optimize:images": "node scripts/optimize-images.js",
+    "test": "echo \"No tests specified\" && exit 0",
+    "lint": "npm run lint:js && npm run lint:css",
+    "lint:css": "stylelint css/**/*.css",
+    "lint:js": "eslint js/**/*.js",
+    "serve": "npm run dev",
+    "start": "npm run dev",
+    "stop": "lsof -ti:8000 | xargs kill 2>/dev/null || echo 'No server running on port 8000'",
+    "restart": "npm run stop && sleep 1 && npm run dev",
+    "port:check": "lsof -i:8000 || echo 'Port 8000 is free'"
+  },
+  "keywords": [
+    "portfolio",
+    "art",
+    "gallery",
+    "екатерина романова",
+    "художник",
+    "дизайнер"
+  ],
+  "author": "Екатерина Романова",
+  "license": "MIT",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.2",
+    "eslint": "^8.45.0",
+    "http-server": "^14.1.1",
+    "sharp": "^0.32.4",
+    "stylelint": "^15.10.2",
+    "stylelint-config-standard": "^34.0.0",
+    "terser": "^5.19.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/omanovar-portfolio.git"
+  },
+  "homepage": "https://omanovar.ru"
+}

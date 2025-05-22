@@ -1,0 +1,97 @@
+/* ==========================================================================
+   Main Stylesheet - Omanovar Portfolio
+   
+   Table of Contents:
+   1. Base styles and CSS custom properties
+   2. Layout components 
+   3. UI components
+   ========================================================================== */
+
+/* Base styles and variables */
+@import url('base.css');
+
+/* Layout components */
+@import url('layout.css');
+
+/* UI components */
+@import url('components.css');
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline;
+  }
+
+  a[href]::after {
+    content: ' (' attr(href) ')';
+  }
+
+  abbr[title]::after {
+    content: ' (' attr(title) ')';
+  }
+
+  a[href^='#']::after,
+  a[href^='javascript:']::after {
+    content: '';
+  }
+
+  pre {
+    white-space: pre-wrap !important;
+  }
+
+  pre,
+  blockquote {
+    border: 1px solid #999;
+    page-break-inside: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  img {
+    page-break-inside: avoid;
+  }
+
+  p,
+  h2,
+  h3 {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  .nav,
+  .lightbox,
+  .filter-container {
+    display: none !important;
+  }
+
+  .gallery {
+    display: block !important;
+  }
+
+  .gallery__item {
+    display: block !important;
+    page-break-inside: avoid;
+    margin-bottom: 1cm;
+  }
+} 

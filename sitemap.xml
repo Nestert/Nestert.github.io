@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Main page -->
+  <url>
+    <loc>https://omanovar.ru/</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    
+    <!-- Images -->
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/hero-image.jpg</image:loc>
+      <image:caption>Портрет художника Екатерины Романовой</image:caption>
+      <image:title>Екатерина Романова</image:title>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/gallery/аист1.jpg</image:loc>
+      <image:caption>Произведение 'Аисты' - линогравюра</image:caption>
+      <image:title>Аисты</image:title>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/gallery/аист2.jpg</image:loc>
+      <image:caption>Произведение 'Аисты' - линогравюра</image:caption>
+      <image:title>Аисты</image:title>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/gallery/Ванька-встанька%201.jpg</image:loc>
+      <image:caption>Произведение 'Ванька-встанька' - литография</image:caption>
+      <image:title>Ванька-встанька</image:title>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/gallery/голова.jpg</image:loc>
+      <image:caption>Произведение 'Голова' - литография</image:caption>
+      <image:title>Голова</image:title>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/gallery/девяткино.jpg</image:loc>
+      <image:caption>Произведение 'Девяткино' - литография</image:caption>
+      <image:title>Девяткино</image:title>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/gallery/любовь.jpg</image:loc>
+      <image:caption>Произведение 'Поговорки. Любовь' - шелкография</image:caption>
+      <image:title>Поговорки. Любовь</image:title>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/gallery/мухи.JPG</image:loc>
+      <image:caption>Произведение 'Мухи у нас' - литография</image:caption>
+      <image:title>Мухи у нас</image:title>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/gallery/парень.jpg</image:loc>
+      <image:caption>Произведение 'Поговорки. Парень' - шелкография</image:caption>
+      <image:title>Поговорки. Парень</image:title>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/gallery/пироги.jpg</image:loc>
+      <image:caption>Произведение 'Поговорки. Пироги' - шелкография</image:caption>
+      <image:title>Поговорки. Пироги</image:title>
+    </image:image>
+    
+    <image:image>
+      <image:loc>https://omanovar.ru/src/img/gallery/тверь.jpg</image:loc>
+      <image:caption>Произведение 'Тверь' - линогравюра</image:caption>
+      <image:title>Тверь</image:title>
+    </image:image>
+  </url>
+  
+  <!-- Gallery section -->
+  <url>
+    <loc>https://omanovar.ru/#artworks</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Exhibitions section -->
+  <url>
+    <loc>https://omanovar.ru/#exhibitions</loc>
+    <lastmod>2025-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+</urlset> 

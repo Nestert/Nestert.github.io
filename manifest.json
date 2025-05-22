@@ -1,0 +1,118 @@
+{
+  "name": "Екатерина Романова - Портфолио",
+  "short_name": "Omanovar",
+  "description": "Портфолио художника Екатерины Романовой. Живопись, графика, линогравюра, литография.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "lang": "ru",
+  "dir": "ltr",
+  "categories": ["art", "gallery", "portfolio"],
+  "icons": [
+    {
+      "src": "src/img/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "src/img/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "src/img/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "src/img/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "src/img/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "src/img/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "src/img/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "src/img/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Галерея работ",
+      "short_name": "Работы",
+      "description": "Просмотр галереи художественных работ",
+      "url": "/#artworks",
+      "icons": [
+        {
+          "src": "src/img/icons/shortcut-gallery.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Выставки",
+      "short_name": "Выставки",
+      "description": "Список выставок и участий",
+      "url": "/#exhibitions",
+      "icons": [
+        {
+          "src": "src/img/icons/shortcut-exhibitions.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Контакты",
+      "short_name": "Контакты",
+      "description": "Связаться с художником",
+      "url": "/#contact",
+      "icons": [
+        {
+          "src": "src/img/icons/shortcut-contact.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "src/img/screenshots/desktop-gallery.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Галерея работ на десктопе"
+    },
+    {
+      "src": "src/img/screenshots/mobile-gallery.png",
+      "sizes": "375x812",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Галерея работ на мобильном"
+    }
+  ]
+} 

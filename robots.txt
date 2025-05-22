@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Allow crawling of CSS, JS, and images
+Allow: /css/
+Allow: /js/
+Allow: /src/
+
+# Disallow development files
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /*.json$
+Disallow: /*.md$
+
+# Sitemap location
+Sitemap: https://omanovar.ru/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1 
