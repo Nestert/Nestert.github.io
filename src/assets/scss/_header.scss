@@ -1,0 +1,141 @@
+$color-text: #1a1a1a;
+$color-text-light: #666;
+$color-bg: #fafafa;
+$color-border: #e0e0e0;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$font-size-sm: 0.875rem;
+$container-max-width: 1200px;
+$header-height: 60px;
+$transition-base: 0.3s ease;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: $color-bg;
+  border-bottom: 1px solid $color-border;
+  height: $header-height;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 $spacing-sm;
+
+  @media (min-width: 768px) {
+    padding: 0 $spacing-md;
+    max-width: $container-max-width;
+    margin: 0 auto;
+  }
+}
+
+.nav__logo {
+  font-size: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.nav__menu {
+  display: none;
+  position: absolute;
+  top: $header-height;
+  left: 0;
+  right: 0;
+  background-color: $color-bg;
+  border-bottom: 1px solid $color-border;
+  padding: $spacing-md;
+
+  @media (min-width: 768px) {
+    display: flex;
+    position: static;
+    border: none;
+    padding: 0;
+    gap: $spacing-md;
+  }
+}
+
+.nav__menu.is-open {
+  display: block;
+}
+
+.nav__item {
+  margin-bottom: $spacing-sm;
+
+  @media (min-width: 768px) {
+    margin-bottom: 0;
+  }
+}
+
+.nav__link {
+  font-size: $font-size-sm;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color $transition-base;
+
+  &:hover,
+  &:focus {
+    color: $color-text-light;
+  }
+}
+
+.nav__link--admin {
+  font-size: 0.75rem;
+  color: $color-text-light;
+}
+
+.nav__toggle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.nav__toggle-line {
+  width: 20px;
+  height: 2px;
+  background-color: $color-text;
+  position: relative;
+  transition: background-color $transition-base;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: $color-text;
+    transition: transform $transition-base;
+  }
+
+  &::before {
+    top: -6px;
+  }
+
+  &::after {
+    top: 6px;
+  }
+}
+
+.nav__toggle.is-active .nav__toggle-line {
+  background-color: transparent;
+
+  &::before {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  &::after {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+}

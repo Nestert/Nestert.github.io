@@ -1,0 +1,12 @@
+---
+layout: layouts/gallery.njk
+title: Проекты
+---
+
+<div class="container">
+  <section class="section">
+    <h1 class="text-center text-uppercase">Проекты</h1>
+  </section>
+</div>
+
+{% set works = collections.projects | sortByOrder %}

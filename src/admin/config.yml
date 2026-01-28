@@ -1,0 +1,53 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "src/assets/images"
+public_folder: "/assets/images"
+
+slug:
+  encoding: "unicode"
+  clean_accents: true
+
+collections:
+  - name: "paintings"
+    label: "Живопись"
+    folder: "src/content/paintings/"
+    create: true
+    slug: "{{year}}-{{slugify title}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Year", name: "year", widget: "number"}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Description (English)", name: "description_en", widget: "text", required: false}
+      - {label: "Image", name: "image", widget: "image", required: true}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
+      - {label: "Order", name: "order", widget: "number", default: 0}
+
+  - name: "drawings"
+    label: "Графика"
+    folder: "src/content/drawings/"
+    create: true
+    slug: "{{year}}-{{slugify title}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Year", name: "year", widget: "number"}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Description (English)", name: "description_en", widget: "text", required: false}
+      - {label: "Image", name: "image", widget: "image", required: true}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
+      - {label: "Order", name: "order", widget: "number", default: 0}
+
+  - name: "projects"
+    label: "Проекты"
+    folder: "src/content/projects/"
+    create: true
+    slug: "{{year}}-{{slugify title}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Year", name: "year", widget: "number"}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Description (English)", name: "description_en", widget: "text", required: false}
+      - {label: "Image", name: "image", widget: "image", required: true}
+      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
+      - {label: "Order", name: "order", widget: "number", default: 0}

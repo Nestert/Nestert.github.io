@@ -1,0 +1,17 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="gallery">
+  <div class="gallery__grid">
+    {% for work in works %}
+      <article class="gallery__item">
+        <a href="{{ work.data.image }}" class="gallery__link" data-lightbox="gallery" data-title="{{ work.data.title }}">
+          <img src="{{ work.data.thumbnail or work.data.image }}" alt="{{ work.data.title }}" class="gallery__image" loading="lazy">
+        </a>
+      </article>
+    {% endfor %}
+  </div>
+</div>
+
+{% include "components/lightbox.njk" %}
