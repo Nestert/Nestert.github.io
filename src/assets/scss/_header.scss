@@ -33,11 +33,10 @@
 .nav__toggle {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 32px;
-  height: 32px;
-  padding: 4px;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  padding: 0;
   cursor: pointer;
   background: none;
   border: none;
@@ -56,7 +55,7 @@
 }
 
 .nav--open .nav__toggle-bar:nth-child(1) {
-  transform: translateY(6.5px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 
 .nav--open .nav__toggle-bar:nth-child(2) {
@@ -64,7 +63,7 @@
 }
 
 .nav--open .nav__toggle-bar:nth-child(3) {
-  transform: translateY(-6.5px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 .nav__menu {
