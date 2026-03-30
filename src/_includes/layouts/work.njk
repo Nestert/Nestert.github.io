@@ -1,0 +1,36 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="container">
+  <article class="work-detail">
+    <header class="work-detail__header">
+      <h1 class="work-detail__title">{{ title }}</h1>
+      {% if year %}
+        <p class="work-detail__year">{{ year }}</p>
+      {% endif %}
+    </header>
+
+    {% if image %}
+      <figure class="work-detail__image-wrapper">
+        <img src="{{ image }}" alt="{{ title }}" class="work-detail__image">
+      </figure>
+    {% endif %}
+
+    <div class="work-detail__content">
+      {{ content | safe }}
+    </div>
+
+    <footer class="work-detail__footer">
+      {% if "paintings" in page.inputPath %}
+        <a href="/paintings/" class="work-detail__back">← Живопись</a>
+      {% elif "drawings" in page.inputPath %}
+        <a href="/drawings/" class="work-detail__back">← Графика</a>
+      {% elif "projects" in page.inputPath %}
+        <a href="/projects/" class="work-detail__back">← Проекты</a>
+      {% else %}
+        <a href="/" class="work-detail__back">← Назад</a>
+      {% endif %}
+    </footer>
+  </article>
+</div>

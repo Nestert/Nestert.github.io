@@ -1,8 +1,4 @@
-$container-max-width: 1200px;
-$spacing-sm: 1rem;
-$spacing-md: 1.5rem;
-$spacing-lg: 2rem;
-$spacing-xl: 4rem;
+@use 'variables' as *;
 
 .container {
   width: 100%;

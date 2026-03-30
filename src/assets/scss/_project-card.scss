@@ -1,0 +1,63 @@
+@use 'variables' as *;
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.project-card__image {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  display: block;
+  transition: transform $transition-base;
+}
+
+.project-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: $spacing-md;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  color: #fff;
+  transform: translateY(100%);
+  transition: transform $transition-base;
+
+  @media (min-width: 768px) {
+    padding: $spacing-lg;
+  }
+}
+
+.project-card__title {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: $spacing-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+
+  @media (min-width: 768px) {
+    font-size: 1.25rem;
+  }
+}
+
+.project-card__year {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  letter-spacing: 0.05em;
+}
+
+.project-card__link {
+  display: block;
+}
+
+.project-card:hover .project-card__image,
+.project-card:focus-within .project-card__image {
+  transform: scale(1.05);
+}
+
+.project-card:hover .project-card__overlay,
+.project-card:focus-within .project-card__overlay {
+  transform: translateY(0);
+}

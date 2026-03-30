@@ -1,7 +1,4 @@
-$color-border: #e0e0e0;
-$spacing-sm: 1rem;
-$spacing-md: 1.5rem;
-$transition-base: 0.3s ease;
+@use 'variables' as *;
 
 .gallery {
   padding: $spacing-md 0;

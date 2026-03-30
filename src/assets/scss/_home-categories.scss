@@ -1,0 +1,22 @@
+@use 'variables' as *;
+
+.home-categories {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-md;
+  margin-top: $spacing-md;
+}
+
+.home-category {
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: $color-text;
+  transition: color $transition-base;
+
+  &:hover,
+  &:focus {
+    color: $color-text-light;
+  }
+}

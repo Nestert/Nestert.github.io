@@ -1,11 +1,4 @@
-$color-text: #1a1a1a;
-$color-text-light: #666;
-$color-border: #e0e0e0;
-$spacing-md: 1.5rem;
-$spacing-lg: 2rem;
-$spacing-xl: 4rem;
-$font-size-sm: 0.875rem;
-$transition-base: 0.3s ease;
+@use 'variables' as *;
 
 .footer {
   border-top: 1px solid $color-border;

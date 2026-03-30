@@ -1,6 +1,4 @@
-$spacing-md: 1.5rem;
-$spacing-sm: 1rem;
-$font-size-base: 16px;
+@use 'variables' as *;
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 400;

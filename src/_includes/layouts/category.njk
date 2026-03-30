@@ -1,0 +1,29 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="container">
+  <section class="section">
+    <h1 class="text-center text-uppercase">{{ title }}</h1>
+  </section>
+
+  <section class="section">
+    <div class="gallery__grid">
+      {% for work in collections[categoryKey] %}
+        {% if categoryKey in work.inputPath %}
+          <article class="project-card">
+            <a href="{{ work.url }}" class="project-card__link">
+              <img src="{{ work.data.thumbnail or work.data.image }}" alt="{{ work.data.title }}" class="project-card__image" loading="lazy">
+              <div class="project-card__overlay">
+                <h2 class="project-card__title">{{ work.data.title }}</h2>
+                {% if work.data.year %}
+                  <p class="project-card__year">{{ work.data.year }}</p>
+                {% endif %}
+              </div>
+            </a>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+</div>

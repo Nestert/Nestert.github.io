@@ -1,9 +1,12 @@
 node_modules/
 _site/
 .DS_Store
+**/.DS_Store
 *.log
-.eleventy.js
 dist/
 coverage/
 .nyc_output/
 *.local
+.claude/
+src/assets/css/main.css
+src/assets/css/main.css.map

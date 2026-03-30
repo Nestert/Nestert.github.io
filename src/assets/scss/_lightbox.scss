@@ -1,9 +1,4 @@
-$color-text: #1a1a1a;
-$color-text-light: #666;
-$color-bg-dark: #fff;
-$spacing-sm: 1rem;
-$spacing-md: 1.5rem;
-$transition-base: 0.3s ease;
+@use 'variables' as *;
 
 .lightbox {
   position: fixed;
