@@ -22,8 +22,12 @@
   padding: $spacing-md;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
   color: #fff;
-  transform: translateY(100%);
+  transform: translateY(0);
   transition: transform $transition-base;
+
+  @media (hover: hover) {
+    transform: translateY(100%);
+  }
 
   @media (min-width: 768px) {
     padding: $spacing-lg;
@@ -57,7 +61,9 @@
   transform: scale(1.05);
 }
 
-.project-card:hover .project-card__overlay,
-.project-card:focus-within .project-card__overlay {
-  transform: translateY(0);
+@media (hover: hover) {
+  .project-card:hover .project-card__overlay,
+  .project-card:focus-within .project-card__overlay {
+    transform: translateY(0);
+  }
 }

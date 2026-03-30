@@ -1,7 +1,12 @@
 <header class="header">
   <nav class="nav nav--centered">
     <a href="/" class="nav__logo">{{ site.title }}</a>
-    <ul class="nav__menu nav__menu--horizontal">
+    <button class="nav__toggle" aria-label="Меню" aria-expanded="false" aria-controls="nav-menu">
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+      <span class="nav__toggle-bar"></span>
+    </button>
+    <ul class="nav__menu nav__menu--horizontal" id="nav-menu">
       <li class="nav__item"><a href="/projects/" class="nav__link">Projects</a></li>
       <li class="nav__item"><a href="/paintings/" class="nav__link">Paintings</a></li>
       <li class="nav__item"><a href="/drawings/" class="nav__link">Drawings</a></li>

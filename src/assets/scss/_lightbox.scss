@@ -23,11 +23,11 @@
 
 .lightbox__close {
   position: absolute;
-  top: $spacing-md;
-  right: $spacing-md;
+  top: $spacing-sm;
+  right: $spacing-sm;
   font-size: 2rem;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,9 +45,9 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 3rem;
-  width: 50px;
-  height: 50px;
+  font-size: 2rem;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -67,7 +67,7 @@
 }
 
 .lightbox__prev {
-  left: $spacing-sm;
+  left: $spacing-xs;
 
   @media (min-width: 768px) {
     left: $spacing-md;
@@ -75,7 +75,7 @@
 }
 
 .lightbox__next {
-  right: $spacing-sm;
+  right: $spacing-xs;
 
   @media (min-width: 768px) {
     right: $spacing-md;

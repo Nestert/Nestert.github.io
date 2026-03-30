@@ -20,9 +20,8 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("getCategoryItems", function (collection, category) {
     return collection.filter(item => {
-      const path = item.inputPath || "";
-      const categoryPath = `/src/content/${category}/`;
-      return path.startsWith(categoryPath) && !path.endsWith('/index.md');
+      const itemPath = item.inputPath || "";
+      return itemPath.includes(`/src/content/${category}/`) && !itemPath.endsWith('/index.md');
     });
   });
 

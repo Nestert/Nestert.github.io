@@ -13,9 +13,17 @@
 
 .main {
   min-height: calc(100vh - 160px);
-  padding: $spacing-lg 0;
+  padding: $spacing-sm 0;
+
+  @media (min-width: 768px) {
+    padding: $spacing-lg 0;
+  }
 }
 
 .section {
-  padding: $spacing-xl 0;
+  padding: $spacing-lg 0;
+
+  @media (min-width: 768px) {
+    padding: $spacing-xl 0;
+  }
 }

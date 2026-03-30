@@ -9,25 +9,39 @@
   function initMobileMenu() {
     const toggle = document.querySelector('.nav__toggle');
     const menu = document.querySelector('.nav__menu');
+    const nav = toggle && toggle.closest('.nav');
 
-    if (!toggle || !menu) return;
+    if (!toggle || !menu || !nav) return;
+
+    function openMenu() {
+      nav.classList.add('nav--open');
+      menu.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closeMenu() {
+      nav.classList.remove('nav--open');
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
 
     toggle.addEventListener('click', function() {
-      toggle.classList.toggle('is-active');
-      menu.classList.toggle('is-open');
+      if (menu.classList.contains('is-open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
     menu.querySelectorAll('.nav__link').forEach(function(link) {
       link.addEventListener('click', function() {
-        toggle.classList.remove('is-active');
-        menu.classList.remove('is-open');
+        closeMenu();
       });
     });
 
     document.addEventListener('click', function(e) {
       if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-        toggle.classList.remove('is-active');
-        menu.classList.remove('is-open');
+        closeMenu();
       }
     });
   }
