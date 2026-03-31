@@ -15,6 +15,16 @@
   }
 }
 
+.gallery__grid > :only-child {
+  justify-self: center;
+  width: min(100%, 520px);
+}
+
+.gallery__grid > :only-child .project-card__image {
+  max-height: 70dvh;
+  margin-inline: auto;
+}
+
 .gallery__item {
   aspect-ratio: 1;
   overflow: hidden;
