@@ -8,8 +8,7 @@
 
 .project-card__image {
   width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
+  height: auto;
   display: block;
   transition: transform $transition-base;
 }
@@ -58,7 +57,7 @@
 
 .project-card:hover .project-card__image,
 .project-card:focus-within .project-card__image {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 @media (hover: hover) {
