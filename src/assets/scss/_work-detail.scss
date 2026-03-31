@@ -37,6 +37,13 @@
   display: block;
 }
 
+.work-detail__description {
+  margin-bottom: $spacing-lg;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
 .work-detail__content {
   font-size: 1rem;
   line-height: 1.8;

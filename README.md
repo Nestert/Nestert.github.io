@@ -1,94 +1,69 @@
 # Artist Portfolio Website
 
-Minimalist portfolio website for artists, built with 11ty and Decap CMS.
+Портфолио художницы на Eleventy, Sass и Decap CMS. Основной production-поток рассчитан на Netlify: сборка статики, Git Gateway и Netlify Identity для `/admin/`.
 
-## Features
-
-- Minimalist design inspired by alinabrovina.com
-- Categories: Projects, Paintings, Drawings
-- Lightbox gallery with keyboard navigation and touch swipe
-- Mobile-responsive
-- Admin panel for self-managed content
-- GitHub Pages deployment
-
-## Quick Start
-
-### Development
+## Команды
 
 ```bash
 npm install
 npm run dev
-```
-
-Site will be available at `http://localhost:8080`
-
-### Build
-
-```bash
+npm run lint
 npm run build
+npm run check
 ```
 
-Output is in `_site/` directory.
+- `npm run dev` запускает Sass watcher и локальный Eleventy server на `http://localhost:8080`
+- `npm run lint` проверяет `src/assets/js/**/*.js`
+- `npm run build` собирает CSS и сайт в `_site/`
+- `npm run check` запускает обязательную проверку `lint + build`
 
-### Deploy to GitHub Pages
+## Деплой
 
-```bash
-npm run deploy
-```
+- Netlify должен использовать команду `npm run check`
+- publish directory: `_site`
+- Node version: `20`
+- Для Decap CMS нужен Netlify Identity + Git Gateway
 
-## Adding Content
+`site.url` берется из `SITE_URL`, `URL`, `DEPLOY_PRIME_URL` или `DEPLOY_URL`. Локально используется `http://localhost:8080`.
 
-### Manual (Markdown files)
+## Контент
 
-Create `.md` files in `src/content/[category]/`:
+Работы хранятся в `src/content/[category]/` и автоматически публикуются по URL:
+
+- `/projects/[slug]/`
+- `/paintings/[slug]/`
+- `/drawings/[slug]/`
+
+Минимальный frontmatter:
 
 ```yaml
 ---
-title: "Work Title"
+title: "Название работы"
 year: 2024
-description: "Description in Russian"
-description_en: "Description in English"
+description: "Основное описание для страницы работы и SEO"
+description_en: "Optional English description"
 image: "/assets/images/category/image.jpg"
 thumbnail: "/assets/images/category/image-thumb.jpg"
 order: 1
 ---
 ```
 
-### Via Admin Panel
+- `description` выводится на странице работы даже если markdown-body пустой
+- markdown-body используется как дополнительный длинный текст
+- `description_en` сохраняется в данных, но пока не рендерится
 
-1. Go to `/admin/`
-2. Authorize via GitHub
-3. Create new works with image upload
+## CMS
 
-## Project Structure
+Панель доступна по `/admin/`.
 
-```
-src/
-├── _data/           # Global data
-├── _includes/       # Templates & components
-│   ├── layouts/     # Page layouts
-│   └── components/  # Reusable components
-├── admin/           # Decap CMS config
-├── assets/
-│   ├── css/         # Compiled styles
-│   ├── js/          # JavaScript
-│   └── scss/        # Source styles
-├── content/         # Content files by category
-│   ├── projects/
-│   ├── paintings/
-│   └── drawings/
-└── index.njk        # Home page
-```
+- `description` используется как основное описание
+- `body` в CMS доступен как необязательный markdown-блок для длинного текста
+- изображения загружаются в `src/assets/images/[category]/`
 
-## Adding New Categories
+## Стек
 
-1. Create folder in `src/content/[category-name]/`
-2. Add to `src/_includes/components/header.njk`
-3. Create page `src/[category-name].njk`
-
-## Tech Stack
-
-- [Eleventy](https://www.11ty.dev/) - Static site generator
-- [Decap CMS](https://decapcms.org/) - Git-based CMS
-- Sass - CSS preprocessor
-- GitHub Actions - CI/CD
+- [Eleventy](https://www.11ty.dev/)
+- [@11ty/eleventy-img](https://www.11ty.dev/docs/plugins/image/)
+- [Decap CMS](https://decapcms.org/)
+- Sass
+- Netlify

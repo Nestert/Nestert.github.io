@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html lang="{{ site.language or 'ru' }}">
 <head>
+  {% set pageTitle = site.title %}
+  {% if title %}
+    {% set pageTitle = title ~ " | " ~ site.title %}
+  {% endif %}
+  {% set pageDescription = site.description %}
+  {% if description %}
+    {% set pageDescription = description %}
+  {% endif %}
+  {% set canonicalUrl = site.url ~ page.url %}
+  {% set ogImage = "" %}
+  {% if image %}
+    {% set ogImage = site.url ~ image %}
+  {% endif %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if title %}{{ title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-  <meta name="description" content="{{ description or site.description }}">
+  <title>{{ pageTitle }}</title>
+  <meta name="description" content="{{ pageDescription }}">
+  <link rel="canonical" href="{{ canonicalUrl }}">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:title" content="{{ pageTitle }}">
+  <meta property="og:description" content="{{ pageDescription }}">
+  <meta property="og:type" content="{% if page.url == '/' %}website{% else %}article{% endif %}">
+  <meta property="og:url" content="{{ canonicalUrl }}">
+  {% if ogImage %}
+    <meta property="og:image" content="{{ ogImage }}">
+    <meta name="twitter:card" content="summary_large_image">
+  {% else %}
+    <meta name="twitter:card" content="summary">
+  {% endif %}
+  <meta name="twitter:title" content="{{ pageTitle }}">
+  <meta name="twitter:description" content="{{ pageDescription }}">
   <link rel="stylesheet" href="/assets/css/main.css">
   <link rel="icon" href="/favicon.ico">
 </head>
-<body>
+<body id="page-top">
+  <a href="#main-content" class="skip-link">Перейти к содержимому</a>
   {% include "components/header.njk" %}
 
-  <main class="main">
+  <main class="main" id="main-content" tabindex="-1">
     {{ content | safe }}
   </main>
 
   {% include "components/footer.njk" %}
 
   <script src="/assets/js/main.js"></script>
-  <script src="/assets/js/lightbox.js"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
 </body>
 </html>

@@ -1,17 +1,26 @@
 <header class="header">
   <div class="container">
-  <nav class="nav nav--centered">
-    <a href="/" class="nav__logo">{{ site.title }}</a>
-    <button class="nav__toggle" aria-label="Меню" aria-expanded="false" aria-controls="nav-menu">
-      <span class="nav__toggle-bar"></span>
-      <span class="nav__toggle-bar"></span>
-      <span class="nav__toggle-bar"></span>
-    </button>
-    <ul class="nav__menu nav__menu--horizontal" id="nav-menu">
-      <li class="nav__item"><a href="/projects/" class="nav__link">Projects</a></li>
-      <li class="nav__item"><a href="/paintings/" class="nav__link">Paintings</a></li>
-      <li class="nav__item"><a href="/drawings/" class="nav__link">Drawings</a></li>
-    </ul>
-  </nav>
+    {% set isProjects = page.url == "/projects/" or "/projects/" in page.url %}
+    {% set isPaintings = page.url == "/paintings/" or "/paintings/" in page.url %}
+    {% set isDrawings = page.url == "/drawings/" or "/drawings/" in page.url %}
+    <nav class="nav nav--centered" aria-label="Основная навигация">
+      <a href="/" class="nav__logo" {% if page.url == "/" %}aria-current="page"{% endif %}>{{ site.title }}</a>
+      <button class="nav__toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav-menu">
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+        <span class="nav__toggle-bar"></span>
+      </button>
+      <ul class="nav__menu nav__menu--horizontal" id="nav-menu">
+        <li class="nav__item">
+          <a href="/projects/" class="nav__link{% if isProjects %} nav__link--current{% endif %}" {% if isProjects %}aria-current="page"{% endif %}>Проекты</a>
+        </li>
+        <li class="nav__item">
+          <a href="/paintings/" class="nav__link{% if isPaintings %} nav__link--current{% endif %}" {% if isPaintings %}aria-current="page"{% endif %}>Живопись</a>
+        </li>
+        <li class="nav__item">
+          <a href="/drawings/" class="nav__link{% if isDrawings %} nav__link--current{% endif %}" {% if isDrawings %}aria-current="page"{% endif %}>Графика</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </header>

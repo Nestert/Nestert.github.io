@@ -4,16 +4,16 @@
   "description": "Minimalist artist portfolio website",
   "scripts": {
     "dev": "sass --watch src/assets/scss:src/assets/css & eleventy --serve",
-    "build": "sass src/assets/scss/main.scss src/assets/css/main.css && eleventy",
-    "deploy": "npx gh-pages -d _site",
-    "lint": "npx eslint src/js/",
-    "test": "echo \"No tests specified\" && exit 0"
+    "build": "rm -rf _site && sass src/assets/scss/main.scss src/assets/css/main.css && eleventy",
+    "lint": "npx eslint \"src/assets/js/**/*.js\"",
+    "check": "npm run lint && npm run build",
+    "test": "npm run check"
   },
   "keywords": [
     "portfolio",
     "artist",
     "gallery",
-    "elevent y"
+    "eleventy"
   ],
   "author": "",
   "license": "MIT",
@@ -21,7 +21,6 @@
     "@11ty/eleventy": "^3.0.0",
     "@11ty/eleventy-img": "^4.0.2",
     "eslint": "^8.56.0",
-    "gh-pages": "^6.1.1",
     "prettier": "^3.2.5",
     "sass": "^1.70.0"
   }

@@ -2,6 +2,20 @@
 layout: layouts/base.njk
 ---
 
+{% set backHref = "/" %}
+{% set backLabel = "Назад" %}
+{% if "/paintings/" in page.url %}
+  {% set backHref = "/paintings/" %}
+  {% set backLabel = "Живопись" %}
+{% elif "/drawings/" in page.url %}
+  {% set backHref = "/drawings/" %}
+  {% set backLabel = "Графика" %}
+{% elif "/projects/" in page.url %}
+  {% set backHref = "/projects/" %}
+  {% set backLabel = "Проекты" %}
+{% endif %}
+{% set bodyContent = content | striptags | trim %}
+
 <div class="container">
   <article class="work-detail">
     <header class="work-detail__header">
@@ -13,24 +27,22 @@ layout: layouts/base.njk
 
     {% if image %}
       <figure class="work-detail__image-wrapper">
-        <img src="{{ image }}" alt="{{ title }}" class="work-detail__image">
+        {% detailImage image, title, "work-detail__image" %}
       </figure>
     {% endif %}
 
-    <div class="work-detail__content">
-      {{ content | safe }}
-    </div>
+    {% if description %}
+      <p class="work-detail__description">{{ description }}</p>
+    {% endif %}
+
+    {% if bodyContent %}
+      <div class="work-detail__content">
+        {{ content | safe }}
+      </div>
+    {% endif %}
 
     <footer class="work-detail__footer">
-      {% if "paintings" in page.inputPath %}
-        <a href="/paintings/" class="work-detail__back">← Живопись</a>
-      {% elif "drawings" in page.inputPath %}
-        <a href="/drawings/" class="work-detail__back">← Графика</a>
-      {% elif "projects" in page.inputPath %}
-        <a href="/projects/" class="work-detail__back">← Проекты</a>
-      {% else %}
-        <a href="/" class="work-detail__back">← Назад</a>
-      {% endif %}
+      <a href="{{ backHref }}" class="work-detail__back">← {{ backLabel }}</a>
     </footer>
   </article>
 </div>

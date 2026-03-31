@@ -33,6 +33,12 @@ a {
   text-decoration: none;
 }
 
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid $color-text;
+  outline-offset: 4px;
+}
+
 ul,
 ol {
   list-style: none;

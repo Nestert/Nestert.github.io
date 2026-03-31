@@ -39,8 +39,20 @@
       });
     });
 
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeMenu();
+      }
+    });
+
     document.addEventListener('click', function(e) {
       if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    window.matchMedia('(min-width: 768px)').addEventListener('change', function(e) {
+      if (e.matches) {
         closeMenu();
       }
     });

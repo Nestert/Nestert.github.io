@@ -15,45 +15,48 @@ collections:
     folder: "src/content/paintings/"
     create: true
     slug: "{{year}}-{{slugify title}}"
-    media_folder: "/src/assets/images/paintings"
+    media_folder: "src/assets/images/paintings"
     public_folder: "/assets/images/paintings"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Year", name: "year", widget: "number"}
-      - {label: "Description", name: "description", widget: "text", required: false}
-      - {label: "Description (English)", name: "description_en", widget: "text", required: false}
-      - {label: "Image", name: "image", widget: "image", required: true}
-      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
-      - {label: "Order", name: "order", widget: "number", default: 0}
+      - {label: "Название", name: "title", widget: "string"}
+      - {label: "Год", name: "year", widget: "number"}
+      - {label: "Описание", name: "description", widget: "text", required: false}
+      - {label: "Описание (английский)", name: "description_en", widget: "text", required: false}
+      - {label: "Изображение", name: "image", widget: "image", required: true}
+      - {label: "Миниатюра", name: "thumbnail", widget: "image", required: false}
+      - {label: "Порядок", name: "order", widget: "number", default: 0}
+      - {label: "Текст страницы", name: "body", widget: "markdown", required: false}
 
   - name: "drawings"
     label: "Графика"
     folder: "src/content/drawings/"
     create: true
     slug: "{{year}}-{{slugify title}}"
-    media_folder: "/src/assets/images/drawings"
+    media_folder: "src/assets/images/drawings"
     public_folder: "/assets/images/drawings"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Year", name: "year", widget: "number"}
-      - {label: "Description", name: "description", widget: "text", required: false}
-      - {label: "Description (English)", name: "description_en", widget: "text", required: false}
-      - {label: "Image", name: "image", widget: "image", required: true}
-      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
-      - {label: "Order", name: "order", widget: "number", default: 0}
+      - {label: "Название", name: "title", widget: "string"}
+      - {label: "Год", name: "year", widget: "number"}
+      - {label: "Описание", name: "description", widget: "text", required: false}
+      - {label: "Описание (английский)", name: "description_en", widget: "text", required: false}
+      - {label: "Изображение", name: "image", widget: "image", required: true}
+      - {label: "Миниатюра", name: "thumbnail", widget: "image", required: false}
+      - {label: "Порядок", name: "order", widget: "number", default: 0}
+      - {label: "Текст страницы", name: "body", widget: "markdown", required: false}
 
   - name: "projects"
     label: "Проекты"
     folder: "src/content/projects/"
     create: true
     slug: "{{year}}-{{slugify title}}"
-    media_folder: "/src/assets/images/projects"
+    media_folder: "src/assets/images/projects"
     public_folder: "/assets/images/projects"
     fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Year", name: "year", widget: "number"}
-      - {label: "Description", name: "description", widget: "text", required: false}
-      - {label: "Description (English)", name: "description_en", widget: "text", required: false}
-      - {label: "Image", name: "image", widget: "image", required: true}
-      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
-      - {label: "Order", name: "order", widget: "number", default: 0}
+      - {label: "Название", name: "title", widget: "string"}
+      - {label: "Год", name: "year", widget: "number"}
+      - {label: "Описание", name: "description", widget: "text", required: false}
+      - {label: "Описание (английский)", name: "description_en", widget: "text", required: false}
+      - {label: "Изображение", name: "image", widget: "image", required: true}
+      - {label: "Миниатюра", name: "thumbnail", widget: "image", required: false}
+      - {label: "Порядок", name: "order", widget: "number", default: 0}
+      - {label: "Текст страницы", name: "body", widget: "markdown", required: false}

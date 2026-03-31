@@ -9,10 +9,11 @@ layout: layouts/base.njk
 
   <section class="section">
     <div class="gallery__grid">
-      {% for work in collections[categoryKey] | getCategoryItems(categoryKey) | sortByOrder %}
+      {% for work in collections[categoryKey] | sortByOrder %}
         <article class="project-card">
           <a href="{{ work.url }}" class="project-card__link">
-            <img src="{{ work.data.thumbnail or work.data.image }}" alt="{{ work.data.title }}" class="project-card__image" loading="lazy">
+            {% set previewImage = work.data.thumbnail or work.data.image %}
+            {% cardImage previewImage, work.data.title, "project-card__image" %}
             <div class="project-card__overlay">
               <h2 class="project-card__title">{{ work.data.title }}</h2>
               {% if work.data.year %}

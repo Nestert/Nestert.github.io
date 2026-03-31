@@ -11,6 +11,22 @@
   }
 }
 
+.skip-link {
+  position: absolute;
+  top: $spacing-sm;
+  left: $spacing-sm;
+  z-index: 1000;
+  padding: $spacing-xs $spacing-sm;
+  background-color: $color-text;
+  color: $color-bg-dark;
+  transform: translateY(-200%);
+  transition: transform $transition-base;
+
+  &:focus {
+    transform: translateY(0);
+  }
+}
+
 .main {
   min-height: calc(100vh - 160px);
   padding: $spacing-sm 0;

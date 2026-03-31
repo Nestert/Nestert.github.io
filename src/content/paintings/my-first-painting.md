@@ -6,7 +6,6 @@ description_en: "First work description"
 image: "/assets/images/paintings/painting-1.jpg"
 thumbnail: "/assets/images/paintings/painting-1.jpg"
 order: 1
-permalink: "/paintings/my-first-painting/"
 layout: layouts/work.njk
 ---
 
