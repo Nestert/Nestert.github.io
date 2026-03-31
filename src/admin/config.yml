@@ -15,7 +15,7 @@ collections:
     folder: "src/content/paintings/"
     create: true
     slug: "{{year}}-{{slugify title}}"
-    media_folder: "src/assets/images/paintings"
+    media_folder: "../../assets/images/paintings"
     public_folder: "/assets/images/paintings"
     fields:
       - {label: "Название", name: "title", widget: "string"}
@@ -32,7 +32,7 @@ collections:
     folder: "src/content/drawings/"
     create: true
     slug: "{{year}}-{{slugify title}}"
-    media_folder: "src/assets/images/drawings"
+    media_folder: "../../assets/images/drawings"
     public_folder: "/assets/images/drawings"
     fields:
       - {label: "Название", name: "title", widget: "string"}
@@ -49,7 +49,7 @@ collections:
     folder: "src/content/projects/"
     create: true
     slug: "{{year}}-{{slugify title}}"
-    media_folder: "src/assets/images/projects"
+    media_folder: "../../assets/images/projects"
     public_folder: "/assets/images/projects"
     fields:
       - {label: "Название", name: "title", widget: "string"}
