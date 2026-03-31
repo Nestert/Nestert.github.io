@@ -7,6 +7,51 @@
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@3.11.0/dist/decap-cms.js"></script>
+  <script>
+    (async () => {
+      const decapUrl = "https://unpkg.com/decap-cms@3.11.0/dist/decap-cms.js";
+      const patchPairs = [
+        [
+          "path:g.path,name:g.name,draft:g.draft",
+          "path:(g||{}).path,name:(g||{}).name,draft:(g||{}).draft"
+        ],
+        [
+          "selectedFile:e.files[0],isPersisted:!1",
+          "selectedFile:e.files[0]||{},isPersisted:!1"
+        ],
+        [
+          "selectedFile:this.props.files[0],isPersisted:!1",
+          "selectedFile:this.props.files[0]||{},isPersisted:!1"
+        ]
+      ];
+
+      try {
+        const response = await fetch(decapUrl, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        let code = await response.text();
+        for (const [search, replacement] of patchPairs) {
+          if (code.includes(search)) {
+            code = code.split(search).join(replacement);
+          } else {
+            console.warn("Decap patch token not found:", search);
+          }
+        }
+
+        const blob = new Blob([code], { type: "text/javascript" });
+        const scriptUrl = URL.createObjectURL(blob);
+        const script = document.createElement("script");
+        script.src = scriptUrl;
+        script.onload = () => URL.revokeObjectURL(scriptUrl);
+        script.onerror = () => URL.revokeObjectURL(scriptUrl);
+        document.body.appendChild(script);
+      } catch (error) {
+        console.error("Failed to load patched Decap CMS, loading fallback.", error);
+        const fallback = document.createElement("script");
+        fallback.src = decapUrl;
+        document.body.appendChild(fallback);
+      }
+    })();
+  </script>
 </body>
 </html>
