@@ -1,12 +1,15 @@
 ---
 layout: layouts/base.njk
 title: Главная
+bio: ""
 ---
 
 <div class="container">
-  <section class="home-categories">
-    <a href="/projects/" class="home-category">Проекты</a>
-    <a href="/paintings/" class="home-category">Живопись</a>
-    <a href="/drawings/" class="home-category">Графика</a>
+  {% if bio %}
+  <section class="home-intro">
+    <p class="home-intro__text">{{ bio }}</p>
   </section>
+  {% endif %}
+
+
 </div>

@@ -10,6 +10,15 @@ slug:
   clean_accents: true
 
 collections:
+  - name: "pages"
+    label: "Страницы"
+    files:
+      - name: "index"
+        label: "Главная страница"
+        file: "src/index.njk"
+        fields:
+          - {label: "Биография", name: bio, widget: text, required: false, hint: "2–3 предложения, отображаются на главной странице"}
+
   - name: "paintings"
     label: "Живопись"
     folder: "src/content/paintings/"

@@ -7,14 +7,11 @@
 
 .nav {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   gap: $spacing-sm;
 
   @media (min-width: 768px) {
-    flex-direction: column;
-    align-items: center;
     gap: $spacing-md;
   }
 }
@@ -40,6 +37,7 @@
   cursor: pointer;
   background: none;
   border: none;
+  z-index: 1001;
 
   @media (min-width: 768px) {
     display: none;
@@ -68,14 +66,19 @@
 
 .nav__menu {
   display: none;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  gap: $spacing-md;
-  padding: $spacing-md 0;
 
   &.is-open {
     display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background-color: $color-bg;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-lg;
+    padding: 0;
+    width: 100%;
   }
 
   @media (min-width: 768px) {
@@ -104,6 +107,17 @@
   &:hover,
   &:focus {
     color: $color-text-light;
+  }
+
+  .nav__menu.is-open & {
+    font-size: 2rem;
+    letter-spacing: 0.2em;
+    color: $color-text;
+
+    &:hover,
+    &:focus {
+      color: $color-text-light;
+    }
   }
 }
 

@@ -17,12 +17,14 @@
       nav.classList.add('nav--open');
       menu.classList.add('is-open');
       toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeMenu() {
       nav.classList.remove('nav--open');
       menu.classList.remove('is-open');
       toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
     }
 
     toggle.addEventListener('click', function() {
