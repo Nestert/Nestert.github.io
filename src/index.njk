@@ -1,15 +1,47 @@
 ---
 layout: layouts/base.njk
 title: Главная
-bio: ""
 ---
 
 <div class="container">
-  {% if bio %}
-  <section class="home-intro">
-    <p class="home-intro__text">{{ bio }}</p>
+  <section class="section">
+    <div class="gallery__grid">
+      {% for work in collections.projects | sortByOrder %}
+        <article class="project-card">
+          <a href="{{ work.url }}" class="project-card__link">
+            {% set previewImage = work.data.thumbnail or work.data.image %}
+            {% cardImage previewImage, work.data.title, "project-card__image" %}
+            <div class="project-card__overlay">
+              <h2 class="project-card__title">{{ work.data.title }}</h2>
+              {% if work.data.year %}<p class="project-card__year">{{ work.data.year }}</p>{% endif %}
+            </div>
+          </a>
+        </article>
+      {% endfor %}
+      {% for work in collections.paintings | sortByOrder %}
+        <article class="project-card">
+          <a href="{{ work.url }}" class="project-card__link">
+            {% set previewImage = work.data.thumbnail or work.data.image %}
+            {% cardImage previewImage, work.data.title, "project-card__image" %}
+            <div class="project-card__overlay">
+              <h2 class="project-card__title">{{ work.data.title }}</h2>
+              {% if work.data.year %}<p class="project-card__year">{{ work.data.year }}</p>{% endif %}
+            </div>
+          </a>
+        </article>
+      {% endfor %}
+      {% for work in collections.drawings | sortByOrder %}
+        <article class="project-card">
+          <a href="{{ work.url }}" class="project-card__link">
+            {% set previewImage = work.data.thumbnail or work.data.image %}
+            {% cardImage previewImage, work.data.title, "project-card__image" %}
+            <div class="project-card__overlay">
+              <h2 class="project-card__title">{{ work.data.title }}</h2>
+              {% if work.data.year %}<p class="project-card__year">{{ work.data.year }}</p>{% endif %}
+            </div>
+          </a>
+        </article>
+      {% endfor %}
+    </div>
   </section>
-  {% endif %}
-
-
 </div>

@@ -18,6 +18,18 @@ collections:
         file: "src/index.njk"
         fields:
           - {label: "Биография", name: bio, widget: text, required: false, hint: "2–3 предложения, отображаются на главной странице"}
+      - name: "cv"
+        label: "CV"
+        file: "src/cv.njk"
+        fields:
+          - {label: "Заголовок", name: title, widget: string}
+          - {label: "Содержимое", name: body, widget: markdown, required: false}
+      - name: "press"
+        label: "Press"
+        file: "src/press.njk"
+        fields:
+          - {label: "Заголовок", name: title, widget: string}
+          - {label: "Содержимое", name: body, widget: markdown, required: false}
 
   - name: "paintings"
     label: "Живопись"

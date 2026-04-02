@@ -1,0 +1,24 @@
+@use 'variables' as *;
+
+.text-content {
+  max-width: 720px;
+  line-height: 1.7;
+
+  h1, h2, h3 {
+    margin-top: $spacing-lg;
+  }
+
+  ul, ol {
+    padding-left: $spacing-md;
+    margin-bottom: $spacing-sm;
+  }
+
+  li {
+    margin-bottom: $spacing-xs;
+  }
+
+  a {
+    color: $color-text;
+    text-decoration: underline;
+  }
+}
