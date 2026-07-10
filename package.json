@@ -4,7 +4,7 @@
   "description": "Minimalist artist portfolio website",
   "scripts": {
     "dev": "sass --watch src/assets/scss:src/assets/css & eleventy --serve",
-    "build": "rm -rf _site && sass src/assets/scss/main.scss src/assets/css/main.css && eleventy",
+    "build": "rm -rf _site dist && sass src/assets/scss/main.scss src/assets/css/main.css && eleventy && node scripts/prepare-sites-build.mjs",
     "lint": "npx eslint \"src/assets/js/**/*.js\"",
     "check": "npm run lint && npm run build",
     "test": "npm run check"
