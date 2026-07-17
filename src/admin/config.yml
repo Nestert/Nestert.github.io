@@ -12,6 +12,7 @@ slug:
 collections:
   - name: "pages"
     label: "Страницы"
+    format: "frontmatter"
     files:
       - name: "index"
         label: "Главная страница"
