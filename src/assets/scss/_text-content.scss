@@ -5,7 +5,9 @@
 }
 
 .text-content {
+  width: 100%;
   max-width: 720px;
+  margin: 0 auto;
   font-family: $font-family-base;
   font-weight: 400;
   line-height: 1.7;
