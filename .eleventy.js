@@ -44,6 +44,18 @@ async function renderImage(src, alt, attrs = {}, options = {}) {
   });
 }
 
+function openLinksInNewTab(html) {
+  if (!html) return html;
+
+  return html.replace(/<a\b([^>]*)>/gi, (match, attributes) => {
+    const cleanedAttributes = attributes
+      .replace(/\s+target\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "")
+      .replace(/\s+rel\s*=\s*(?:"[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+
+    return `<a${cleanedAttributes} target="_blank" rel="noopener noreferrer">`;
+  });
+}
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("static");
   eleventyConfig.addPassthroughCopy({ "static/favicon.ico": "favicon.ico" });
@@ -66,6 +78,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("sortByOrder", function (items) {
     return [...items].sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
   });
+
+  eleventyConfig.addFilter("openLinksInNewTab", openLinksInNewTab);
 
   eleventyConfig.addNunjucksAsyncShortcode("cardImage", async function (src, alt, className = "") {
     return renderImage(src, alt, { class: className }, {
