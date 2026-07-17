@@ -20,11 +20,19 @@
   }
 }
 
-.work-detail__year {
+.work-detail__meta {
   color: $color-text-light;
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+}
+
+.work-detail__meta-item {
+  margin-bottom: $spacing-xs;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .work-detail__image-wrapper {

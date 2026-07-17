@@ -42,6 +42,8 @@ collections:
     fields:
       - {label: "Название", name: "title", widget: "string"}
       - {label: "Год", name: "year", widget: "number"}
+      - {label: "Размеры", name: "dimensions", widget: "string", required: false, hint: "Например: 51 × 49 см"}
+      - {label: "Материалы", name: "materials", widget: "string", required: false, hint: "Например: холст, масло"}
       - {label: "Описание", name: "description", widget: "text", required: false}
       - {label: "Описание (английский)", name: "description_en", widget: "text", required: false}
       - {label: "Изображение", name: "image", widget: "image", required: true}
@@ -59,6 +61,8 @@ collections:
     fields:
       - {label: "Название", name: "title", widget: "string"}
       - {label: "Год", name: "year", widget: "number"}
+      - {label: "Размеры", name: "dimensions", widget: "string", required: false, hint: "Например: 51 × 49 см"}
+      - {label: "Материалы", name: "materials", widget: "string", required: false, hint: "Например: бумага, тушь"}
       - {label: "Описание", name: "description", widget: "text", required: false}
       - {label: "Описание (английский)", name: "description_en", widget: "text", required: false}
       - {label: "Изображение", name: "image", widget: "image", required: true}
@@ -76,6 +80,8 @@ collections:
     fields:
       - {label: "Название", name: "title", widget: "string"}
       - {label: "Год", name: "year", widget: "number"}
+      - {label: "Размеры", name: "dimensions", widget: "string", required: false, hint: "Например: 100 × 70 × 40 см"}
+      - {label: "Материалы", name: "materials", widget: "string", required: false, hint: "Например: дерево, металл"}
       - {label: "Описание", name: "description", widget: "text", required: false}
       - {label: "Описание (английский)", name: "description_en", widget: "text", required: false}
       - {label: "Изображение", name: "image", widget: "image", required: true}

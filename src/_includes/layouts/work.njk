@@ -20,8 +20,18 @@ layout: layouts/base.njk
   <article class="work-detail">
     <header class="work-detail__header">
       <h1 class="work-detail__title">{{ title }}</h1>
-      {% if year %}
-        <p class="work-detail__year">{{ year }}</p>
+      {% if year or dimensions or materials %}
+        <div class="work-detail__meta">
+          {% if year %}
+            <p class="work-detail__meta-item">{{ year }}</p>
+          {% endif %}
+          {% if dimensions %}
+            <p class="work-detail__meta-item">{{ dimensions }}</p>
+          {% endif %}
+          {% if materials %}
+            <p class="work-detail__meta-item">{{ materials }}</p>
+          {% endif %}
+        </div>
       {% endif %}
     </header>
 
