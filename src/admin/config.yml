@@ -36,7 +36,7 @@ collections:
     label: "Живопись"
     folder: "src/content/paintings/"
     create: true
-    slug: "{{year}}-{{slugify title}}"
+    slug: "{{fields.year}}-{{slug}}"
     media_folder: "../../assets/images/paintings"
     public_folder: "/assets/images/paintings"
     fields:
@@ -53,7 +53,7 @@ collections:
     label: "Графика"
     folder: "src/content/drawings/"
     create: true
-    slug: "{{year}}-{{slugify title}}"
+    slug: "{{fields.year}}-{{slug}}"
     media_folder: "../../assets/images/drawings"
     public_folder: "/assets/images/drawings"
     fields:
@@ -70,7 +70,7 @@ collections:
     label: "Проекты"
     folder: "src/content/projects/"
     create: true
-    slug: "{{year}}-{{slugify title}}"
+    slug: "{{fields.year}}-{{slug}}"
     media_folder: "../../assets/images/projects"
     public_folder: "/assets/images/projects"
     fields:
