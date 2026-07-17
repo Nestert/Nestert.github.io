@@ -3,12 +3,12 @@
 .work-detail {
   max-width: 900px;
   margin: 0 auto;
-  padding: $spacing-lg 0;
+  padding: 0 0 $spacing-lg;
 }
 
 .work-detail__header {
   text-align: center;
-  margin-bottom: $spacing-xl;
+  margin-bottom: $spacing-lg;
 }
 
 .work-detail__title {
