@@ -2,10 +2,16 @@
 
 .text-content {
   max-width: 720px;
+  font-family: $font-family-base;
+  font-weight: 400;
   line-height: 1.7;
 
   h1, h2, h3 {
     margin-top: $spacing-lg;
+    font-family: inherit;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
 
   ul, ol {
