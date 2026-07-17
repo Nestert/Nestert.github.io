@@ -4,6 +4,14 @@ title: CV
 ---
 ## **ЕКАТЕРИНА РОМАНОВА**
 
+Контактные данные: 
+
+* e-mail: shs_krom@mail.ru
+* [instagram](https://www.instagram.com/omanovar/): @omanovar
+* [telegram](https://t.me/omanovarr): @omanovarr
+
+
+
 р. 1998, Санкт-Петербург
 
 Выпускница Санкт-Петербургской академии художеств имени Ильи Репина.
