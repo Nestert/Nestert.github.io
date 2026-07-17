@@ -3,55 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Панель управления контентом</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <meta http-equiv="refresh" content="0;url=https://app.pagescms.org/">
+  <title>Редактор сайта</title>
+  <style>
+    body {
+      display: grid;
+      min-height: 100vh;
+      margin: 0;
+      place-items: center;
+      background: #f5f3ee;
+      color: #171717;
+      font-family: Arial, sans-serif;
+    }
+
+    main {
+      max-width: 36rem;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    a {
+      color: inherit;
+      text-underline-offset: 0.2em;
+    }
+  </style>
 </head>
 <body>
+  <main>
+    <h1>Открываем редактор сайта…</h1>
+    <p>После входа через GitHub выберите репозиторий Nestert/Nestert.github.io и ветку main.</p>
+    <p><a href="https://app.pagescms.org/">Открыть Pages CMS</a></p>
+  </main>
   <script>
-    (async () => {
-      const decapUrl = "https://unpkg.com/decap-cms@3.11.0/dist/decap-cms.js";
-      const patchPairs = [
-        [
-          "path:g.path,name:g.name,draft:g.draft",
-          "path:(g||{}).path,name:(g||{}).name,draft:(g||{}).draft"
-        ],
-        [
-          "selectedFile:e.files[0],isPersisted:!1",
-          "selectedFile:e.files[0]||{},isPersisted:!1"
-        ],
-        [
-          "selectedFile:this.props.files[0],isPersisted:!1",
-          "selectedFile:this.props.files[0]||{},isPersisted:!1"
-        ]
-      ];
-
-      try {
-        const response = await fetch(decapUrl, { cache: "no-store" });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
-        let code = await response.text();
-        for (const [search, replacement] of patchPairs) {
-          if (code.includes(search)) {
-            code = code.split(search).join(replacement);
-          } else {
-            console.warn("Decap patch token not found:", search);
-          }
-        }
-
-        const blob = new Blob([code], { type: "text/javascript" });
-        const scriptUrl = URL.createObjectURL(blob);
-        const script = document.createElement("script");
-        script.src = scriptUrl;
-        script.onload = () => URL.revokeObjectURL(scriptUrl);
-        script.onerror = () => URL.revokeObjectURL(scriptUrl);
-        document.body.appendChild(script);
-      } catch (error) {
-        console.error("Failed to load patched Decap CMS, loading fallback.", error);
-        const fallback = document.createElement("script");
-        fallback.src = decapUrl;
-        document.body.appendChild(fallback);
-      }
-    })();
+    window.location.replace("https://app.pagescms.org/");
   </script>
 </body>
 </html>

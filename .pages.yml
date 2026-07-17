@@ -1,0 +1,283 @@
+media:
+  - name: paintings
+    label: Изображения — живопись
+    input: src/assets/images/paintings
+    output: /assets/images/paintings
+    extensions: [jpg, jpeg, png, webp]
+    categories: [image]
+    rename: safe
+  - name: drawings
+    label: Изображения — графика
+    input: src/assets/images/drawings
+    output: /assets/images/drawings
+    extensions: [jpg, jpeg, png, webp]
+    categories: [image]
+    rename: safe
+  - name: projects
+    label: Изображения — проекты
+    input: src/assets/images/projects
+    output: /assets/images/projects
+    extensions: [jpg, jpeg, png, webp]
+    categories: [image]
+    rename: safe
+  - name: pages
+    label: Изображения — страницы
+    input: src/assets/images
+    output: /assets/images
+    extensions: [jpg, jpeg, png, webp]
+    categories: [image]
+    rename: safe
+
+content:
+  - name: works
+    label: Работы
+    type: group
+    items:
+      - name: paintings
+        label: Живопись
+        type: collection
+        path: src/content/paintings
+        format: yaml-frontmatter
+        exclude: [paintings.11tydata.js, .DS_Store]
+        filename: "{fields.year}-{title}.md"
+        view:
+          fields: [title, year, materials, order]
+          primary: title
+          sort: [year, order, title]
+          search: [title, materials, description]
+          default:
+            sort: year
+            order: desc
+        fields:
+          - name: title
+            label: Название
+            type: string
+            required: true
+          - name: year
+            label: Год
+            type: number
+            required: true
+          - name: dimensions
+            label: Размеры
+            type: string
+            description: "Например: 51 × 49 см"
+          - name: materials
+            label: Материалы
+            type: string
+            description: "Например: холст, масло"
+          - name: description
+            label: Описание
+            type: text
+          - name: description_en
+            label: Описание на английском
+            type: text
+          - name: image
+            label: Изображение
+            type: image
+            required: true
+            options:
+              media: paintings
+              rename: safe
+          - name: thumbnail
+            label: Миниатюра
+            type: image
+            description: Если поле пустое, сайт использует основное изображение.
+            options:
+              media: paintings
+              rename: safe
+          - name: order
+            label: Порядок
+            type: number
+            default: 0
+          - name: body
+            label: Дополнительный текст страницы
+            type: rich-text
+            options:
+              format: markdown
+              media: paintings
+              rename: safe
+
+      - name: drawings
+        label: Графика
+        type: collection
+        path: src/content/drawings
+        format: yaml-frontmatter
+        exclude: [drawings.11tydata.js, .DS_Store]
+        filename: "{fields.year}-{title}.md"
+        view:
+          fields: [title, year, materials, order]
+          primary: title
+          sort: [year, order, title]
+          search: [title, materials, description]
+          default:
+            sort: year
+            order: desc
+        fields:
+          - name: title
+            label: Название
+            type: string
+            required: true
+          - name: year
+            label: Год
+            type: number
+            required: true
+          - name: dimensions
+            label: Размеры
+            type: string
+            description: "Например: 51 × 49 см"
+          - name: materials
+            label: Материалы
+            type: string
+            description: "Например: бумага, тушь"
+          - name: description
+            label: Описание
+            type: text
+          - name: description_en
+            label: Описание на английском
+            type: text
+          - name: image
+            label: Изображение
+            type: image
+            required: true
+            options:
+              media: drawings
+              rename: safe
+          - name: thumbnail
+            label: Миниатюра
+            type: image
+            description: Если поле пустое, сайт использует основное изображение.
+            options:
+              media: drawings
+              rename: safe
+          - name: order
+            label: Порядок
+            type: number
+            default: 0
+          - name: body
+            label: Дополнительный текст страницы
+            type: rich-text
+            options:
+              format: markdown
+              media: drawings
+              rename: safe
+
+      - name: projects
+        label: Проекты
+        type: collection
+        path: src/content/projects
+        format: yaml-frontmatter
+        exclude: [projects.11tydata.js, .DS_Store]
+        filename: "{fields.year}-{title}.md"
+        view:
+          fields: [title, year, materials, order]
+          primary: title
+          sort: [year, order, title]
+          search: [title, materials, description]
+          default:
+            sort: year
+            order: desc
+        fields:
+          - name: title
+            label: Название
+            type: string
+            required: true
+          - name: year
+            label: Год
+            type: number
+            required: true
+          - name: dimensions
+            label: Размеры
+            type: string
+            description: "Например: 100 × 70 × 40 см"
+          - name: materials
+            label: Материалы
+            type: string
+            description: "Например: дерево, металл"
+          - name: description
+            label: Описание
+            type: text
+          - name: description_en
+            label: Описание на английском
+            type: text
+          - name: image
+            label: Изображение
+            type: image
+            required: true
+            options:
+              media: projects
+              rename: safe
+          - name: thumbnail
+            label: Миниатюра
+            type: image
+            description: Если поле пустое, сайт использует основное изображение.
+            options:
+              media: projects
+              rename: safe
+          - name: order
+            label: Порядок
+            type: number
+            default: 0
+          - name: body
+            label: Дополнительный текст страницы
+            type: rich-text
+            options:
+              format: markdown
+              media: projects
+              rename: safe
+
+  - name: pages
+    label: Текстовые страницы
+    type: group
+    items:
+      - name: cv
+        label: CV
+        type: file
+        path: src/cv.md
+        format: yaml-frontmatter
+        operations:
+          delete: false
+          rename: false
+        fields:
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+          - name: body
+            label: Содержимое
+            type: rich-text
+            options:
+              format: markdown
+              media: pages
+              rename: safe
+      - name: press
+        label: Press
+        type: file
+        path: src/press.md
+        format: yaml-frontmatter
+        operations:
+          delete: false
+          rename: false
+        fields:
+          - name: title
+            label: Заголовок
+            type: string
+            required: true
+          - name: body
+            label: Содержимое
+            type: rich-text
+            options:
+              format: markdown
+              media: pages
+              rename: safe
+
+settings:
+  hide: true
+  content:
+    merge: true
+  commit:
+    identity: user
+    templates:
+      create: "feat(content): add {path}"
+      update: "chore(content): update {path}"
+      delete: "chore(content): delete {path}"
+      rename: "chore(content): rename {oldPath} to {newPath}"

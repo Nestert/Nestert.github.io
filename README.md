@@ -1,6 +1,6 @@
 # Artist Portfolio Website
 
-Портфолио художницы на Eleventy, Sass и Decap CMS. Основной production-поток рассчитан на Netlify: сборка статики, Git Gateway и Netlify Identity для `/admin/`.
+Портфолио художницы на Eleventy, Sass и Pages CMS. Production-сайт собирается на Netlify, а тестовые версии можно публиковать через Sites.
 
 ## Команды
 
@@ -22,7 +22,6 @@ npm run check
 - Netlify должен использовать команду `npm run check`
 - publish directory: `_site`
 - Node version: `20`
-- Для Decap CMS нужен Netlify Identity + Git Gateway
 
 `site.url` берется из `SITE_URL`, `URL`, `DEPLOY_PRIME_URL` или `DEPLOY_URL`. Локально используется `http://localhost:8080`.
 
@@ -54,16 +53,20 @@ order: 1
 
 ## CMS
 
-Панель доступна по `/admin/`.
+Редактор доступен через [Pages CMS](https://app.pagescms.org/). Адрес `/admin/` перенаправляет в редактор.
 
+- Войти через GitHub
+- Выбрать репозиторий `Nestert/Nestert.github.io` и ветку `main`
+- Структура редактора задается в `.pages.yml`
 - `description` используется как основное описание
-- `body` в CMS доступен как необязательный markdown-блок для длинного текста
+- `body` доступен как необязательный Markdown-блок для длинного текста
 - изображения загружаются в `src/assets/images/[category]/`
+- сохранение в Pages CMS создает коммит в GitHub; Netlify публикует его автоматически, а тестовую версию Sites нужно обновить отдельно
 
 ## Стек
 
 - [Eleventy](https://www.11ty.dev/)
 - [@11ty/eleventy-img](https://www.11ty.dev/docs/plugins/image/)
-- [Decap CMS](https://decapcms.org/)
+- [Pages CMS](https://pagescms.org/)
 - Sass
 - Netlify
