@@ -21,4 +21,8 @@
     color: $color-text;
     text-decoration: underline;
   }
+
+  img {
+    margin: $spacing-md 0 $spacing-lg;
+  }
 }
