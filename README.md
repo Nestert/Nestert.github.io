@@ -1,72 +1,278 @@
-# Artist Portfolio Website
+# Портфолио Екатерины Романовой
 
-Портфолио художницы на Eleventy, Sass и Pages CMS. Production-сайт собирается на Netlify, а тестовые версии можно публиковать через Sites.
+Статический сайт-портфолио на Eleventy и Sass. Контент редактируется через Pages CMS, хранится в GitHub и публикуется в Yandex Object Storage.
 
-## Команды
+## Основные адреса
+
+- Сайт в Yandex Object Storage: <http://omanovar.ru.website.yandexcloud.net/>
+- Редактор контента: <https://app.pagescms.org/>
+- Репозиторий: <https://github.com/Nestert/Nestert.github.io>
+- Бакет Yandex Object Storage: `omanovar.ru`
+- Тестовая версия Sites: <https://ekaterina-romanova-portfolio.valenbelousov2344385.chatgpt.site/>
+
+Страница `/admin/` перенаправляет в Pages CMS.
+
+## Как устроено обновление сайта
+
+```text
+Pages CMS → GitHub → локальная сборка → Yandex Object Storage
+```
+
+Pages CMS сохраняет изменения в ветку `main` на GitHub, но не публикует их в Yandex автоматически. После сохранения контента сайт нужно заново собрать и загрузить в бакет.
+
+## Добавление новой работы через Pages CMS
+
+1. Откройте <https://app.pagescms.org/>.
+2. Войдите через GitHub.
+3. Выберите репозиторий `Nestert/Nestert.github.io` и ветку `main`.
+4. Откройте раздел «Работы».
+5. Выберите категорию:
+   - «Живопись»;
+   - «Графика»;
+   - «Проекты».
+6. Создайте новую запись и заполните поля.
+7. Загрузите основное изображение.
+8. Нажмите «Сохранить».
+
+Основные поля работы:
+
+- `Название` — название работы;
+- `Год` — год создания;
+- `Размеры` — например, `51 × 49 см`;
+- `Материалы` — например, `холст, масло`;
+- `Описание` — основной текст на странице работы;
+- `Описание на английском` — сохраняется для будущей английской версии;
+- `Изображение` — обязательное основное изображение;
+- `Миниатюра` — необязательная отдельная картинка для списка;
+- `Порядок` — положение работы в категории;
+- `Дополнительный текст страницы` — необязательный длинный текст в Markdown.
+
+Чем меньше значение поля `Порядок`, тем раньше работа выводится в категории. Лучше использовать разные значения, например `10`, `20`, `30`, чтобы между ними можно было вставлять новые работы.
+
+## Редактирование CV и Press
+
+В Pages CMS откройте «Текстовые страницы» и выберите:
+
+- `CV` — биография, выставки и контакты;
+- `Press` — публикации и ссылки на материалы.
+
+После сохранения изменения также попадают только в GitHub. Для появления на сайте нужна новая публикация в Yandex.
+
+## Самый простой способ публикации
+
+После сохранения в Pages CMS откройте эту задачу в Codex и напишите:
+
+> Получи последние изменения из GitHub и опубликуй сайт в Yandex Object Storage.
+
+Codex должен:
+
+1. получить изменения из ветки `main`;
+2. проверить рабочую копию;
+3. собрать сайт с правильным публичным адресом;
+4. проверить JavaScript;
+5. загрузить содержимое `_site/` в бакет `omanovar.ru`;
+6. убедиться, что все локальные файлы присутствуют в бакете.
+
+## Самостоятельная публикация
+
+### Первоначальная настройка Yandex Cloud CLI
+
+Установите официальный клиент:
+
+```bash
+curl -sSL https://storage.yandexcloud.net/yandexcloud-yc/install.sh | bash
+exec zsh
+```
+
+Войдите под аккаунтом, которому принадлежит нужный бакет:
+
+```bash
+yc init --username=valbelsov@yandex.ru
+```
+
+Для этого проекта используются:
+
+```bash
+yc config set cloud-id b1girlkt5grj6up6to1g
+yc config set folder-id b1g6kmlmgrl6d7sm8jrh
+```
+
+Проверка доступа:
+
+```bash
+yc storage bucket get omanovar.ru
+```
+
+Если ранее был создан профиль `valbelsov-deploy`, его можно активировать:
+
+```bash
+yc config profile activate valbelsov-deploy
+```
+
+Не публикуйте токены, статические ключи и содержимое каталога `~/.config/yandex-cloud` в GitHub.
+
+### Получение контента и сборка
+
+```bash
+cd "/Users/valentinbelousov/new roman site"
+git pull --ff-only origin main
+npm install
+SITE_URL=https://omanovar.ru.website.yandexcloud.net npm run build
+npm run lint
+```
+
+Когда основным адресом станет `https://omanovar.ru`, собирайте сайт так:
+
+```bash
+SITE_URL=https://omanovar.ru npm run build
+```
+
+### Загрузка в Yandex Object Storage
+
+```bash
+yc storage s3 cp _site/ s3://omanovar.ru/ --recursive
+```
+
+Команда сохраняет структуру папок и заменяет изменившиеся файлы. Она не удаляет из бакета файлы, которых больше нет в `_site/`.
+
+Если работа или изображение были удалены либо переименованы, нужна точная синхронизация. Не удаляйте весь бакет вручную: сначала сравните список локальных и удалённых объектов и удалите только устаревшие ключи. Безопаснее поручить такую синхронизацию Codex.
+
+## Локальная разработка
+
+Установка зависимостей:
 
 ```bash
 npm install
-npm run dev
-npm run lint
-npm run build
-npm run check
 ```
 
-- `npm run dev` запускает Sass watcher и локальный Eleventy server на `http://localhost:8080`
-- `npm run lint` проверяет `src/assets/js/**/*.js`
-- `npm run build` собирает CSS и сайт в `_site/`
-- `npm run check` запускает обязательную проверку `lint + build`
+Запуск локального сайта:
 
-## Деплой
+```bash
+npm run dev
+```
 
-- Netlify должен использовать команду `npm run check`
-- publish directory: `_site`
-- Node version: `20`
+Сайт откроется по адресу <http://localhost:8080>.
 
-`site.url` берется из `SITE_URL`, `URL`, `DEPLOY_PRIME_URL` или `DEPLOY_URL`. Локально используется `http://localhost:8080`.
+Основные команды:
 
-## Контент
+```bash
+npm run dev      # локальный сервер и наблюдение за Sass
+npm run lint     # проверка JavaScript
+npm run build    # сборка в _site/ и подготовка Sites-версии в dist/
+npm run check    # lint + build
+npm test         # то же, что npm run check
+```
 
-Работы хранятся в `src/content/[category]/` и автоматически публикуются по URL:
+## Структура проекта
 
-- `/projects/[slug]/`
-- `/paintings/[slug]/`
-- `/drawings/[slug]/`
+```text
+src/
+├── _data/                  глобальные данные сайта
+├── _includes/
+│   ├── components/         шапка, подвал и другие компоненты
+│   └── layouts/            шаблоны страниц
+├── assets/
+│   ├── images/             исходные изображения
+│   ├── js/                 клиентский JavaScript
+│   └── scss/               исходные стили
+├── content/
+│   ├── drawings/           графика
+│   ├── paintings/          живопись
+│   └── projects/           проекты
+├── admin/                  перенаправление в Pages CMS
+├── cv.md                   страница CV
+└── press.md                страница Press
+```
 
-Минимальный frontmatter:
+Сгенерированные файлы находятся в `_site/`. Не редактируйте их вручную: они пересоздаются при каждой сборке.
+
+Стили нужно менять в `src/assets/scss/`. Файл `src/assets/css/main.css` создаётся Sass автоматически.
+
+## Формат файла работы
+
+Работы хранятся в `src/content/[category]/` в формате Markdown с YAML frontmatter:
 
 ```yaml
 ---
 title: "Название работы"
-year: 2024
-description: "Основное описание для страницы работы и SEO"
-description_en: "Optional English description"
-image: "/assets/images/category/image.jpg"
-thumbnail: "/assets/images/category/image-thumb.jpg"
-order: 1
+year: 2026
+dimensions: "51 × 49 см"
+materials: "холст, масло"
+description: "Описание работы"
+description_en: "English description"
+image: "/assets/images/paintings/example.jpg"
+thumbnail: "/assets/images/paintings/example-thumb.jpg"
+order: 10
 ---
+
+Необязательный дополнительный текст страницы.
 ```
 
-- `description` выводится на странице работы даже если markdown-body пустой
-- markdown-body используется как дополнительный длинный текст
-- `description_en` сохраняется в данных, но пока не рендерится
+Страницы создаются автоматически:
 
-## CMS
+- `/projects/[slug]/`;
+- `/paintings/[slug]/`;
+- `/drawings/[slug]/`.
 
-Редактор доступен через [Pages CMS](https://app.pagescms.org/). Адрес `/admin/` перенаправляет в редактор.
+## Изображения
 
-- Войти через GitHub
-- Выбрать репозиторий `Nestert/Nestert.github.io` и ветку `main`
-- Структура редактора задается в `.pages.yml`
-- `description` используется как основное описание
-- `body` доступен как необязательный Markdown-блок для длинного текста
-- изображения загружаются в `src/assets/images/[category]/`
-- сохранение в Pages CMS создает коммит в GitHub; Netlify публикует его автоматически, а тестовую версию Sites нужно обновить отдельно
+- Загружайте JPG, PNG или WebP.
+- Не используйте очень длинные имена и специальные символы.
+- Pages CMS автоматически приводит имена новых файлов к безопасному виду.
+- Во время сборки создаются оптимизированные варианты изображений и `srcset`.
+- Исходные файлы должны оставаться в `src/assets/images/`.
 
-## Стек
+## Частые проблемы
 
-- [Eleventy](https://www.11ty.dev/)
-- [@11ty/eleventy-img](https://www.11ty.dev/docs/plugins/image/)
-- [Pages CMS](https://pagescms.org/)
-- Sass
-- Netlify
+### Pages CMS сохранил работу, но на сайте её нет
+
+Сохранение в Pages CMS обновляет GitHub, но не Yandex. Выполните сборку и загрузку или попросите Codex опубликовать последнюю версию.
+
+### На сайте отображается старая версия
+
+1. Убедитесь, что публикация завершилась без ошибок.
+2. Обновите страницу через `Cmd + Shift + R`.
+3. Проверьте нужную страницу напрямую.
+
+### Команда `yc` не найдена
+
+Установите Yandex Cloud CLI и перезапустите терминал командой `exec zsh`.
+
+### Ошибка доступа к бакету
+
+Проверьте аккаунт и профиль:
+
+```bash
+yc config profile list
+yc config profile activate valbelsov-deploy
+yc storage bucket get omanovar.ru
+```
+
+Для бакета нужен аккаунт `valbelsov@yandex.ru`. Аккаунт `omanovar@yandex.ru` относится к другому облаку и не имеет API-доступа к этому бакету.
+
+### Удалённая работа всё ещё открывается по старой ссылке
+
+Обычная рекурсивная загрузка не удаляет старые объекты. Выполните точную синхронизацию с проверкой удаляемых ключей.
+
+## Хостинг
+
+Основная сборка предназначена для Yandex Object Storage. Бакет должен быть настроен как статический сайт со следующими страницами:
+
+- главная страница: `index.html`;
+- страница ошибки: `404.html`.
+
+Для публичного сайта бакету требуется анонимный доступ на чтение. DNS, сертификат и переключение `omanovar.ru` на Yandex выполняются отдельно от загрузки файлов.
+
+Sites остаётся тестовой площадкой. Публикация в Yandex не обновляет Sites автоматически, и наоборот.
+
+## Технологии
+
+- Eleventy;
+- Nunjucks;
+- Sass;
+- Vanilla JavaScript;
+- `@11ty/eleventy-img`;
+- Pages CMS;
+- GitHub;
+- Yandex Object Storage;
+- Sites для тестовых публикаций.
