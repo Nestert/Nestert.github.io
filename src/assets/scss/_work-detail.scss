@@ -21,8 +21,10 @@
 }
 
 .work-detail__meta {
+  margin-bottom: $spacing-xl;
   color: $color-text-light;
   font-size: 1rem;
+  text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -36,7 +38,7 @@
 }
 
 .work-detail__image-wrapper {
-  margin: 0 0 $spacing-xl;
+  margin: 0 0 $spacing-md;
 }
 
 .work-detail__image {
