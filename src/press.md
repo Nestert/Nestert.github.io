@@ -2,7 +2,7 @@
 layout: layouts/text-page.njk
 title: Press
 ---
-## **УПОМИНАНИЯ В СМИ**
+## УПОМИНАНИЯ В СМИ
 
 [«Дураки и дуры» в Борее](https://www.sobaka.ru/entertainment/art/214400)
 

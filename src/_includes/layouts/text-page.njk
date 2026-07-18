@@ -3,8 +3,8 @@ layout: layouts/base.njk
 ---
 
 <div class="container">
-  <section class="section section--text{% if page.url == '/cv/' %} section--cv{% endif %}">
-    <div class="text-content{% if page.url == '/cv/' %} cv{% endif %}">
+  <section class="section section--text{% if page.url == '/cv/' %} section--cv{% elif page.url == '/press/' %} section--press{% endif %}">
+    <div class="text-content{% if page.url == '/cv/' %} cv{% elif page.url == '/press/' %} press{% endif %}">
       {{ content | openLinksInNewTab | safe }}
     </div>
   </section>

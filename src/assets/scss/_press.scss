@@ -1,0 +1,80 @@
+@use 'variables' as *;
+
+.section--press {
+  padding-top: $spacing-sm;
+}
+
+.press {
+  max-width: 1040px;
+  counter-reset: press-item;
+
+  > h2:first-child {
+    max-width: 900px;
+    margin: 0 0 clamp(3.5rem, 8vw, 6.5rem);
+    font-size: clamp(2.7rem, 8.6vw, 6.6rem);
+    line-height: 0.88;
+    letter-spacing: -0.055em;
+  }
+
+  > p {
+    max-width: 820px;
+    margin: 0 0 0 auto;
+    border-top: 1px solid $color-border;
+    counter-increment: press-item;
+
+    &:last-child {
+      border-bottom: 1px solid $color-border;
+    }
+  }
+
+  > p > a {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    gap: $spacing-sm;
+    align-items: start;
+    padding: clamp(1.15rem, 3vw, 1.8rem) 0;
+    color: $color-text;
+    font-size: clamp(1.05rem, 2.3vw, 1.4rem);
+    line-height: 1.35;
+    text-decoration: none;
+    transition: color $transition-base, padding $transition-base;
+
+    &::before {
+      content: counter(press-item, decimal-leading-zero);
+      padding-top: 0.2em;
+      color: $color-text-light;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+    }
+
+    &::after {
+      content: '\2197';
+      color: $color-text-light;
+      font-size: 1rem;
+      line-height: 1;
+      transition: transform $transition-base;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: $color-text-light;
+      padding-right: $spacing-xs;
+      padding-left: $spacing-xs;
+
+      &::after {
+        transform: translate(0.15rem, -0.15rem);
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    > h2:first-child {
+      margin-bottom: 3.5rem;
+    }
+
+    > p > a {
+      grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+      gap: $spacing-xs;
+    }
+  }
+}
