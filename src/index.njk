@@ -4,37 +4,23 @@ title: Главная
 ---
 
 <div class="container">
-  <section class="section">
-    <div class="gallery__grid">
-      {% for work in collections.projects | sortByOrder %}
-        <article class="project-card">
+  <section class="section section--home-gallery">
+    <div class="gallery__grid gallery__grid--home">
+      {% for work in collections.homepageWorks %}
+        {% set cardLoading = "lazy" %}
+        {% set cardPriority = "" %}
+        {% set cardSizes = "(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw" %}
+        {% if loop.index <= 4 %}
+          {% set cardLoading = "eager" %}
+        {% endif %}
+        {% if loop.first %}
+          {% set cardPriority = "high" %}
+          {% set cardSizes = "(min-width: 1024px) 50vw, (min-width: 768px) 66vw, 100vw" %}
+        {% endif %}
+        <article class="project-card{% if loop.first %} project-card--featured{% endif %}">
           <a href="{{ work.url }}" class="project-card__link">
             {% set previewImage = work.data.thumbnail or work.data.image %}
-            {% cardImage previewImage, work.data.title, "project-card__image" %}
-            <div class="project-card__overlay">
-              <h2 class="project-card__title">{{ work.data.title }}</h2>
-              {% if work.data.year %}<p class="project-card__year">{{ work.data.year }}</p>{% endif %}
-            </div>
-          </a>
-        </article>
-      {% endfor %}
-      {% for work in collections.paintings | sortByOrder %}
-        <article class="project-card">
-          <a href="{{ work.url }}" class="project-card__link">
-            {% set previewImage = work.data.thumbnail or work.data.image %}
-            {% cardImage previewImage, work.data.title, "project-card__image" %}
-            <div class="project-card__overlay">
-              <h2 class="project-card__title">{{ work.data.title }}</h2>
-              {% if work.data.year %}<p class="project-card__year">{{ work.data.year }}</p>{% endif %}
-            </div>
-          </a>
-        </article>
-      {% endfor %}
-      {% for work in collections.drawings | sortByOrder %}
-        <article class="project-card">
-          <a href="{{ work.url }}" class="project-card__link">
-            {% set previewImage = work.data.thumbnail or work.data.image %}
-            {% cardImage previewImage, work.data.title, "project-card__image" %}
+            {% cardImage previewImage, work.data.title, "project-card__image", cardLoading, cardPriority, cardSizes %}
             <div class="project-card__overlay">
               <h2 class="project-card__title">{{ work.data.title }}</h2>
               {% if work.data.year %}<p class="project-card__year">{{ work.data.year }}</p>{% endif %}

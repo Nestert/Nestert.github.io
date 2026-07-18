@@ -8,10 +8,16 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   align-items: start;
-  gap: $spacing-sm;
+  gap: clamp($spacing-sm, 2vw, $spacing-md);
+}
 
-  @media (min-width: 768px) {
-    gap: $spacing-md;
+.section--home-gallery {
+  padding-top: clamp(2rem, 5vw, 4rem);
+}
+
+@media (min-width: 768px) {
+  .gallery__grid--home > .project-card--featured {
+    grid-column: span 2;
   }
 }
 

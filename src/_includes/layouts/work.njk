@@ -7,14 +7,19 @@ layout: layouts/base.njk
 {% if "/paintings/" in page.url %}
   {% set backHref = "/paintings/" %}
   {% set backLabel = "Живопись" %}
+  {% set categoryItems = collections.paintings %}
 {% elif "/drawings/" in page.url %}
   {% set backHref = "/drawings/" %}
   {% set backLabel = "Графика" %}
+  {% set categoryItems = collections.drawings %}
 {% elif "/projects/" in page.url %}
   {% set backHref = "/projects/" %}
   {% set backLabel = "Проекты" %}
+  {% set categoryItems = collections.projects %}
 {% endif %}
 {% set bodyContent = content | striptags | trim %}
+{% set previousWork = categoryItems | getAdjacentWork(page.url, "previous") %}
+{% set nextWork = categoryItems | getAdjacentWork(page.url, "next") %}
 
 <div class="container">
   <article class="work-detail">
@@ -53,7 +58,27 @@ layout: layouts/base.njk
     {% endif %}
 
     <footer class="work-detail__footer">
-      <a href="{{ backHref }}" class="work-detail__back">← {{ backLabel }}</a>
+      <nav class="work-detail__pagination" aria-label="Навигация по работам">
+        {% if previousWork %}
+          <a href="{{ previousWork.url }}" class="work-detail__pagination-link work-detail__pagination-link--previous">
+            <span class="work-detail__pagination-direction">← Предыдущая</span>
+            <span class="work-detail__pagination-title">{{ previousWork.data.title }}</span>
+          </a>
+        {% else %}
+          <span class="work-detail__pagination-placeholder" aria-hidden="true"></span>
+        {% endif %}
+
+        <a href="{{ backHref }}" class="work-detail__back">Все: {{ backLabel }}</a>
+
+        {% if nextWork %}
+          <a href="{{ nextWork.url }}" class="work-detail__pagination-link work-detail__pagination-link--next">
+            <span class="work-detail__pagination-direction">Следующая →</span>
+            <span class="work-detail__pagination-title">{{ nextWork.data.title }}</span>
+          </a>
+        {% else %}
+          <span class="work-detail__pagination-placeholder" aria-hidden="true"></span>
+        {% endif %}
+      </nav>
     </footer>
   </article>
 </div>

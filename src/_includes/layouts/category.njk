@@ -3,17 +3,25 @@ layout: layouts/base.njk
 ---
 
 <div class="container">
-  <section class="section">
-    <h1 class="text-center text-uppercase">{{ title }}</h1>
+  <section class="category-hero">
+    <h1 class="category-hero__title">{{ title }}</h1>
   </section>
 
-  <section class="section">
+  <section class="section section--category-gallery">
     <div class="gallery__grid">
       {% for work in collections[categoryKey] | sortByOrder %}
+        {% set cardLoading = "lazy" %}
+        {% set cardPriority = "" %}
+        {% if loop.index <= 4 %}
+          {% set cardLoading = "eager" %}
+        {% endif %}
+        {% if loop.first %}
+          {% set cardPriority = "high" %}
+        {% endif %}
         <article class="project-card">
           <a href="{{ work.url }}" class="project-card__link">
             {% set previewImage = work.data.thumbnail or work.data.image %}
-            {% cardImage previewImage, work.data.title, "project-card__image" %}
+            {% cardImage previewImage, work.data.title, "project-card__image", cardLoading, cardPriority %}
             <div class="project-card__overlay">
               <h2 class="project-card__title">{{ work.data.title }}</h2>
               {% if work.data.year %}

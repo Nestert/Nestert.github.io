@@ -1,0 +1,18 @@
+@use 'variables' as *;
+
+.category-hero {
+  padding: clamp(2.5rem, 7vw, 5.5rem) 0 clamp(2rem, 5vw, 4rem);
+}
+
+.category-hero__title {
+  max-width: 960px;
+  margin: 0;
+  font-size: clamp(2.75rem, 8vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.section--category-gallery {
+  padding-top: 0;
+}

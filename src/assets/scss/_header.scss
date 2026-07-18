@@ -1,7 +1,7 @@
 @use 'variables' as *;
 
 .header {
-  padding: $spacing-md 0;
+  padding: clamp(1.25rem, 3vw, $spacing-md) 0;
   border-bottom: none;
 }
 
@@ -98,6 +98,7 @@
 }
 
 .nav__link {
+  position: relative;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
@@ -105,9 +106,26 @@
   transition: color $transition-base;
   padding: $spacing-xs 0;
 
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform $transition-base;
+  }
+
   &:hover,
   &:focus {
     color: $color-text-light;
+
+    &::after {
+      transform: scaleX(1);
+    }
   }
 
   .nav__menu.is-open & {
@@ -123,5 +141,9 @@
 }
 
 .nav__link--current {
-  color: $color-text-light;
+  color: $color-text;
+
+  &::after {
+    transform: scaleX(1);
+  }
 }

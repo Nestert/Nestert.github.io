@@ -33,7 +33,7 @@
   {% endif %}
   <meta name="twitter:title" content="{{ pageTitle }}">
   <meta name="twitter:description" content="{{ pageDescription }}">
-  <link rel="stylesheet" href="/assets/css/main.css">
+  <link rel="stylesheet" href="/assets/css/main.css?v={{ site.assetVersion }}">
   <link rel="icon" href="/favicon.ico">
 </head>
 <body id="page-top">
@@ -46,6 +46,6 @@
 
   {% include "components/footer.njk" %}
 
-  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/main.js?v={{ site.assetVersion }}"></script>
 </body>
 </html>

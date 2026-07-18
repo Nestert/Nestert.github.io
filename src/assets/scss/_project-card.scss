@@ -10,7 +10,7 @@
   width: 100%;
   height: auto;
   display: block;
-  transition: transform $transition-base;
+  transition: opacity 0.55s ease, transform $transition-base;
 }
 
 .project-card__overlay {
@@ -24,7 +24,7 @@
   transform: translateY(0);
   transition: transform $transition-base;
 
-  @media (hover: hover) {
+  @media (hover: hover) and (min-width: 768px) {
     transform: translateY(100%);
   }
 
@@ -60,9 +60,22 @@
   transform: scale(1.02);
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (min-width: 768px) {
   .project-card:hover .project-card__overlay,
   .project-card:focus-within .project-card__overlay {
     transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .project-card--featured .project-card__title {
+    font-size: clamp(1.25rem, 2vw, 1.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card__image,
+  .project-card__overlay {
+    transition: none;
   }
 }

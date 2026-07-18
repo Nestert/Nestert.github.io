@@ -2,9 +2,34 @@
   'use strict';
 
   document.addEventListener('DOMContentLoaded', function() {
+    initImageReveal();
     initMobileMenu();
     initBackToTop();
   });
+
+  function initImageReveal() {
+    const images = document.querySelectorAll('.project-card__image, .work-detail__image, .cv img');
+
+    if (!images.length) return;
+
+    images.forEach(function(image) {
+      image.classList.add('image-reveal');
+    });
+    document.documentElement.classList.add('image-reveal-enabled');
+
+    images.forEach(function(image) {
+      function reveal() {
+        image.classList.add('is-loaded');
+      }
+
+      if (image.complete && image.naturalWidth > 0) {
+        window.requestAnimationFrame(reveal);
+      } else {
+        image.addEventListener('load', reveal, { once: true });
+        image.addEventListener('error', reveal, { once: true });
+      }
+    });
+  }
 
   function initMobileMenu() {
     const toggle = document.querySelector('.nav__toggle');

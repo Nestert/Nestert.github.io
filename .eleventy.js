@@ -1,6 +1,10 @@
 const path = require("path");
 const Image = require("@11ty/eleventy-img");
 
+function sortByOrder(items) {
+  return [...items].sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+}
+
 function resolveImageSource(src) {
   if (!src) {
     throw new Error("Missing image source.");
@@ -75,16 +79,43 @@ module.exports = function (eleventyConfig) {
     return collectionApi.getFilteredByGlob("src/content/drawings/**/*.md");
   });
 
+  eleventyConfig.addCollection("homepageWorks", function (collectionApi) {
+    return [
+      ...sortByOrder(collectionApi.getFilteredByGlob("src/content/projects/**/*.md")),
+      ...sortByOrder(collectionApi.getFilteredByGlob("src/content/paintings/**/*.md")),
+      ...sortByOrder(collectionApi.getFilteredByGlob("src/content/drawings/**/*.md"))
+    ];
+  });
+
   eleventyConfig.addFilter("sortByOrder", function (items) {
-    return [...items].sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+    return sortByOrder(items);
+  });
+
+  eleventyConfig.addFilter("getAdjacentWork", function (items, currentUrl, direction) {
+    const sortedItems = sortByOrder(items || []);
+    const currentIndex = sortedItems.findIndex((item) => item.url === currentUrl);
+
+    if (currentIndex === -1) return null;
+
+    const offset = direction === "previous" ? -1 : 1;
+    return sortedItems[currentIndex + offset] || null;
   });
 
   eleventyConfig.addFilter("openLinksInNewTab", openLinksInNewTab);
 
-  eleventyConfig.addNunjucksAsyncShortcode("cardImage", async function (src, alt, className = "") {
+  eleventyConfig.addNunjucksAsyncShortcode("cardImage", async function (
+    src,
+    alt,
+    className = "",
+    loading = "lazy",
+    fetchpriority = "",
+    sizes = "(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw"
+  ) {
     return renderImage(src, alt, { class: className }, {
-      widths: [320, 640, 960],
-      sizes: "(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+      widths: [320, 640, 960, 1200],
+      sizes,
+      loading,
+      fetchpriority
     });
   });
 

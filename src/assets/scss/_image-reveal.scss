@@ -1,0 +1,16 @@
+.image-reveal-enabled .image-reveal {
+  opacity: 0.85;
+  transition: opacity 0.35s ease, transform 0.3s ease;
+}
+
+.image-reveal-enabled .image-reveal.is-loaded {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-reveal-enabled .image-reveal,
+  .image-reveal-enabled .image-reveal.is-loaded {
+    opacity: 1;
+    transition: none;
+  }
+}
