@@ -28,9 +28,66 @@ layout: layouts/base.njk
     </header>
 
     {% if image %}
-      <figure class="work-detail__image-wrapper">
-        {% detailImage image, title, "work-detail__image" %}
-      </figure>
+      {% set imageCount = 1 %}
+      {% if gallery %}
+        {% set imageCount = (gallery | length) + 1 %}
+      {% endif %}
+      <section
+        class="work-carousel{% if imageCount > 1 %} work-carousel--multiple{% endif %}"
+        data-work-carousel
+        aria-label="Изображения работы «{{ title }}»"
+        aria-roledescription="карусель"
+      >
+        <div class="work-carousel__viewport" data-carousel-viewport>
+          <div class="work-carousel__track" data-carousel-track>
+            <figure
+              class="work-detail__image-wrapper work-carousel__slide"
+              data-carousel-slide
+              role="group"
+              aria-roledescription="слайд"
+              aria-label="1 из {{ imageCount }}"
+              aria-hidden="false"
+            >
+              {% detailImage image, title, "work-detail__image" %}
+            </figure>
+
+            {% if gallery %}
+              {% for galleryImage in gallery %}
+                {% set galleryIndex = loop.index + 1 %}
+                {% set galleryAlt = title ~ " — изображение " ~ galleryIndex %}
+                <figure
+                  class="work-detail__image-wrapper work-carousel__slide"
+                  data-carousel-slide
+                  role="group"
+                  aria-roledescription="слайд"
+                  aria-label="{{ galleryIndex }} из {{ imageCount }}"
+                  aria-hidden="true"
+                >
+                  {% detailImage galleryImage, galleryAlt, "work-detail__image work-detail__image--additional", "lazy", "" %}
+                </figure>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+
+        {% if imageCount > 1 %}
+          <div class="work-carousel__controls">
+            <button class="work-carousel__button" type="button" data-carousel-previous aria-label="Предыдущее изображение">
+              <span aria-hidden="true">←</span>
+            </button>
+            <p class="work-carousel__counter" aria-live="polite">
+              <span class="visually-hidden">Изображение </span>
+              <span data-carousel-current>1</span>
+              <span aria-hidden="true"> / </span>
+              <span class="visually-hidden"> из </span>
+              <span>{{ imageCount }}</span>
+            </p>
+            <button class="work-carousel__button" type="button" data-carousel-next aria-label="Следующее изображение">
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        {% endif %}
+      </section>
     {% endif %}
 
     {% if year or dimensions or materials %}
@@ -55,17 +112,6 @@ layout: layouts/base.njk
       <div class="work-detail__content">
         {{ content | safe }}
       </div>
-    {% endif %}
-
-    {% if gallery %}
-      <section class="work-detail__gallery" aria-label="Дополнительные изображения работы «{{ title }}»">
-        {% for galleryImage in gallery %}
-          {% set galleryAlt = title ~ " — изображение " ~ (loop.index + 1) %}
-          <figure class="work-detail__image-wrapper work-detail__image-wrapper--additional">
-            {% detailImage galleryImage, galleryAlt, "work-detail__image work-detail__image--additional", "lazy", "" %}
-          </figure>
-        {% endfor %}
-      </section>
     {% endif %}
 
     <footer class="work-detail__footer">

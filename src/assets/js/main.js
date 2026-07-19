@@ -3,6 +3,7 @@
 
   document.addEventListener('DOMContentLoaded', function() {
     initImageReveal();
+    initWorkCarousels();
     initMobileMenu();
     initBackToTop();
   });
@@ -28,6 +29,79 @@
         image.addEventListener('load', reveal, { once: true });
         image.addEventListener('error', reveal, { once: true });
       }
+    });
+  }
+
+  function initWorkCarousels() {
+    document.querySelectorAll('[data-work-carousel]').forEach(function(carousel) {
+      const viewport = carousel.querySelector('[data-carousel-viewport]');
+      const track = carousel.querySelector('[data-carousel-track]');
+      const slides = Array.from(carousel.querySelectorAll('[data-carousel-slide]'));
+      const previousButton = carousel.querySelector('[data-carousel-previous]');
+      const nextButton = carousel.querySelector('[data-carousel-next]');
+      const currentCounter = carousel.querySelector('[data-carousel-current]');
+
+      if (!viewport || !track || slides.length < 2 || !previousButton || !nextButton) return;
+
+      let currentIndex = 0;
+      let touchStartX = null;
+
+      function showSlide(nextIndex) {
+        currentIndex = (nextIndex + slides.length) % slides.length;
+        track.style.transform = `translate3d(-${currentIndex * 100}%, 0, 0)`;
+
+        slides.forEach(function(slide, index) {
+          slide.setAttribute('aria-hidden', index === currentIndex ? 'false' : 'true');
+        });
+
+        if (currentCounter) {
+          currentCounter.textContent = String(currentIndex + 1);
+        }
+      }
+
+      carousel.classList.add('is-enabled');
+      showSlide(0);
+
+      previousButton.addEventListener('click', function() {
+        showSlide(currentIndex - 1);
+      });
+
+      nextButton.addEventListener('click', function() {
+        showSlide(currentIndex + 1);
+      });
+
+      carousel.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          showSlide(currentIndex - 1);
+        }
+
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          showSlide(currentIndex + 1);
+        }
+      });
+
+      viewport.addEventListener('touchstart', function(event) {
+        if (event.touches.length === 1) {
+          touchStartX = event.touches[0].clientX;
+        }
+      }, { passive: true });
+
+      viewport.addEventListener('touchend', function(event) {
+        if (touchStartX === null || !event.changedTouches.length) return;
+
+        const distance = event.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+
+        if (Math.abs(distance) < 50) return;
+
+        if (distance > 0) {
+          showSlide(currentIndex - 1);
+        } else {
+          showSlide(currentIndex + 1);
+        }
+      }, { passive: true });
     });
   }
 
