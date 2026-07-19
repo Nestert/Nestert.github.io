@@ -41,10 +41,10 @@ content:
         exclude: [paintings.11tydata.js, .DS_Store]
         filename: "{fields.year}-{title}.md"
         view:
-          fields: [title, year, materials, order]
+          fields: [title, year, series, materials, order]
           primary: title
-          sort: [year, order, title]
-          search: [title, materials, description]
+          sort: [year, series, order, title]
+          search: [title, series, materials, description]
           default:
             sort: year
             order: desc
@@ -65,6 +65,10 @@ content:
             label: Материалы
             type: string
             description: "Например: холст, масло"
+          - name: series
+            label: Серия работ
+            type: string
+            description: "Необязательное название серии, например: Праздник"
           - name: description
             label: Описание
             type: text
@@ -116,10 +120,10 @@ content:
         exclude: [drawings.11tydata.js, .DS_Store]
         filename: "{fields.year}-{title}.md"
         view:
-          fields: [title, year, materials, order]
+          fields: [title, year, series, materials, order]
           primary: title
-          sort: [year, order, title]
-          search: [title, materials, description]
+          sort: [year, series, order, title]
+          search: [title, series, materials, description]
           default:
             sort: year
             order: desc
@@ -140,6 +144,10 @@ content:
             label: Материалы
             type: string
             description: "Например: бумага, тушь"
+          - name: series
+            label: Серия работ
+            type: string
+            description: "Необязательное название серии, например: Организм"
           - name: description
             label: Описание
             type: text
@@ -191,10 +199,10 @@ content:
         exclude: [projects.11tydata.js, .DS_Store]
         filename: "{fields.year}-{title}.md"
         view:
-          fields: [title, year, materials, order]
+          fields: [title, year, series, materials, order]
           primary: title
-          sort: [year, order, title]
-          search: [title, materials, description]
+          sort: [year, series, order, title]
+          search: [title, series, materials, description]
           default:
             sort: year
             order: desc
@@ -215,6 +223,10 @@ content:
             label: Материалы
             type: string
             description: "Например: дерево, металл"
+          - name: series
+            label: Серия работ
+            type: string
+            description: "Необязательное название серии, например: Праздник"
           - name: description
             label: Описание
             type: text

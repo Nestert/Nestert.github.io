@@ -90,7 +90,7 @@ layout: layouts/base.njk
       </section>
     {% endif %}
 
-    {% if year or dimensions or materials %}
+    {% if year or dimensions or materials or series %}
       <div class="work-detail__meta">
         {% if year %}
           <p class="work-detail__meta-item">{{ year }}</p>
@@ -100,6 +100,9 @@ layout: layouts/base.njk
         {% endif %}
         {% if materials %}
           <p class="work-detail__meta-item">{{ materials }}</p>
+        {% endif %}
+        {% if series %}
+          <p class="work-detail__meta-item">Серия «{{ series }}»</p>
         {% endif %}
       </div>
     {% endif %}

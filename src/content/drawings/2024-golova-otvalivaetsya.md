@@ -3,7 +3,7 @@ title: ГОЛОВА ОТВАЛИВАЕТСЯ
 year: 2024
 dimensions: 53 х 45
 materials: литография
-description: Серия Праздник
+series: Праздник
 image: /assets/images/drawings/img2931compressed-0.jpg
 gallery:
   - /assets/images/drawings/img2932compressed-0.jpg
