@@ -119,12 +119,18 @@ module.exports = function (eleventyConfig) {
     });
   });
 
-  eleventyConfig.addNunjucksAsyncShortcode("detailImage", async function (src, alt, className = "") {
+  eleventyConfig.addNunjucksAsyncShortcode("detailImage", async function (
+    src,
+    alt,
+    className = "",
+    loading = "eager",
+    fetchpriority = "high"
+  ) {
     return renderImage(src, alt, { class: className }, {
       widths: [800, 1200, 1600],
       sizes: "(min-width: 932px) 900px, 100vw",
-      loading: "eager",
-      fetchpriority: "high"
+      loading,
+      fetchpriority
     });
   });
 

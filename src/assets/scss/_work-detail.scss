@@ -85,6 +85,17 @@
   }
 }
 
+.work-detail__gallery {
+  display: flex;
+  flex-direction: column;
+  gap: clamp($spacing-md, 4vw, $spacing-lg);
+  margin-bottom: clamp($spacing-xl, 8vw, 6rem);
+}
+
+.work-detail__image-wrapper--additional {
+  margin: 0;
+}
+
 .work-detail__footer {
   padding-top: $spacing-lg;
   border-top: 1px solid $color-border;

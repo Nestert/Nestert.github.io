@@ -72,11 +72,22 @@ content:
             label: Описание на английском
             type: text
           - name: image
-            label: Изображение
+            label: Основное изображение
             type: image
             required: true
+            description: Используется первым на странице работы и как обложка, если миниатюра не задана.
             options:
               media: paintings
+              rename: safe
+          - name: gallery
+            label: Дополнительные изображения
+            type: image
+            description: Можно выбрать несколько фотографий. Они выводятся по порядку после описания работы.
+            options:
+              media: paintings
+              multiple:
+                max: 20
+              unique: true
               rename: safe
           - name: thumbnail
             label: Миниатюра
@@ -136,11 +147,22 @@ content:
             label: Описание на английском
             type: text
           - name: image
-            label: Изображение
+            label: Основное изображение
             type: image
             required: true
+            description: Используется первым на странице работы и как обложка, если миниатюра не задана.
             options:
               media: drawings
+              rename: safe
+          - name: gallery
+            label: Дополнительные изображения
+            type: image
+            description: Можно выбрать несколько фотографий. Они выводятся по порядку после описания работы.
+            options:
+              media: drawings
+              multiple:
+                max: 20
+              unique: true
               rename: safe
           - name: thumbnail
             label: Миниатюра
@@ -200,11 +222,22 @@ content:
             label: Описание на английском
             type: text
           - name: image
-            label: Изображение
+            label: Основное изображение
             type: image
             required: true
+            description: Используется первым на странице работы и как обложка, если миниатюра не задана.
             options:
               media: projects
+              rename: safe
+          - name: gallery
+            label: Дополнительные изображения
+            type: image
+            description: Можно выбрать несколько фотографий. Они выводятся по порядку после описания работы.
+            options:
+              media: projects
+              multiple:
+                max: 20
+              unique: true
               rename: safe
           - name: thumbnail
             label: Миниатюра

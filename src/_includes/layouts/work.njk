@@ -57,6 +57,17 @@ layout: layouts/base.njk
       </div>
     {% endif %}
 
+    {% if gallery %}
+      <section class="work-detail__gallery" aria-label="Дополнительные изображения работы «{{ title }}»">
+        {% for galleryImage in gallery %}
+          {% set galleryAlt = title ~ " — изображение " ~ (loop.index + 1) %}
+          <figure class="work-detail__image-wrapper work-detail__image-wrapper--additional">
+            {% detailImage galleryImage, galleryAlt, "work-detail__image work-detail__image--additional", "lazy", "" %}
+          </figure>
+        {% endfor %}
+      </section>
+    {% endif %}
+
     <footer class="work-detail__footer">
       <nav class="work-detail__pagination" aria-label="Навигация по работам">
         {% if previousWork %}
