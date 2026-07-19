@@ -79,11 +79,16 @@ module.exports = function (eleventyConfig) {
     return collectionApi.getFilteredByGlob("src/content/drawings/**/*.md");
   });
 
+  eleventyConfig.addCollection("objects", function (collectionApi) {
+    return collectionApi.getFilteredByGlob("src/content/objects/**/*.md");
+  });
+
   eleventyConfig.addCollection("homepageWorks", function (collectionApi) {
     return [
       ...sortByOrder(collectionApi.getFilteredByGlob("src/content/projects/**/*.md")),
       ...sortByOrder(collectionApi.getFilteredByGlob("src/content/paintings/**/*.md")),
-      ...sortByOrder(collectionApi.getFilteredByGlob("src/content/drawings/**/*.md"))
+      ...sortByOrder(collectionApi.getFilteredByGlob("src/content/drawings/**/*.md")),
+      ...sortByOrder(collectionApi.getFilteredByGlob("src/content/objects/**/*.md"))
     ];
   });
 

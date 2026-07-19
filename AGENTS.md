@@ -21,7 +21,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 - `src/assets/js/` — Vanilla JS ES6+; `main.js` and `lightbox.js` loaded on every page
 - `src/_data/site.json` — global site data (title, language, url, etc.)
 
-**Content categories**: `projects`, `paintings`, `drawings` — each has:
+**Content categories**: `projects`, `paintings`, `drawings`, `objects` — each has:
 - A listing page `src/[category].njk` with `layout: layouts/category.njk` and `categoryKey: [category]`
 - A content directory `src/content/[category]/` with individual `.md` files
 - A directory data file `src/content/[category]/[category].json` that sets `layout: layouts/work.njk` for all items automatically

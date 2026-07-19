@@ -3,6 +3,7 @@
     {% set isProjects = page.url == "/projects/" or "/projects/" in page.url %}
     {% set isPaintings = page.url == "/paintings/" or "/paintings/" in page.url %}
     {% set isDrawings = page.url == "/drawings/" or "/drawings/" in page.url %}
+    {% set isObjects = page.url == "/objects/" or "/objects/" in page.url %}
     {% set isCV = page.url == "/cv/" %}
     {% set isPress = page.url == "/press/" %}
     <nav class="nav nav--centered" aria-label="Основная навигация">
@@ -21,6 +22,9 @@
         </li>
         <li class="nav__item">
           <a href="/drawings/" class="nav__link{% if isDrawings %} nav__link--current{% endif %}" {% if isDrawings %}aria-current="page"{% endif %}>Drawings</a>
+        </li>
+        <li class="nav__item">
+          <a href="/objects/" class="nav__link{% if isObjects %} nav__link--current{% endif %}" {% if isObjects %}aria-current="page"{% endif %}>Objects</a>
         </li>
         <li class="nav__item">
           <a href="/cv/" class="nav__link{% if isCV %} nav__link--current{% endif %}" {% if isCV %}aria-current="page"{% endif %}>CV</a>

@@ -20,6 +20,13 @@ media:
     extensions: [jpg, jpeg, png, webp]
     categories: [image]
     rename: safe
+  - name: objects
+    label: Изображения — объекты
+    input: src/assets/images/objects
+    output: /assets/images/objects
+    extensions: [jpg, jpeg, png, webp]
+    categories: [image]
+    rename: safe
   - name: pages
     label: Изображения — страницы
     input: src/assets/images
@@ -268,6 +275,85 @@ content:
             options:
               format: markdown
               media: projects
+              rename: safe
+
+      - name: objects
+        label: Объекты
+        type: collection
+        path: src/content/objects
+        format: yaml-frontmatter
+        exclude: [objects.11tydata.js, .DS_Store]
+        filename: "{fields.year}-{title}.md"
+        view:
+          fields: [title, year, series, materials, order]
+          primary: title
+          sort: [year, series, order, title]
+          search: [title, series, materials, description]
+          default:
+            sort: year
+            order: desc
+        fields:
+          - name: title
+            label: Название
+            type: string
+            required: true
+          - name: year
+            label: Год
+            type: number
+            required: true
+          - name: dimensions
+            label: Размеры
+            type: string
+            description: "Например: 100 × 70 × 40 см"
+          - name: materials
+            label: Материалы
+            type: string
+            description: "Например: дерево, металл, найденные объекты"
+          - name: series
+            label: Серия работ
+            type: string
+            description: "Необязательное название серии"
+          - name: description
+            label: Описание
+            type: text
+          - name: description_en
+            label: Описание на английском
+            type: text
+          - name: image
+            label: Основное изображение
+            type: image
+            required: true
+            description: Используется первым на странице работы и как обложка, если миниатюра не задана.
+            options:
+              media: objects
+              rename: safe
+          - name: gallery
+            label: Дополнительные изображения
+            type: image
+            description: Можно выбрать несколько фотографий. Они показываются по порядку в карусели вместе с основным изображением.
+            options:
+              media: objects
+              multiple:
+                max: 20
+              unique: true
+              rename: safe
+          - name: thumbnail
+            label: Миниатюра
+            type: image
+            description: Если поле пустое, сайт использует основное изображение.
+            options:
+              media: objects
+              rename: safe
+          - name: order
+            label: Порядок
+            type: number
+            default: 0
+          - name: body
+            label: Дополнительный текст страницы
+            type: rich-text
+            options:
+              format: markdown
+              media: objects
               rename: safe
 
   - name: pages

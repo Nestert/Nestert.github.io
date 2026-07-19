@@ -16,6 +16,10 @@ layout: layouts/base.njk
   {% set backHref = "/projects/" %}
   {% set backLabel = "Проекты" %}
   {% set categoryItems = collections.projects %}
+{% elif "/objects/" in page.url %}
+  {% set backHref = "/objects/" %}
+  {% set backLabel = "Объекты" %}
+  {% set categoryItems = collections.objects %}
 {% endif %}
 {% set bodyContent = content | striptags | trim %}
 {% set previousWork = categoryItems | getAdjacentWork(page.url, "previous") %}
