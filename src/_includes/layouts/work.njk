@@ -59,7 +59,7 @@ layout: layouts/base.njk
                 aria-label="Увеличить изображение работы «{{ title }}»"
               >
                 {% detailImage image, title, "work-detail__image" %}
-                <span class="work-detail__zoom-icon" aria-hidden="true">+</span>
+                <span class="work-detail__zoom-icon" aria-hidden="true">↗</span>
               </a>
             </figure>
 
@@ -83,7 +83,7 @@ layout: layouts/base.njk
                     aria-label="Увеличить изображение работы «{{ title }}», {{ galleryIndex }} из {{ imageCount }}"
                   >
                     {% detailImage galleryImage, galleryAlt, "work-detail__image work-detail__image--additional", "lazy", "" %}
-                    <span class="work-detail__zoom-icon" aria-hidden="true">+</span>
+                    <span class="work-detail__zoom-icon" aria-hidden="true">↗</span>
                   </a>
                 </figure>
               {% endfor %}
