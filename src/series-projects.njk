@@ -29,7 +29,16 @@
               aria-label="{{ loop.index }} из {{ imageCount }}: {{ work.data.title }}"
               aria-hidden="{% if loop.first %}false{% else %}true{% endif %}"
             >
-              {% detailImage work.data.image, work.data.title, "work-detail__image", slideLoading, slidePriority %}
+              <a
+                href="{{ work.data.image }}"
+                class="work-detail__zoom-trigger"
+                data-image-zoom-trigger
+                {% if not loop.first %}tabindex="-1"{% endif %}
+                aria-label="Увеличить изображение работы «{{ work.data.title }}»"
+              >
+                {% detailImage work.data.image, work.data.title, "work-detail__image", slideLoading, slidePriority %}
+                <span class="work-detail__zoom-icon" aria-hidden="true">+</span>
+              </a>
             </figure>
           {% endfor %}
         </div>

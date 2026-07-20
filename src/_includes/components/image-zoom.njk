@@ -1,0 +1,20 @@
+<dialog class="image-zoom" data-image-zoom aria-label="Увеличенное изображение">
+  <div class="image-zoom__surface">
+    <button class="image-zoom__close" type="button" data-image-zoom-close aria-label="Закрыть увеличенное изображение">
+      <span aria-hidden="true">×</span>
+    </button>
+
+    <div class="image-zoom__viewport" data-image-zoom-viewport>
+      <img class="image-zoom__image" data-image-zoom-image alt="">
+    </div>
+
+    <div class="image-zoom__toolbar" aria-label="Управление масштабом">
+      <button class="image-zoom__control" type="button" data-image-zoom-out aria-label="Уменьшить изображение">−</button>
+      <output class="image-zoom__level" data-image-zoom-level aria-live="polite">100%</output>
+      <button class="image-zoom__control" type="button" data-image-zoom-in aria-label="Увеличить изображение">+</button>
+      <button class="image-zoom__reset" type="button" data-image-zoom-reset>Сбросить</button>
+    </div>
+
+    <p class="image-zoom__hint">Колесо или жест двумя пальцами — масштаб, перетаскивание — просмотр деталей</p>
+  </div>
+</dialog>

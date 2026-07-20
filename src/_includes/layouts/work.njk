@@ -52,7 +52,15 @@ layout: layouts/base.njk
               aria-label="1 из {{ imageCount }}"
               aria-hidden="false"
             >
-              {% detailImage image, title, "work-detail__image" %}
+              <a
+                href="{{ image }}"
+                class="work-detail__zoom-trigger"
+                data-image-zoom-trigger
+                aria-label="Увеличить изображение работы «{{ title }}»"
+              >
+                {% detailImage image, title, "work-detail__image" %}
+                <span class="work-detail__zoom-icon" aria-hidden="true">+</span>
+              </a>
             </figure>
 
             {% if gallery %}
@@ -67,7 +75,16 @@ layout: layouts/base.njk
                   aria-label="{{ galleryIndex }} из {{ imageCount }}"
                   aria-hidden="true"
                 >
-                  {% detailImage galleryImage, galleryAlt, "work-detail__image work-detail__image--additional", "lazy", "" %}
+                  <a
+                    href="{{ galleryImage }}"
+                    class="work-detail__zoom-trigger"
+                    data-image-zoom-trigger
+                    tabindex="-1"
+                    aria-label="Увеличить изображение работы «{{ title }}», {{ galleryIndex }} из {{ imageCount }}"
+                  >
+                    {% detailImage galleryImage, galleryAlt, "work-detail__image work-detail__image--additional", "lazy", "" %}
+                    <span class="work-detail__zoom-icon" aria-hidden="true">+</span>
+                  </a>
                 </figure>
               {% endfor %}
             {% endif %}

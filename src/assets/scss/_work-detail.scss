@@ -51,6 +51,49 @@
   }
 }
 
+.work-detail__zoom-trigger {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: $color-text;
+  cursor: zoom-in;
+
+  picture,
+  img {
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    outline: 1px solid $color-text;
+    outline-offset: 4px;
+  }
+}
+
+.work-detail__zoom-icon {
+  position: absolute;
+  top: $spacing-sm;
+  right: $spacing-sm;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.62);
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 300;
+  line-height: 1;
+  place-items: center;
+  transition: background-color $transition-base, transform $transition-base;
+}
+
+.work-detail__zoom-trigger:hover .work-detail__zoom-icon,
+.work-detail__zoom-trigger:focus-visible .work-detail__zoom-icon {
+  background: rgba(0, 0, 0, 0.82);
+  transform: scale(1.06);
+}
+
 .work-detail__image {
   width: auto;
   max-width: 100%;
@@ -110,6 +153,7 @@
 
   .work-carousel__track,
   .work-carousel__slide,
+  .work-carousel__slide .work-detail__zoom-trigger,
   .work-carousel__slide picture {
     height: 100%;
   }
@@ -342,7 +386,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .work-carousel.is-enabled .work-carousel__track,
-  .work-carousel__button {
+  .work-carousel__button,
+  .work-detail__zoom-icon {
     transition: none;
   }
 }
