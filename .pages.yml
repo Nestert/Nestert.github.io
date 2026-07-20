@@ -111,6 +111,7 @@ content:
             label: Порядок
             type: number
             default: 0
+            description: Используется для порядка работ внутри одного года. Сначала на сайте всегда показываются более новые годы.
           - name: body
             label: Дополнительный текст страницы
             type: rich-text
@@ -190,6 +191,7 @@ content:
             label: Порядок
             type: number
             default: 0
+            description: Используется для порядка работ внутри одного года. Сначала на сайте всегда показываются более новые годы.
           - name: body
             label: Дополнительный текст страницы
             type: rich-text
@@ -269,6 +271,7 @@ content:
             label: Порядок
             type: number
             default: 0
+            description: Используется для порядка проектов внутри одного года. Сначала на сайте всегда показываются более новые годы.
           - name: body
             label: Дополнительный текст страницы
             type: rich-text
@@ -348,6 +351,7 @@ content:
             label: Порядок
             type: number
             default: 0
+            description: Используется для порядка работ внутри одного года. Сначала на сайте всегда показываются более новые годы.
           - name: body
             label: Дополнительный текст страницы
             type: rich-text
@@ -400,6 +404,32 @@ content:
               format: markdown
               media: pages
               rename: safe
+
+  - name: series_covers
+    label: Обложки серий
+    type: file
+    path: src/_data/series-covers.json
+    format: json
+    list:
+      collapsible:
+        collapsed: true
+        summary: "{name}"
+    operations:
+      delete: false
+      rename: false
+    fields:
+      - name: name
+        label: Название серии
+        type: string
+        required: true
+        description: Должно совпадать с полем «Серия работ». Регистр и лишние пробелы не учитываются.
+      - name: image
+        label: Обложка
+        type: image
+        required: true
+        options:
+          media: projects
+          rename: safe
 
 settings:
   hide: true

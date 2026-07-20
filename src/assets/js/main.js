@@ -40,6 +40,7 @@
       const previousButton = carousel.querySelector('[data-carousel-previous]');
       const nextButton = carousel.querySelector('[data-carousel-next]');
       const currentCounter = carousel.querySelector('[data-carousel-current]');
+      const captions = Array.from(carousel.querySelectorAll('[data-carousel-caption]'));
 
       if (!viewport || !track || slides.length < 2 || !previousButton || !nextButton) return;
 
@@ -52,6 +53,10 @@
 
         slides.forEach(function(slide, index) {
           slide.setAttribute('aria-hidden', index === currentIndex ? 'false' : 'true');
+        });
+
+        captions.forEach(function(caption, index) {
+          caption.setAttribute('aria-hidden', index === currentIndex ? 'false' : 'true');
         });
 
         if (currentCounter) {

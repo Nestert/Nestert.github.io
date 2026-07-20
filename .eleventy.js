@@ -1,8 +1,170 @@
+const fs = require("fs");
 const path = require("path");
 const Image = require("@11ty/eleventy-img");
 
-function sortByOrder(items) {
-  return [...items].sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+const SERIES_COVERS_PATH = path.join(__dirname, "src", "_data", "series-covers.json");
+
+function getItemYear(item) {
+  const year = Number(item?.data?.year);
+  return Number.isFinite(year) ? year : Number.NEGATIVE_INFINITY;
+}
+
+function getItemOrder(item) {
+  const order = Number(item?.data?.order);
+  return Number.isFinite(order) ? order : 0;
+}
+
+function sortByYearDesc(items) {
+  return [...(items || [])].sort((a, b) => {
+    const yearDifference = getItemYear(b) - getItemYear(a);
+    if (yearDifference !== 0) return yearDifference;
+
+    const orderDifference = getItemOrder(a) - getItemOrder(b);
+    if (orderDifference !== 0) return orderDifference;
+
+    return String(a?.data?.title || "").localeCompare(String(b?.data?.title || ""), "ru", {
+      sensitivity: "base"
+    });
+  });
+}
+
+function normalizeSeriesName(value) {
+  return String(value || "")
+    .trim()
+    .replace(/\s+/g, " ")
+    .toLocaleLowerCase("ru-RU");
+}
+
+function slugifySeriesName(value) {
+  const transliteration = {
+    а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ё: "yo", ж: "zh", з: "z",
+    и: "i", й: "y", к: "k", л: "l", м: "m", н: "n", о: "o", п: "p", р: "r",
+    с: "s", т: "t", у: "u", ф: "f", х: "h", ц: "c", ч: "ch", ш: "sh", щ: "shch",
+    ъ: "", ы: "y", ь: "", э: "e", ю: "yu", я: "ya"
+  };
+
+  const transliterated = String(value || "")
+    .trim()
+    .toLocaleLowerCase("ru-RU")
+    .split("")
+    .map((character) => transliteration[character] ?? character)
+    .join("");
+
+  return transliterated
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function readSeriesCovers() {
+  if (!fs.existsSync(SERIES_COVERS_PATH)) return new Map();
+
+  let entries;
+
+  try {
+    entries = JSON.parse(fs.readFileSync(SERIES_COVERS_PATH, "utf8"));
+  } catch (error) {
+    throw new Error(`Не удалось прочитать настройки обложек серий: ${error.message}`);
+  }
+
+  if (!Array.isArray(entries)) {
+    throw new Error("Настройки обложек серий должны быть массивом.");
+  }
+
+  const covers = new Map();
+
+  entries.forEach((entry, index) => {
+    const name = String(entry?.name || "").trim().replace(/\s+/g, " ");
+    const key = normalizeSeriesName(name);
+
+    if (!key) {
+      throw new Error(`В настройках обложек серий у записи ${index + 1} не указано название.`);
+    }
+
+    if (!entry.image) {
+      throw new Error(`В настройках серии «${name}» не указана обложка.`);
+    }
+
+    if (covers.has(key)) {
+      throw new Error(`В настройках обложек найден дубль серии «${name}».`);
+    }
+
+    covers.set(key, entry.image);
+  });
+
+  return covers;
+}
+
+function createSeriesProjects(collectionApi) {
+  const sourceItems = [
+    ...collectionApi.getFilteredByGlob("src/content/paintings/**/*.md"),
+    ...collectionApi.getFilteredByGlob("src/content/drawings/**/*.md"),
+    ...collectionApi.getFilteredByGlob("src/content/objects/**/*.md")
+  ];
+  const groups = new Map();
+
+  sourceItems.forEach((item) => {
+    const title = String(item.data.series || "").trim().replace(/\s+/g, " ");
+    const key = normalizeSeriesName(title);
+
+    if (!key) return;
+
+    if (!groups.has(key)) {
+      groups.set(key, { title, members: [] });
+    }
+
+    groups.get(key).members.push(item);
+  });
+
+  const covers = readSeriesCovers();
+  const usedSlugs = new Map();
+
+  const seriesProjects = [...groups.entries()].map(([key, group]) => {
+    const members = sortByYearDesc(group.members);
+    const years = members
+      .map(getItemYear)
+      .filter(Number.isFinite);
+    const newestYear = Math.max(...years);
+    const oldestYear = Math.min(...years);
+    const yearLabel = newestYear === oldestYear ? String(newestYear) : `${oldestYear}–${newestYear}`;
+    const slug = slugifySeriesName(group.title);
+
+    if (!slug) {
+      throw new Error(`Не удалось сформировать адрес для серии «${group.title}».`);
+    }
+
+    if (usedSlugs.has(slug)) {
+      throw new Error(
+        `Серии «${usedSlugs.get(slug)}» и «${group.title}» получают одинаковый адрес «${slug}».`
+      );
+    }
+
+    usedSlugs.set(slug, group.title);
+
+    const automaticCover = members[0]?.data?.thumbnail || members[0]?.data?.image;
+    const image = covers.get(key) || automaticCover;
+
+    if (!image) {
+      throw new Error(`Для серии «${group.title}» не удалось определить обложку.`);
+    }
+
+    return {
+      url: `/projects/series/${slug}/`,
+      data: {
+        title: group.title,
+        year: newestYear,
+        yearLabel,
+        order: 0,
+        image,
+        thumbnail: image,
+        members,
+        isGeneratedSeries: true
+      }
+    };
+  });
+
+  return sortByYearDesc(seriesProjects);
 }
 
 function resolveImageSource(src) {
@@ -83,21 +245,23 @@ module.exports = function (eleventyConfig) {
     return collectionApi.getFilteredByGlob("src/content/objects/**/*.md");
   });
 
-  eleventyConfig.addCollection("homepageWorks", function (collectionApi) {
-    return [
-      ...sortByOrder(collectionApi.getFilteredByGlob("src/content/projects/**/*.md")),
-      ...sortByOrder(collectionApi.getFilteredByGlob("src/content/paintings/**/*.md")),
-      ...sortByOrder(collectionApi.getFilteredByGlob("src/content/drawings/**/*.md")),
-      ...sortByOrder(collectionApi.getFilteredByGlob("src/content/objects/**/*.md"))
-    ];
+  eleventyConfig.addCollection("seriesProjects", function (collectionApi) {
+    return createSeriesProjects(collectionApi);
   });
 
-  eleventyConfig.addFilter("sortByOrder", function (items) {
-    return sortByOrder(items);
+  eleventyConfig.addCollection("projectIndexItems", function (collectionApi) {
+    return sortByYearDesc([
+      ...collectionApi.getFilteredByGlob("src/content/projects/**/*.md"),
+      ...createSeriesProjects(collectionApi)
+    ]);
+  });
+
+  eleventyConfig.addFilter("sortByYearDesc", function (items) {
+    return sortByYearDesc(items);
   });
 
   eleventyConfig.addFilter("getAdjacentWork", function (items, currentUrl, direction) {
-    const sortedItems = sortByOrder(items || []);
+    const sortedItems = sortByYearDesc(items || []);
     const currentIndex = sortedItems.findIndex((item) => item.url === currentUrl);
 
     if (currentIndex === -1) return null;

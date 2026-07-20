@@ -1,0 +1,89 @@
+<div class="container">
+  <article class="work-detail series-detail">
+    <header class="work-detail__header series-detail__header">
+      <h1 class="work-detail__title">{{ seriesProject.data.title }}</h1>
+      <p class="series-detail__years">{{ seriesProject.data.yearLabel }}</p>
+    </header>
+
+    {% set imageCount = seriesProject.data.members | length %}
+    <section
+      class="work-carousel series-carousel{% if imageCount > 1 %} work-carousel--multiple{% endif %}"
+      data-work-carousel
+      aria-label="Работы серии «{{ seriesProject.data.title }}»"
+      aria-roledescription="карусель"
+    >
+      <div class="work-carousel__viewport" data-carousel-viewport>
+        <div class="work-carousel__track" data-carousel-track>
+          {% for work in seriesProject.data.members %}
+            {% set slideLoading = "lazy" %}
+            {% set slidePriority = "" %}
+            {% if loop.first %}
+              {% set slideLoading = "eager" %}
+              {% set slidePriority = "high" %}
+            {% endif %}
+            <figure
+              class="work-detail__image-wrapper work-carousel__slide"
+              data-carousel-slide
+              role="group"
+              aria-roledescription="слайд"
+              aria-label="{{ loop.index }} из {{ imageCount }}: {{ work.data.title }}"
+              aria-hidden="{% if loop.first %}false{% else %}true{% endif %}"
+            >
+              {% detailImage work.data.image, work.data.title, "work-detail__image", slideLoading, slidePriority %}
+            </figure>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if imageCount > 1 %}
+        <div class="work-carousel__controls">
+          <button class="work-carousel__button" type="button" data-carousel-previous aria-label="Предыдущая работа серии">
+            <span aria-hidden="true">←</span>
+          </button>
+          <p class="work-carousel__counter" aria-live="polite">
+            <span class="visually-hidden">Работа </span>
+            <span data-carousel-current>1</span>
+            <span aria-hidden="true"> / </span>
+            <span class="visually-hidden"> из </span>
+            <span>{{ imageCount }}</span>
+          </p>
+          <button class="work-carousel__button" type="button" data-carousel-next aria-label="Следующая работа серии">
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      {% endif %}
+
+      <div class="series-carousel__captions" data-carousel-captions aria-live="polite">
+        {% for work in seriesProject.data.members %}
+          <section
+            class="series-carousel__caption"
+            data-carousel-caption
+            aria-hidden="{% if loop.first %}false{% else %}true{% endif %}"
+          >
+            <h2 class="series-carousel__title">
+              <a href="{{ work.url }}">{{ work.data.title }}</a>
+            </h2>
+
+            {% if work.data.year or work.data.dimensions or work.data.materials %}
+              <div class="series-carousel__meta">
+                {% if work.data.year %}<p>{{ work.data.year }}</p>{% endif %}
+                {% if work.data.dimensions %}<p>{{ work.data.dimensions }}</p>{% endif %}
+                {% if work.data.materials %}<p>{{ work.data.materials }}</p>{% endif %}
+              </div>
+            {% endif %}
+
+            {% if work.data.description %}
+              <p class="series-carousel__description">{{ work.data.description }}</p>
+            {% endif %}
+
+            <a class="series-carousel__work-link" href="{{ work.url }}">Открыть работу →</a>
+          </section>
+        {% endfor %}
+      </div>
+    </section>
+
+    <footer class="work-detail__footer series-detail__footer">
+      <a href="/projects/" class="work-detail__back">Все: Проекты</a>
+    </footer>
+  </article>
+</div>
