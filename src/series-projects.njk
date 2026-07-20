@@ -37,7 +37,9 @@
                 aria-label="Увеличить изображение работы «{{ work.data.title }}»"
               >
                 {% detailImage work.data.image, work.data.title, "work-detail__image", slideLoading, slidePriority %}
-                <span class="work-detail__zoom-icon" aria-hidden="true">↗</span>
+                <span class="work-detail__zoom-icon" aria-hidden="true">
+                  {% include "components/zoom-icon.njk" %}
+                </span>
               </a>
             </figure>
           {% endfor %}
