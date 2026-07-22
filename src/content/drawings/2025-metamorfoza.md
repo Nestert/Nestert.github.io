@@ -6,5 +6,5 @@ materials: "полиэтиленовый пакет, линогравюра "
 image: /assets/images/drawings/ekaterinaromanovamuhaichelovek.png
 gallery:
   - /assets/images/drawings/img8793compressed-0.jpg
-order: 0
+order: 11
 ---
