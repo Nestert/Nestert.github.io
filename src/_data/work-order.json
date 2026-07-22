@@ -1,0 +1,49 @@
+{
+  "projects": [],
+  "paintings": [
+    "src/content/paintings/2025-preparat.md",
+    "src/content/paintings/2025-ryobra.md",
+    "src/content/paintings/2025-spina.md",
+    "src/content/paintings/2025-grudnaya-kletka.md",
+    "src/content/paintings/2025-portret.md"
+  ],
+  "drawings": [
+    "src/content/drawings/2026-mochevydelitelnaya-sistema.md",
+    "src/content/drawings/2026-serdce.md",
+    "src/content/drawings/2026-шкура-1.md",
+    "src/content/drawings/2026-shkura-2.md",
+    "src/content/drawings/2026-shkura-3.md",
+    "src/content/drawings/2026-shkura-4.md",
+    "src/content/drawings/2025-krovenosnaya-sistema.md",
+    "src/content/drawings/2025-uchenie-o-krovenosnoj-sisteme.md",
+    "src/content/drawings/2025-serdce-1.md",
+    "src/content/drawings/2025-yolka.md",
+    "src/content/drawings/2025-serdce-i-luna.md",
+    "src/content/drawings/2025-metamorfoza.md",
+    "src/content/drawings/2025-razvodnye-mosty.md",
+    "src/content/drawings/2025-nevozmutimost-utki.md",
+    "src/content/drawings/2024-diptih-aisty-po-doroge-v-pskov.md",
+    "src/content/drawings/2024-diptih-aisty-po-doroge-v-pskov-2.md",
+    "src/content/drawings/2024-тверь.md",
+    "src/content/drawings/2024-девяткино.md",
+    "src/content/drawings/2024-vanka-vstanka.md",
+    "src/content/drawings/2023-muhi-u-nas.md",
+    "src/content/drawings/2024-golova-otvalivaetsya.md"
+  ],
+  "objects": [
+    "src/content/objects/2026-arheologiya-povsednevnoj-zaboty.md",
+    "src/content/objects/2026-buket.md",
+    "src/content/objects/2026-zuby.md",
+    "src/content/objects/2026-instrumenty-1.md",
+    "src/content/objects/2026-instrumenty-3.md",
+    "src/content/objects/2026-instrumenty-4.md",
+    "src/content/objects/2026-instrumenty-5.md",
+    "src/content/objects/2026-instrumenty-6.md",
+    "src/content/objects/2026-instrumenty-7.md",
+    "src/content/objects/2025-len.md",
+    "src/content/objects/2025-padla.md",
+    "src/content/objects/2025-shpilki.md",
+    "src/content/objects/2024-vanka-vstanka.md",
+    "src/content/objects/2026-shlyapa.md"
+  ]
+}

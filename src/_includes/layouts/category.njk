@@ -9,7 +9,7 @@ layout: layouts/base.njk
 
   <section class="section section--category-gallery">
     <div class="gallery__grid">
-      {% set sortedWorks = collections[categoryKey] | sortByOrderThenYear %}
+      {% set sortedWorks = collections[categoryKey] %}
       {% for work in sortedWorks %}
         {% if sortedWorks | startsNewSeries(loop.index0) %}
           <div class="gallery__series-break" aria-hidden="true"></div>

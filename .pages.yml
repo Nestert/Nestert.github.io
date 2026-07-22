@@ -360,6 +360,52 @@ content:
               media: objects
               rename: safe
 
+  - name: work_order
+    label: Порядок работ
+    type: file
+    path: src/_data/work-order.json
+    format: json
+    operations:
+      delete: false
+      rename: false
+    fields:
+      - name: projects
+        label: Ручные проекты
+        type: reference
+        list: true
+        description: Перетаскивайте строки за маркер слева. Автоматические серии настраиваются отдельно в разделе «Обложки серий».
+        options:
+          collection: projects
+          value: "{path}"
+          label: "{primary} — {fields.year}"
+      - name: paintings
+        label: Живопись
+        type: reference
+        list: true
+        description: Перетаскивайте строки за маркер слева. Новую работу добавьте в список через кнопку «Добавить элемент».
+        options:
+          collection: paintings
+          value: "{path}"
+          label: "{primary} — {fields.year}"
+      - name: drawings
+        label: Графика
+        type: reference
+        list: true
+        description: Перетаскивайте строки за маркер слева. Новую работу добавьте в список через кнопку «Добавить элемент».
+        options:
+          collection: drawings
+          value: "{path}"
+          label: "{primary} — {fields.year}"
+      - name: objects
+        label: Объекты
+        type: reference
+        list: true
+        description: Перетаскивайте строки за маркер слева. Новую работу добавьте в список через кнопку «Добавить элемент».
+        options:
+          collection: objects
+          value: "{path}"
+          label: "{primary} — {fields.year}"
+
   - name: pages
     label: Текстовые страницы
     type: group

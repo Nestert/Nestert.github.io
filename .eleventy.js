@@ -3,6 +3,8 @@ const path = require("path");
 const Image = require("@11ty/eleventy-img");
 
 const SERIES_COVERS_PATH = path.join(__dirname, "src", "_data", "series-covers.json");
+const WORK_ORDER_PATH = path.join(__dirname, "src", "_data", "work-order.json");
+const WORK_ORDER_CATEGORIES = ["projects", "paintings", "drawings", "objects"];
 
 function getItemYear(item) {
   const year = Number(item?.data?.year);
@@ -39,6 +41,90 @@ function sortByOrderThenYear(items) {
     return String(a?.data?.title || "").localeCompare(String(b?.data?.title || ""), "ru", {
       sensitivity: "base"
     });
+  });
+}
+
+function normalizeContentPath(value) {
+  const normalized = String(value || "").trim().replace(/\\/g, "/");
+  const contentIndex = normalized.lastIndexOf("src/content/");
+
+  return contentIndex === -1
+    ? normalized.replace(/^\.\//, "").replace(/^\//, "")
+    : normalized.slice(contentIndex);
+}
+
+function readWorkOrder() {
+  const emptyOrder = Object.fromEntries(
+    WORK_ORDER_CATEGORIES.map((category) => [category, []])
+  );
+
+  if (!fs.existsSync(WORK_ORDER_PATH)) return emptyOrder;
+
+  let data;
+
+  try {
+    data = JSON.parse(fs.readFileSync(WORK_ORDER_PATH, "utf8"));
+  } catch (error) {
+    throw new Error(`Не удалось прочитать порядок работ: ${error.message}`);
+  }
+
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
+    throw new Error("Файл порядка работ должен содержать объект с массивами категорий.");
+  }
+
+  return Object.fromEntries(WORK_ORDER_CATEGORIES.map((category) => {
+    const entries = data[category] ?? [];
+
+    if (!Array.isArray(entries)) {
+      throw new Error(`В порядке работ поле «${category}» должно быть массивом.`);
+    }
+
+    const seen = new Set();
+    const normalizedEntries = entries.map((entry, index) => {
+      if (typeof entry !== "string") {
+        throw new Error(
+          `В порядке работ «${category}» запись ${index + 1} должна быть ссылкой на файл.`
+        );
+      }
+
+      const normalizedPath = normalizeContentPath(entry);
+      const expectedPrefix = `src/content/${category}/`;
+
+      if (!normalizedPath.startsWith(expectedPrefix) || !normalizedPath.endsWith(".md")) {
+        throw new Error(
+          `В порядке работ «${category}» указан файл из другой категории: «${entry}».`
+        );
+      }
+
+      if (seen.has(normalizedPath)) {
+        throw new Error(
+          `В порядке работ «${category}» файл «${entry}» добавлен дважды.`
+        );
+      }
+
+      seen.add(normalizedPath);
+      return normalizedPath;
+    });
+
+    return [category, normalizedEntries];
+  }));
+}
+
+function sortByConfiguredWorkOrder(items, category) {
+  const fallbackItems = sortByOrderThenYear(items);
+  const configuredOrder = readWorkOrder()[category] || [];
+  const ranks = new Map(configuredOrder.map((itemPath, index) => [itemPath, index]));
+
+  return fallbackItems.sort((a, b) => {
+    const aRank = ranks.get(normalizeContentPath(a?.inputPath));
+    const bRank = ranks.get(normalizeContentPath(b?.inputPath));
+    const aIsConfigured = aRank !== undefined;
+    const bIsConfigured = bRank !== undefined;
+
+    if (aIsConfigured && bIsConfigured) return aRank - bRank;
+    if (aIsConfigured) return -1;
+    if (bIsConfigured) return 1;
+    return 0;
   });
 }
 
@@ -267,19 +353,31 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets/css");
 
   eleventyConfig.addCollection("projects", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("src/content/projects/**/*.md");
+    return sortByConfiguredWorkOrder(
+      collectionApi.getFilteredByGlob("src/content/projects/**/*.md"),
+      "projects"
+    );
   });
 
   eleventyConfig.addCollection("paintings", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("src/content/paintings/**/*.md");
+    return sortByConfiguredWorkOrder(
+      collectionApi.getFilteredByGlob("src/content/paintings/**/*.md"),
+      "paintings"
+    );
   });
 
   eleventyConfig.addCollection("drawings", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("src/content/drawings/**/*.md");
+    return sortByConfiguredWorkOrder(
+      collectionApi.getFilteredByGlob("src/content/drawings/**/*.md"),
+      "drawings"
+    );
   });
 
   eleventyConfig.addCollection("objects", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("src/content/objects/**/*.md");
+    return sortByConfiguredWorkOrder(
+      collectionApi.getFilteredByGlob("src/content/objects/**/*.md"),
+      "objects"
+    );
   });
 
   eleventyConfig.addCollection("seriesProjects", function (collectionApi) {
@@ -306,7 +404,7 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addFilter("getAdjacentWork", function (items, currentUrl, direction) {
-    const sortedItems = sortByOrderThenYear(items || []);
+    const sortedItems = [...(items || [])];
     const currentIndex = sortedItems.findIndex((item) => item.url === currentUrl);
 
     if (currentIndex === -1) return null;
