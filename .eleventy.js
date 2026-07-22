@@ -192,7 +192,7 @@ function startsNewSeries(items, index) {
   const currentSeries = normalizeSeriesName(items?.[position]?.data?.series);
   const previousSeries = normalizeSeriesName(items?.[position - 1]?.data?.series);
 
-  return Boolean(currentSeries && previousSeries && currentSeries !== previousSeries);
+  return currentSeries !== previousSeries;
 }
 
 function slugifySeriesName(value) {
