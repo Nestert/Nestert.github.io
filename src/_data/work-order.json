@@ -1,5 +1,4 @@
 {
-  "projects": [],
   "paintings": [
     "src/content/paintings/2025-preparat.md",
     "src/content/paintings/2025-ryobra.md",
@@ -14,8 +13,8 @@
     "src/content/drawings/2026-shkura-2.md",
     "src/content/drawings/2026-shkura-3.md",
     "src/content/drawings/2026-shkura-4.md",
-    "src/content/drawings/2025-krovenosnaya-sistema.md",
     "src/content/drawings/2025-uchenie-o-krovenosnoj-sisteme.md",
+    "src/content/drawings/2025-krovenosnaya-sistema.md",
     "src/content/drawings/2025-serdce-1.md",
     "src/content/drawings/2025-yolka.md",
     "src/content/drawings/2025-serdce-i-luna.md",
@@ -31,9 +30,10 @@
     "src/content/drawings/2024-golova-otvalivaetsya.md"
   ],
   "objects": [
+    "src/content/objects/2026-shlyapa.md",
+    "src/content/objects/2026-zuby.md",
     "src/content/objects/2026-arheologiya-povsednevnoj-zaboty.md",
     "src/content/objects/2026-buket.md",
-    "src/content/objects/2026-zuby.md",
     "src/content/objects/2026-instrumenty-1.md",
     "src/content/objects/2026-instrumenty-3.md",
     "src/content/objects/2026-instrumenty-4.md",
@@ -43,7 +43,6 @@
     "src/content/objects/2025-len.md",
     "src/content/objects/2025-padla.md",
     "src/content/objects/2025-shpilki.md",
-    "src/content/objects/2024-vanka-vstanka.md",
-    "src/content/objects/2026-shlyapa.md"
+    "src/content/objects/2024-vanka-vstanka.md"
   ]
 }
