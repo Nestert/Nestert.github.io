@@ -166,6 +166,22 @@ function normalizeSeriesName(value) {
     .toLocaleLowerCase("ru-RU");
 }
 
+function groupWorksBySeries(items) {
+  const groups = new Map();
+
+  (items || []).forEach((item) => {
+    const seriesKey = normalizeSeriesName(item?.data?.series);
+
+    if (!groups.has(seriesKey)) {
+      groups.set(seriesKey, []);
+    }
+
+    groups.get(seriesKey).push(item);
+  });
+
+  return Array.from(groups.values()).flat();
+}
+
 function sortSeriesByConfiguredOrder(items) {
   const fallbackItems = sortByOrderThenYear(items);
   const configuredOrder = readWorkOrder().series || [];
@@ -409,23 +425,29 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection("paintings", function (collectionApi) {
-    return sortByConfiguredWorkOrder(
-      collectionApi.getFilteredByGlob("src/content/paintings/**/*.md"),
-      "paintings"
+    return groupWorksBySeries(
+      sortByConfiguredWorkOrder(
+        collectionApi.getFilteredByGlob("src/content/paintings/**/*.md"),
+        "paintings"
+      )
     );
   });
 
   eleventyConfig.addCollection("drawings", function (collectionApi) {
-    return sortByConfiguredWorkOrder(
-      collectionApi.getFilteredByGlob("src/content/drawings/**/*.md"),
-      "drawings"
+    return groupWorksBySeries(
+      sortByConfiguredWorkOrder(
+        collectionApi.getFilteredByGlob("src/content/drawings/**/*.md"),
+        "drawings"
+      )
     );
   });
 
   eleventyConfig.addCollection("objects", function (collectionApi) {
-    return sortByConfiguredWorkOrder(
-      collectionApi.getFilteredByGlob("src/content/objects/**/*.md"),
-      "objects"
+    return groupWorksBySeries(
+      sortByConfiguredWorkOrder(
+        collectionApi.getFilteredByGlob("src/content/objects/**/*.md"),
+        "objects"
+      )
     );
   });
 
