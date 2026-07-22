@@ -54,9 +54,10 @@ function normalizeContentPath(value) {
 }
 
 function readWorkOrder() {
-  const emptyOrder = Object.fromEntries(
-    WORK_ORDER_CATEGORIES.map((category) => [category, []])
-  );
+  const emptyOrder = {
+    series: [],
+    ...Object.fromEntries(WORK_ORDER_CATEGORIES.map((category) => [category, []]))
+  };
 
   if (!fs.existsSync(WORK_ORDER_PATH)) return emptyOrder;
 
@@ -72,7 +73,7 @@ function readWorkOrder() {
     throw new Error("Файл порядка работ должен содержать объект с массивами категорий.");
   }
 
-  return Object.fromEntries(WORK_ORDER_CATEGORIES.map((category) => {
+  const categoryOrder = Object.fromEntries(WORK_ORDER_CATEGORIES.map((category) => {
     const entries = data[category] ?? [];
 
     if (!Array.isArray(entries)) {
@@ -108,6 +109,36 @@ function readWorkOrder() {
 
     return [category, normalizedEntries];
   }));
+
+  const seriesEntries = data.series ?? [];
+
+  if (!Array.isArray(seriesEntries)) {
+    throw new Error("В порядке работ поле «series» должно быть массивом.");
+  }
+
+  const seenSeries = new Set();
+  const series = seriesEntries.map((entry, index) => {
+    if (typeof entry !== "string") {
+      throw new Error(
+        `В порядке серий запись ${index + 1} должна быть названием серии.`
+      );
+    }
+
+    const key = normalizeSeriesName(entry);
+
+    if (!key) {
+      throw new Error(`В порядке серий у записи ${index + 1} не указано название.`);
+    }
+
+    if (seenSeries.has(key)) {
+      throw new Error(`В порядке серий название «${entry}» добавлено дважды.`);
+    }
+
+    seenSeries.add(key);
+    return key;
+  });
+
+  return { series, ...categoryOrder };
 }
 
 function sortByConfiguredWorkOrder(items, category) {
@@ -133,6 +164,24 @@ function normalizeSeriesName(value) {
     .trim()
     .replace(/\s+/g, " ")
     .toLocaleLowerCase("ru-RU");
+}
+
+function sortSeriesByConfiguredOrder(items) {
+  const fallbackItems = sortByOrderThenYear(items);
+  const configuredOrder = readWorkOrder().series || [];
+  const ranks = new Map(configuredOrder.map((seriesKey, index) => [seriesKey, index]));
+
+  return fallbackItems.sort((a, b) => {
+    const aRank = ranks.get(normalizeSeriesName(a?.data?.title));
+    const bRank = ranks.get(normalizeSeriesName(b?.data?.title));
+    const aIsConfigured = aRank !== undefined;
+    const bIsConfigured = bRank !== undefined;
+
+    if (aIsConfigured && bIsConfigured) return aRank - bRank;
+    if (aIsConfigured) return -1;
+    if (bIsConfigured) return 1;
+    return 0;
+  });
 }
 
 function startsNewSeries(items, index) {
@@ -287,7 +336,7 @@ function createSeriesProjects(collectionApi) {
     };
   });
 
-  return sortByOrderThenYear(seriesProjects);
+  return sortSeriesByConfiguredOrder(seriesProjects);
 }
 
 function resolveImageSource(src) {
@@ -385,10 +434,13 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection("projectIndexItems", function (collectionApi) {
-    return sortByOrderThenYear([
-      ...collectionApi.getFilteredByGlob("src/content/projects/**/*.md"),
-      ...createSeriesProjects(collectionApi)
-    ]);
+    return [
+      ...createSeriesProjects(collectionApi),
+      ...sortByConfiguredWorkOrder(
+        collectionApi.getFilteredByGlob("src/content/projects/**/*.md"),
+        "projects"
+      )
+    ];
   });
 
   eleventyConfig.addFilter("sortByYearDesc", function (items) {

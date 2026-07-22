@@ -361,7 +361,7 @@ content:
               rename: safe
 
   - name: work_order
-    label: Порядок работ
+    label: Порядок работ и серий
     type: file
     path: src/_data/work-order.json
     format: json
@@ -369,11 +369,16 @@ content:
       delete: false
       rename: false
     fields:
+      - name: series
+        label: Серии в «Проектах»
+        type: string
+        list: true
+        description: Перетаскивайте названия за маркер слева. Название должно совпадать с полем «Серия работ»; новые серии добавляйте в список вручную.
       - name: projects
         label: Ручные проекты
         type: reference
         list: true
-        description: Перетаскивайте строки за маркер слева. Автоматические серии настраиваются отдельно в разделе «Обложки серий».
+        description: Перетаскивайте строки за маркер слева. Ручные проекты показываются после автоматических серий.
         options:
           collection: projects
           value: "{path}"

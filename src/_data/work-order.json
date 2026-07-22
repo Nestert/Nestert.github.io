@@ -1,4 +1,13 @@
 {
+  "series": [
+    "Хирургия",
+    "Шкуры",
+    "Организм 1",
+    "Организм 2",
+    "Девяткино",
+    "Ездили где-то",
+    "Праздник"
+  ],
   "paintings": [
     "src/content/paintings/2025-preparat.md",
     "src/content/paintings/2025-ryobra.md",
