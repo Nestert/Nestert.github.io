@@ -7,5 +7,5 @@ description: В коллекции Кирилла Авелева
 image: /assets/images/drawings/img7582343.png
 gallery:
   - /assets/images/drawings/img8950compressed-0.jpg
-order: 13
+order: 14
 ---
