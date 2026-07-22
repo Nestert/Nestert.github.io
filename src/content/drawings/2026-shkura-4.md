@@ -6,5 +6,5 @@ materials: шкура овцы, масляная пастель, лак
 series: Шкуры
 description: В коллекции Пьера Броше
 image: /assets/images/drawings/shkura-4-png.png
-order: 0
+order: 6
 ---
