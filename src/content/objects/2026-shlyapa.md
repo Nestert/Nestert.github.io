@@ -7,5 +7,5 @@ image: /assets/images/objects/img3709compressed-0.jpg
 gallery:
   - /assets/images/objects/img3706compressed-0.jpg
   - /assets/images/objects/img3705compressed-0.jpg
-order: 0
+order: 1
 ---
