@@ -111,7 +111,7 @@ content:
             label: Порядок
             type: number
             default: 0
-            description: Используется для порядка работ внутри одного года. Сначала на сайте всегда показываются более новые годы.
+            description: Основной приоритет сортировки. Чем меньше число, тем раньше работа показывается; при одинаковом порядке более новая работа идёт раньше.
           - name: body
             label: Дополнительный текст страницы
             type: rich-text
@@ -191,7 +191,7 @@ content:
             label: Порядок
             type: number
             default: 0
-            description: Используется для порядка работ внутри одного года. Сначала на сайте всегда показываются более новые годы.
+            description: Основной приоритет сортировки. Чем меньше число, тем раньше работа показывается; при одинаковом порядке более новая работа идёт раньше.
           - name: body
             label: Дополнительный текст страницы
             type: rich-text
@@ -271,7 +271,7 @@ content:
             label: Порядок
             type: number
             default: 0
-            description: Используется для порядка проектов внутри одного года. Сначала на сайте всегда показываются более новые годы.
+            description: Основной приоритет сортировки. Чем меньше число, тем раньше проект показывается; при одинаковом порядке более новый проект идёт раньше.
           - name: body
             label: Дополнительный текст страницы
             type: rich-text
@@ -351,7 +351,7 @@ content:
             label: Порядок
             type: number
             default: 0
-            description: Используется для порядка работ внутри одного года. Сначала на сайте всегда показываются более новые годы.
+            description: Основной приоритет сортировки. Чем меньше число, тем раньше работа показывается; при одинаковом порядке более новая работа идёт раньше.
           - name: body
             label: Дополнительный текст страницы
             type: rich-text
@@ -365,7 +365,7 @@ content:
     type: group
     items:
       - name: cv
-        label: CV
+        label: Биография
         type: file
         path: src/cv.md
         format: yaml-frontmatter
@@ -385,7 +385,7 @@ content:
               media: pages
               rename: safe
       - name: press
-        label: Press
+        label: СМИ
         type: file
         path: src/press.md
         format: yaml-frontmatter
@@ -430,6 +430,12 @@ content:
         options:
           media: projects
           rename: safe
+      - name: order
+        label: Порядок
+        type: number
+        default: 0
+        required: true
+        description: Основной приоритет сортировки. Чем меньше число, тем раньше серия показывается; при одинаковом порядке более новая серия идёт раньше.
 
 settings:
   hide: true

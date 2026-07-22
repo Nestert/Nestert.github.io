@@ -11,6 +11,12 @@
   gap: clamp($spacing-sm, 2vw, $spacing-md);
 }
 
+.gallery__series-break {
+  grid-column: 1 / -1;
+  block-size: clamp(0.75rem, 2vw, 1.5rem);
+  pointer-events: none;
+}
+
 .section--home-gallery {
   padding-top: clamp(2rem, 5vw, 4rem);
 }
@@ -24,11 +30,6 @@
 .gallery__grid > :only-child {
   justify-self: center;
   width: min(100%, 520px);
-}
-
-.gallery__grid > :only-child .project-card__image {
-  max-height: 70dvh;
-  margin-inline: auto;
 }
 
 .gallery__item {

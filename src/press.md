@@ -1,6 +1,6 @@
 ---
 layout: layouts/text-page.njk
-title: Press
+title: СМИ
 ---
 ## УПОМИНАНИЯ В СМИ
 

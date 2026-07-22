@@ -1,6 +1,6 @@
 ---
 layout: layouts/text-page.njk
-title: CV
+title: Биография
 ---
 ## ЕКАТЕРИНА РОМАНОВА
 

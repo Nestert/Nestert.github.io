@@ -9,7 +9,11 @@ layout: layouts/base.njk
 
   <section class="section section--category-gallery">
     <div class="gallery__grid">
-      {% for work in collections[categoryKey] | sortByYearDesc %}
+      {% set sortedWorks = collections[categoryKey] | sortByOrderThenYear %}
+      {% for work in sortedWorks %}
+        {% if sortedWorks | startsNewSeries(loop.index0) %}
+          <div class="gallery__series-break" aria-hidden="true"></div>
+        {% endif %}
         {% set cardLoading = "lazy" %}
         {% set cardPriority = "" %}
         {% if loop.index <= 4 %}

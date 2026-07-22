@@ -28,11 +28,36 @@ function sortByYearDesc(items) {
   });
 }
 
+function sortByOrderThenYear(items) {
+  return [...(items || [])].sort((a, b) => {
+    const orderDifference = getItemOrder(a) - getItemOrder(b);
+    if (orderDifference !== 0) return orderDifference;
+
+    const yearDifference = getItemYear(b) - getItemYear(a);
+    if (yearDifference !== 0) return yearDifference;
+
+    return String(a?.data?.title || "").localeCompare(String(b?.data?.title || ""), "ru", {
+      sensitivity: "base"
+    });
+  });
+}
+
 function normalizeSeriesName(value) {
   return String(value || "")
     .trim()
     .replace(/\s+/g, " ")
     .toLocaleLowerCase("ru-RU");
+}
+
+function startsNewSeries(items, index) {
+  const position = Number(index);
+
+  if (!Number.isInteger(position) || position <= 0) return false;
+
+  const currentSeries = normalizeSeriesName(items?.[position]?.data?.series);
+  const previousSeries = normalizeSeriesName(items?.[position - 1]?.data?.series);
+
+  return currentSeries !== previousSeries;
 }
 
 function slugifySeriesName(value) {
@@ -72,7 +97,7 @@ function readSeriesCovers() {
     throw new Error("Настройки обложек серий должны быть массивом.");
   }
 
-  const covers = new Map();
+  const settings = new Map();
 
   entries.forEach((entry, index) => {
     const name = String(entry?.name || "").trim().replace(/\s+/g, " ");
@@ -86,14 +111,24 @@ function readSeriesCovers() {
       throw new Error(`В настройках серии «${name}» не указана обложка.`);
     }
 
-    if (covers.has(key)) {
+    if (settings.has(key)) {
       throw new Error(`В настройках обложек найден дубль серии «${name}».`);
     }
 
-    covers.set(key, entry.image);
+    const hasOrder = entry.order !== undefined && entry.order !== null && entry.order !== "";
+    const order = hasOrder ? Number(entry.order) : 0;
+
+    if (!Number.isFinite(order)) {
+      throw new Error(`В настройках серии «${name}» поле «Порядок» должно быть числом.`);
+    }
+
+    settings.set(key, {
+      image: entry.image,
+      order
+    });
   });
 
-  return covers;
+  return settings;
 }
 
 function createSeriesProjects(collectionApi) {
@@ -117,11 +152,11 @@ function createSeriesProjects(collectionApi) {
     groups.get(key).members.push(item);
   });
 
-  const covers = readSeriesCovers();
+  const seriesSettings = readSeriesCovers();
   const usedSlugs = new Map();
 
   const seriesProjects = [...groups.entries()].map(([key, group]) => {
-    const members = sortByYearDesc(group.members);
+    const members = sortByOrderThenYear(group.members);
     const years = members
       .map(getItemYear)
       .filter(Number.isFinite);
@@ -142,8 +177,10 @@ function createSeriesProjects(collectionApi) {
 
     usedSlugs.set(slug, group.title);
 
-    const automaticCover = members[0]?.data?.thumbnail || members[0]?.data?.image;
-    const image = covers.get(key) || automaticCover;
+    const settings = seriesSettings.get(key);
+    const newestMember = sortByYearDesc(group.members)[0];
+    const automaticCover = newestMember?.data?.thumbnail || newestMember?.data?.image;
+    const image = settings?.image || automaticCover;
 
     if (!image) {
       throw new Error(`Для серии «${group.title}» не удалось определить обложку.`);
@@ -155,7 +192,7 @@ function createSeriesProjects(collectionApi) {
         title: group.title,
         year: newestYear,
         yearLabel,
-        order: 0,
+        order: settings?.order ?? 0,
         image,
         thumbnail: image,
         members,
@@ -164,7 +201,7 @@ function createSeriesProjects(collectionApi) {
     };
   });
 
-  return sortByYearDesc(seriesProjects);
+  return sortByOrderThenYear(seriesProjects);
 }
 
 function resolveImageSource(src) {
@@ -250,7 +287,7 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection("projectIndexItems", function (collectionApi) {
-    return sortByYearDesc([
+    return sortByOrderThenYear([
       ...collectionApi.getFilteredByGlob("src/content/projects/**/*.md"),
       ...createSeriesProjects(collectionApi)
     ]);
@@ -260,8 +297,16 @@ module.exports = function (eleventyConfig) {
     return sortByYearDesc(items);
   });
 
+  eleventyConfig.addFilter("sortByOrderThenYear", function (items) {
+    return sortByOrderThenYear(items);
+  });
+
+  eleventyConfig.addFilter("startsNewSeries", function (items, index) {
+    return startsNewSeries(items, index);
+  });
+
   eleventyConfig.addFilter("getAdjacentWork", function (items, currentUrl, direction) {
-    const sortedItems = sortByYearDesc(items || []);
+    const sortedItems = sortByOrderThenYear(items || []);
     const currentIndex = sortedItems.findIndex((item) => item.url === currentUrl);
 
     if (currentIndex === -1) return null;

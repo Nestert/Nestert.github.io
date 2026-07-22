@@ -17,15 +17,18 @@
 }
 
 .nav__logo {
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-align: center;
-  text-transform: uppercase;
+  display: block;
+  width: min(90vw, 34rem);
 
   @media (min-width: 768px) {
     margin-bottom: $spacing-sm;
   }
+}
+
+.nav__logo-image {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .nav__toggle {

@@ -2,7 +2,7 @@ const defaultSiteUrl = process.env.SITE_URL || process.env.URL || process.env.DE
 const assetVersion = process.env.ASSET_VERSION || Date.now().toString(36);
 
 module.exports = {
-  title: "EKATERINA ROMANOVA",
+  title: "Екатерина Романова",
   description: "Портфолио художницы Екатерины Романовой",
   url: defaultSiteUrl.replace(/\/$/, ""),
   assetVersion,
