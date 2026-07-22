@@ -5,5 +5,5 @@ dimensions: 60 х 55
 materials: шкура козы, масляная пастель, лак
 series: Шкуры
 image: /assets/images/drawings/bez-fona-serdce.png
-order: 0
+order: 2
 ---
