@@ -461,10 +461,7 @@ content:
     type: file
     path: src/_data/series-covers.json
     format: json
-    list:
-      collapsible:
-        collapsed: true
-        summary: "{name}"
+    list: true
     operations:
       delete: false
       rename: false
