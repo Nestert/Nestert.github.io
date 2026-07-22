@@ -1,5 +1,5 @@
 ---
-title: ШЛЯПА
+title: ЧАЙНЫЙ ГРИБ
 year: 2026
 dimensions: Ø 80, высота 12
 materials: смешанная техника
