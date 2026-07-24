@@ -6,4 +6,8 @@ materials: линогравюра
 series: Ездили где-то
 image: /assets/images/drawings/img8075compressed-0.jpg
 order: 15
+thumbnail_position:
+  x: 50
+  y: 15
+  zoom: 100
 ---
