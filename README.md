@@ -241,6 +241,7 @@ thumbnail: "/assets/images/paintings/example-thumb.jpg"
 thumbnail_position:
   x: 35
   y: 20
+  zoom: 140
 order: 10
 ---
 

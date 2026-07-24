@@ -39,7 +39,7 @@ components:
   thumbnail_position:
     type: object
     label: Положение миниатюры
-    description: "Подберите итоговый кадр в редакторе: https://omanovar.ru/admin/thumbnail/ — затем перенесите сюда X и Y. 50 / 50 — центр."
+    description: "Подберите итоговый кадр в редакторе: https://omanovar.ru/admin/thumbnail/ — затем перенесите сюда X, Y и масштаб. 50 / 50 / 100 — исходный кадр по центру."
     fields:
       - name: x
         label: По горизонтали, %
@@ -57,6 +57,14 @@ components:
           min: 0
           max: 100
         description: "0 — верхний край, 50 — центр, 100 — нижний край."
+      - name: zoom
+        label: Масштаб, %
+        type: number
+        default: 100
+        options:
+          min: 100
+          max: 300
+        description: "100 — без увеличения, 200 — увеличение в два раза."
 
 content:
   - name: works

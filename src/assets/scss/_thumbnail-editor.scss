@@ -241,6 +241,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.15s ease;
+  will-change: transform;
 }
 
 .thumbnail-editor__controls {

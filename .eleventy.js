@@ -412,15 +412,28 @@ function formatThumbnailPosition(position) {
 
   const hasX = position.x !== undefined && position.x !== null && position.x !== "";
   const hasY = position.y !== undefined && position.y !== null && position.y !== "";
+  const hasZoom = position.zoom !== undefined && position.zoom !== null && position.zoom !== "";
 
-  if (!hasX && !hasY) return "";
+  if (!hasX && !hasY && !hasZoom) return "";
 
   const clampPercentage = (value) => {
     const number = Number(value);
     return Number.isFinite(number) ? Math.min(100, Math.max(0, number)) : 50;
   };
 
-  return `--thumbnail-focus-x: ${clampPercentage(position.x)}%; --thumbnail-focus-y: ${clampPercentage(position.y)}%;`;
+  const zoomNumber = Number(position.zoom);
+  const zoomPercentage = Number.isFinite(zoomNumber)
+    ? Math.min(300, Math.max(100, zoomNumber))
+    : 100;
+  const zoomScale = zoomPercentage / 100;
+  const hoverZoomScale = zoomScale * 1.02;
+
+  return [
+    `--thumbnail-focus-x: ${clampPercentage(position.x)}%`,
+    `--thumbnail-focus-y: ${clampPercentage(position.y)}%`,
+    `--thumbnail-zoom: ${zoomScale}`,
+    `--thumbnail-hover-zoom: ${hoverZoomScale}`
+  ].join("; ") + ";";
 }
 
 function openLinksInNewTab(html) {

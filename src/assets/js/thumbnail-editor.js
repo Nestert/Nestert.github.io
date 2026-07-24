@@ -13,8 +13,10 @@
   const focusMarker = editor.querySelector('[data-thumbnail-focus-marker]');
   const xInput = editor.querySelector('[data-thumbnail-x]');
   const yInput = editor.querySelector('[data-thumbnail-y]');
+  const zoomInput = editor.querySelector('[data-thumbnail-zoom]');
   const xOutput = editor.querySelector('[data-thumbnail-x-output]');
   const yOutput = editor.querySelector('[data-thumbnail-y-output]');
+  const zoomOutput = editor.querySelector('[data-thumbnail-zoom-output]');
   const code = editor.querySelector('[data-thumbnail-code]');
   const copyButton = editor.querySelector('[data-thumbnail-copy]');
   const resetButton = editor.querySelector('[data-thumbnail-reset]');
@@ -22,14 +24,20 @@
 
   let focusX = 50;
   let focusY = 50;
+  let zoom = 100;
   let isDragging = false;
 
-  function clamp(value) {
+  function clampPercentage(value) {
     return Math.min(100, Math.max(0, Math.round(Number(value) || 0)));
   }
 
+  function clampZoom(value) {
+    const number = Math.round(Number(value) || 100);
+    return Math.min(300, Math.max(100, number));
+  }
+
   function settingsText() {
-    return `thumbnail_position:\n  x: ${focusX}\n  y: ${focusY}`;
+    return `thumbnail_position:\n  x: ${focusX}\n  y: ${focusY}\n  zoom: ${zoom}`;
   }
 
   function updateUrl() {
@@ -40,26 +48,33 @@
       url.searchParams.set('image', imagePath);
       url.searchParams.set('x', String(focusX));
       url.searchParams.set('y', String(focusY));
+      url.searchParams.set('zoom', String(zoom));
     } else {
       url.searchParams.delete('image');
       url.searchParams.delete('x');
       url.searchParams.delete('y');
+      url.searchParams.delete('zoom');
     }
 
     window.history.replaceState({}, '', url);
   }
 
   function renderFocus(updateAddress) {
-    focusX = clamp(focusX);
-    focusY = clamp(focusY);
+    focusX = clampPercentage(focusX);
+    focusY = clampPercentage(focusY);
+    zoom = clampZoom(zoom);
 
     xInput.value = String(focusX);
     yInput.value = String(focusY);
+    zoomInput.value = String(zoom);
     xOutput.textContent = `${focusX}%`;
     yOutput.textContent = `${focusY}%`;
+    zoomOutput.textContent = `${zoom}%`;
     focusMarker.style.left = `${focusX}%`;
     focusMarker.style.top = `${focusY}%`;
     previewImage.style.objectPosition = `${focusX}% ${focusY}%`;
+    previewImage.style.transformOrigin = `${focusX}% ${focusY}%`;
+    previewImage.style.transform = `scale(${zoom / 100})`;
     code.textContent = settingsText();
 
     if (updateAddress) updateUrl();
@@ -98,6 +113,7 @@
   imageSelect.addEventListener('change', function () {
     focusX = 50;
     focusY = 50;
+    zoom = 100;
     loadImage(imageSelect.value, true);
   });
 
@@ -108,6 +124,11 @@
 
   yInput.addEventListener('input', function () {
     focusY = yInput.value;
+    renderFocus(true);
+  });
+
+  zoomInput.addEventListener('input', function () {
+    zoom = zoomInput.value;
     renderFocus(true);
   });
 
@@ -133,14 +154,15 @@
   resetButton.addEventListener('click', function () {
     focusX = 50;
     focusY = 50;
+    zoom = 100;
     renderFocus(true);
-    status.textContent = 'Положение возвращено в центр.';
+    status.textContent = 'Положение и масштаб сброшены.';
   });
 
   copyButton.addEventListener('click', async function () {
     try {
       await navigator.clipboard.writeText(settingsText());
-      status.textContent = 'Настройки скопированы. Вставьте значения X и Y в Pages CMS.';
+      status.textContent = 'Настройки скопированы. Вставьте X, Y и масштаб в Pages CMS.';
     } catch (error) {
       status.textContent = 'Не удалось скопировать автоматически. Выделите настройки над кнопкой вручную.';
     }
@@ -156,6 +178,7 @@
     imageSelect.value = initialImage;
     focusX = initialParams.get('x') || 50;
     focusY = initialParams.get('y') || 50;
+    zoom = initialParams.get('zoom') || 100;
     loadImage(initialImage, false);
   } else {
     loadImage('', false);

@@ -13,6 +13,8 @@
   display: block;
   object-fit: cover;
   object-position: var(--thumbnail-focus-x, 50%) var(--thumbnail-focus-y, 50%);
+  transform: scale(var(--thumbnail-zoom, 1));
+  transform-origin: var(--thumbnail-focus-x, 50%) var(--thumbnail-focus-y, 50%);
   transition: opacity 0.55s ease, transform $transition-base;
 }
 
@@ -69,7 +71,7 @@
 
 .project-card:hover .project-card__image,
 .project-card:focus-within .project-card__image {
-  transform: scale(1.02);
+  transform: scale(var(--thumbnail-hover-zoom, 1.02));
 }
 
 @media (hover: hover) and (min-width: 768px) {
