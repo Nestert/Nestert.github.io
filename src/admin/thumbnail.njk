@@ -1,0 +1,90 @@
+---
+layout: layouts/base.njk
+title: Редактор миниатюры
+description: Визуальный выбор точки фокуса для миниатюр работ
+permalink: /admin/thumbnail/index.html
+---
+
+<div class="container thumbnail-editor" data-thumbnail-editor>
+  <header class="thumbnail-editor__header">
+    <a class="thumbnail-editor__back" href="/admin/">← Редактор сайта</a>
+    <p class="thumbnail-editor__eyebrow">Предпросмотр 4 × 5</p>
+    <h1 class="thumbnail-editor__title">Положение миниатюры</h1>
+    <p class="thumbnail-editor__intro">Выберите изображение и нажмите на важное место. Справа показано, как работа будет выглядеть в списке на сайте.</p>
+  </header>
+
+  <div class="thumbnail-editor__source">
+    <label class="thumbnail-editor__label" for="thumbnail-image">Изображение</label>
+    <select class="thumbnail-editor__select" id="thumbnail-image" data-thumbnail-image-select>
+      <option value="">Выберите изображение работы</option>
+      {% for image in adminImages %}
+        <option value="{{ image.url }}">{{ image.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="thumbnail-editor__workspace" data-thumbnail-workspace hidden>
+    <section class="thumbnail-editor__panel" aria-labelledby="focus-heading">
+      <div class="thumbnail-editor__panel-heading">
+        <div>
+          <p class="thumbnail-editor__step">Шаг 1</p>
+          <h2 id="focus-heading">Укажите важную точку</h2>
+        </div>
+        <button class="thumbnail-editor__text-button" type="button" data-thumbnail-reset>Вернуть в центр</button>
+      </div>
+
+      <p class="thumbnail-editor__hint">Нажмите или перетащите метку по изображению. Эта часть работы останется в кадре.</p>
+
+      <div class="thumbnail-editor__focus-stage" data-thumbnail-focus-stage>
+        <img class="thumbnail-editor__source-image" data-thumbnail-source-image alt="">
+        <span class="thumbnail-editor__focus-marker" data-thumbnail-focus-marker aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <section class="thumbnail-editor__panel thumbnail-editor__panel--result" aria-labelledby="result-heading">
+      <div class="thumbnail-editor__panel-heading">
+        <div>
+          <p class="thumbnail-editor__step">Шаг 2</p>
+          <h2 id="result-heading">Итоговая миниатюра</h2>
+        </div>
+      </div>
+
+      <div class="thumbnail-editor__preview" data-thumbnail-preview>
+        <img class="thumbnail-editor__preview-image" data-thumbnail-preview-image alt="">
+      </div>
+
+      <div class="thumbnail-editor__controls">
+        <label class="thumbnail-editor__control" for="thumbnail-focus-x">
+          <span>По горизонтали</span>
+          <output data-thumbnail-x-output>50%</output>
+        </label>
+        <input id="thumbnail-focus-x" type="range" min="0" max="100" value="50" data-thumbnail-x>
+
+        <label class="thumbnail-editor__control" for="thumbnail-focus-y">
+          <span>По вертикали</span>
+          <output data-thumbnail-y-output>50%</output>
+        </label>
+        <input id="thumbnail-focus-y" type="range" min="0" max="100" value="50" data-thumbnail-y>
+      </div>
+
+      <div class="thumbnail-editor__copy-block">
+        <p class="thumbnail-editor__step">Шаг 3</p>
+        <p>Перенесите эти два числа в поле «Положение миниатюры» нужной работы в Pages CMS.</p>
+        <pre class="thumbnail-editor__code" data-thumbnail-code>thumbnail_position:
+  x: 50
+  y: 50</pre>
+        <div class="thumbnail-editor__actions">
+          <button class="thumbnail-editor__button" type="button" data-thumbnail-copy>Скопировать настройки</button>
+          <a class="thumbnail-editor__button thumbnail-editor__button--secondary" href="https://app.pagescms.org/" target="_blank" rel="noopener noreferrer">Открыть Pages CMS ↗</a>
+        </div>
+        <p class="thumbnail-editor__status" data-thumbnail-status aria-live="polite"></p>
+      </div>
+    </section>
+  </div>
+
+  <div class="thumbnail-editor__empty" data-thumbnail-empty>
+    <p>После выбора изображения здесь появятся область фокуса и готовая миниатюра.</p>
+  </div>
+</div>
+
+<script src="/assets/js/thumbnail-editor.js?v={{ site.assetVersion }}"></script>

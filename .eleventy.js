@@ -275,6 +275,7 @@ function readSeriesCovers() {
 
     settings.set(key, {
       image: entry.image,
+      thumbnail_position: entry.thumbnail_position,
       order
     });
   });
@@ -332,6 +333,9 @@ function createSeriesProjects(collectionApi) {
     const newestMember = sortByYearDesc(group.members)[0];
     const automaticCover = newestMember?.data?.thumbnail || newestMember?.data?.image;
     const image = settings?.image || automaticCover;
+    const thumbnailPosition = settings
+      ? settings.thumbnail_position
+      : newestMember?.data?.thumbnail_position;
 
     if (!image) {
       throw new Error(`Для серии «${group.title}» не удалось определить обложку.`);
@@ -346,6 +350,7 @@ function createSeriesProjects(collectionApi) {
         order: settings?.order ?? 0,
         image,
         thumbnail: image,
+        thumbnail_position: thumbnailPosition,
         members,
         isGeneratedSeries: true
       }
@@ -385,6 +390,10 @@ async function renderImage(src, alt, attrs = {}, options = {}) {
     htmlAttributes.class = attrs.class;
   }
 
+  if (attrs.style) {
+    htmlAttributes.style = attrs.style;
+  }
+
   if (options.sizes) {
     htmlAttributes.sizes = options.sizes;
   }
@@ -396,6 +405,22 @@ async function renderImage(src, alt, attrs = {}, options = {}) {
   return Image.generateHTML(metadata, htmlAttributes, {
     whitespaceMode: "inline"
   });
+}
+
+function formatThumbnailPosition(position) {
+  if (!position || typeof position !== "object") return "";
+
+  const hasX = position.x !== undefined && position.x !== null && position.x !== "";
+  const hasY = position.y !== undefined && position.y !== null && position.y !== "";
+
+  if (!hasX && !hasY) return "";
+
+  const clampPercentage = (value) => {
+    const number = Number(value);
+    return Number.isFinite(number) ? Math.min(100, Math.max(0, number)) : 50;
+  };
+
+  return `--thumbnail-focus-x: ${clampPercentage(position.x)}%; --thumbnail-focus-y: ${clampPercentage(position.y)}%;`;
 }
 
 function openLinksInNewTab(html) {
@@ -495,9 +520,13 @@ module.exports = function (eleventyConfig) {
     className = "",
     loading = "lazy",
     fetchpriority = "",
+    thumbnailPosition = null,
     sizes = "(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 100vw"
   ) {
-    return renderImage(src, alt, { class: className }, {
+    return renderImage(src, alt, {
+      class: className,
+      style: formatThumbnailPosition(thumbnailPosition)
+    }, {
       widths: [320, 640, 960, 1200],
       sizes,
       loading,

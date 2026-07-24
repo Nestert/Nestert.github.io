@@ -25,7 +25,7 @@ layout: layouts/base.njk
         <article class="project-card">
           <a href="{{ work.url }}" class="project-card__link">
             {% set previewImage = work.data.thumbnail or work.data.image %}
-            {% cardImage previewImage, work.data.title, "project-card__image", cardLoading, cardPriority %}
+            {% cardImage previewImage, work.data.title, "project-card__image", cardLoading, cardPriority, work.data.thumbnail_position %}
             <div class="project-card__overlay">
               <h2 class="project-card__title">{{ work.data.title }}</h2>
               {% if work.data.yearLabel or work.data.year %}

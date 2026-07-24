@@ -35,6 +35,29 @@ media:
     categories: [image]
     rename: safe
 
+components:
+  thumbnail_position:
+    type: object
+    label: Положение миниатюры
+    description: "Подберите итоговый кадр в редакторе: http://omanovar.ru.website.yandexcloud.net/admin/thumbnail/ — затем перенесите сюда X и Y. 50 / 50 — центр."
+    fields:
+      - name: x
+        label: По горизонтали, %
+        type: number
+        default: 50
+        options:
+          min: 0
+          max: 100
+        description: "0 — левый край, 50 — центр, 100 — правый край."
+      - name: y
+        label: По вертикали, %
+        type: number
+        default: 50
+        options:
+          min: 0
+          max: 100
+        description: "0 — верхний край, 50 — центр, 100 — нижний край."
+
 content:
   - name: works
     label: Работы
@@ -107,6 +130,8 @@ content:
             options:
               media: paintings
               rename: safe
+          - name: thumbnail_position
+            component: thumbnail_position
           - name: order
             label: Порядок
             type: number
@@ -187,6 +212,8 @@ content:
             options:
               media: drawings
               rename: safe
+          - name: thumbnail_position
+            component: thumbnail_position
           - name: order
             label: Порядок
             type: number
@@ -267,6 +294,8 @@ content:
             options:
               media: projects
               rename: safe
+          - name: thumbnail_position
+            component: thumbnail_position
           - name: order
             label: Порядок
             type: number
@@ -347,6 +376,8 @@ content:
             options:
               media: objects
               rename: safe
+          - name: thumbnail_position
+            component: thumbnail_position
           - name: order
             label: Порядок
             type: number
@@ -478,6 +509,9 @@ content:
         options:
           media: projects
           rename: safe
+      - name: thumbnail_position
+        component: thumbnail_position
+        label: Положение обложки
       - name: order
         label: Порядок
         type: number
