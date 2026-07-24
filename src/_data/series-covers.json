@@ -2,6 +2,31 @@
   {
     "name": "Шкуры",
     "image": "/assets/images/projects/img2510-1.jpg",
+    "thumbnail_position": {
+      "x": 50,
+      "y": 50,
+      "zoom": 100
+    },
+    "order": 0
+  },
+  {
+    "name": "Организм 1",
+    "image": "/assets/images/projects/img2817.jpg",
+    "thumbnail_position": {
+      "x": 40,
+      "y": 50,
+      "zoom": 100
+    },
+    "order": 0
+  },
+  {
+    "name": "Ездили где-то",
+    "image": "/assets/images/projects/img2824.jpg",
+    "thumbnail_position": {
+      "x": 30,
+      "y": 50,
+      "zoom": 100
+    },
     "order": 0
   }
 ]
