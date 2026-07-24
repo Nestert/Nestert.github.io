@@ -8,6 +8,6 @@ image: /assets/images/drawings/ekaterinaromanovakrovenosnayasistema.jpg
 order: 7
 thumbnail_position:
   x: 50
-  y: 60
+  y: 58
   zoom: 100
 ---
