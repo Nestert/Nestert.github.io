@@ -6,4 +6,8 @@ materials: конгрев, бумага, картон, проволока, ти�
 description: В коллекции Кирилла Авелева
 image: /assets/images/drawings/img75828.png
 order: 13
+thumbnail_position:
+  x: 50
+  y: 82
+  zoom: 100
 ---
