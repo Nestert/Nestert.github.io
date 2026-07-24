@@ -6,4 +6,8 @@ materials: холст, масло, глина, стретч, полиэтиле�
 image: /assets/images/paintings/preparat.png
 order: 1
 series: Организм 2
+thumbnail_position:
+  x: 50
+  y: 25
+  zoom: 109
 ---
