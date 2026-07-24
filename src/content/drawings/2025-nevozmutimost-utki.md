@@ -8,4 +8,8 @@ image: /assets/images/drawings/img7582343.png
 gallery:
   - /assets/images/drawings/img8950compressed-0.jpg
 order: 14
+thumbnail_position:
+  x: 50
+  y: 0
+  zoom: 105
 ---
