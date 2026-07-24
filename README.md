@@ -4,7 +4,8 @@
 
 ## Основные адреса
 
-- Сайт в Yandex Object Storage: <http://omanovar.ru.website.yandexcloud.net/>
+- Основной сайт: <https://omanovar.ru/>
+- Технический адрес Yandex Object Storage: <http://omanovar.ru.website.yandexcloud.net/>
 - Редактор контента: <https://app.pagescms.org/>
 - Репозиторий: <https://github.com/Nestert/Nestert.github.io>
 - Бакет Yandex Object Storage: `omanovar.ru`
@@ -153,14 +154,8 @@ yc config profile activate valbelsov-deploy
 cd "/Users/valentinbelousov/new roman site"
 git pull --ff-only origin main
 npm install
-SITE_URL=https://omanovar.ru.website.yandexcloud.net npm run build
-npm run lint
-```
-
-Когда основным адресом станет `https://omanovar.ru`, собирайте сайт так:
-
-```bash
 SITE_URL=https://omanovar.ru npm run build
+npm run lint
 ```
 
 ### Загрузка в Yandex Object Storage

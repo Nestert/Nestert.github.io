@@ -39,7 +39,7 @@ components:
   thumbnail_position:
     type: object
     label: Положение миниатюры
-    description: "Подберите итоговый кадр в редакторе: http://omanovar.ru.website.yandexcloud.net/admin/thumbnail/ — затем перенесите сюда X и Y. 50 / 50 — центр."
+    description: "Подберите итоговый кадр в редакторе: https://omanovar.ru/admin/thumbnail/ — затем перенесите сюда X и Y. 50 / 50 — центр."
     fields:
       - name: x
         label: По горизонтали, %
