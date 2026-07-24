@@ -11,7 +11,7 @@ gallery:
   - /assets/images/drawings/img2934compressed-0.jpg
 order: 21
 thumbnail_position:
-  x: 46
-  y: 50
+  x: 50
+  y: 36
   zoom: 110
 ---
