@@ -7,7 +7,7 @@ series: Организм 2
 image: /assets/images/paintings/grudnaya-kletka.png
 order: 4
 thumbnail_position:
-  x: 49
-  y: 13
-  zoom: 110
+  x: 50
+  y: 50
+  zoom: 100
 ---
