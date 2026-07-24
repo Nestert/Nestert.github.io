@@ -7,7 +7,7 @@ image: /assets/images/paintings/preparat.png
 order: 1
 series: Организм 2
 thumbnail_position:
-  x: 50
-  y: 25
-  zoom: 109
+  x: 69
+  y: 16
+  zoom: 108
 ---
