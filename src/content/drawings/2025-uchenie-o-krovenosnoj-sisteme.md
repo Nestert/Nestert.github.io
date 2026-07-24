@@ -6,4 +6,8 @@ materials: линогравюра
 series: Организм 1
 image: /assets/images/drawings/img8943-2compressed-0.jpg
 order: 7
+thumbnail_position:
+  x: 50
+  y: 38
+  zoom: 100
 ---
