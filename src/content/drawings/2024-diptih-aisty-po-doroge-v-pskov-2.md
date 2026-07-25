@@ -8,6 +8,6 @@ image: /assets/images/drawings/img8048compressed-0.jpg
 order: 16
 thumbnail_position:
   x: 50
-  y: 16
-  zoom: 100
+  y: 12
+  zoom: 115
 ---
