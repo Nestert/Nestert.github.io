@@ -4,9 +4,9 @@ title: Биография
 ---
 ## ЕКАТЕРИНА РОМАНОВА
 
-* [shs_krom@mail.ru](mailto:shs_krom@mail.ru)
-* [Instagram @omanovar](https://www.instagram.com/omanovar/)
-* [Telegram @omanovarr](https://t.me/omanovarr)
+- [shs_krom@mail.ru](mailto:shs_krom@mail.ru)
+- [Instagram @omanovar](https://www.instagram.com/omanovar/)
+- [Telegram @omanovarr](https://t.me/omanovarr)
 
 р. 1998, Санкт-Петербург
 
@@ -35,6 +35,8 @@ title: Биография
 ## ОСНОВНЫЕ ВЫСТАВКИ / ЯРМАРКИ
 
 ### **2026**
+
+**«Port Art Fair»**, объединение Parazit, куратор Mar, Севкабель порт, Спб.
 
 **«Дураки и дуры»**, объединение Parazit, куратор Анастасия Иваненкова, галерея Борей, Спб.
 
