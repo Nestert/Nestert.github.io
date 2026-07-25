@@ -455,7 +455,7 @@ content:
     type: group
     items:
       - name: cv
-        label: Биография
+        label: CV
         type: file
         path: src/cv.md
         format: yaml-frontmatter
