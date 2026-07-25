@@ -3,9 +3,13 @@ title: ЧАЙНЫЙ ГРИБ
 year: 2026
 dimensions: Ø 80, высота 12
 materials: смешанная техника
-image: /assets/images/objects/img3709compressed-0.jpg
+image: /assets/images/objects/img4092.png
 gallery:
-  - /assets/images/objects/img3706compressed-0.jpg
-  - /assets/images/objects/img3705compressed-0.jpg
+  - /assets/images/objects/img4093.png
+  - /assets/images/objects/img4097.png
 order: 1
+thumbnail_position:
+  x: 50
+  y: 50
+  zoom: 100
 ---
