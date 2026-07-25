@@ -8,6 +8,6 @@ image: /assets/images/drawings/img8075compressed-0.jpg
 order: 15
 thumbnail_position:
   x: 50
-  y: 15
-  zoom: 100
+  y: 12
+  zoom: 115
 ---
