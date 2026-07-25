@@ -2,7 +2,7 @@
 title: ПАДЛА!
 year: 2025
 materials: стекло, бумага, смешанная техника
-image: /assets/images/objects/img8551.jpg
+image: /assets/images/objects/img4096.png
 order: 0
 thumbnail_position:
   x: 38
