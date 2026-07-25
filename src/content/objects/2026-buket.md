@@ -4,10 +4,14 @@ year: 2026
 dimensions: 26 x 14 x 15
 materials: хрусталь, медицинские инструменты, эпоксидная смола
 series: Хирургия
-image: /assets/images/objects/img3854compressed-0.jpg
+image: /assets/images/objects/img3862compressed-0.jpg
 gallery:
   - /assets/images/objects/img3853compressed-0.jpg
+  - /assets/images/objects/img3854compressed-0.jpg
   - /assets/images/objects/img3858compressed-0.jpg
-  - /assets/images/objects/img3862compressed-0.jpg
 order: 0
+thumbnail_position:
+  x: 50
+  y: 50
+  zoom: 100
 ---
