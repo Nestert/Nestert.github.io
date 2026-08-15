@@ -7,7 +7,7 @@ series: Шкуры
 image: /assets/images/drawings/misha-1.png
 thumbnail_position:
   x: 50
-  y: 50
+  y: 0
   zoom: 100
 order: 0
 ---
