@@ -57,5 +57,8 @@
     "src/content/objects/2025-padla.md",
     "src/content/objects/2025-shpilki.md",
     "src/content/objects/2024-vanka-vstanka.md"
+  ],
+  "projects": [
+    "src/content/projects/2026-rynochnye-otnosheniya-kuznechnyj.md"
   ]
 }
