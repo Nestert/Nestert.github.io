@@ -1,6 +1,10 @@
 {
   "project_items": [
     {
+      "type": "project",
+      "project": "src/content/projects/2026-rynochnye-otnosheniya-kuznechnyj.md"
+    },
+    {
       "type": "series",
       "series": "Хирургия"
     },
@@ -27,10 +31,6 @@
     {
       "type": "series",
       "series": "Праздник"
-    },
-    {
-      "type": "project",
-      "project": "src/content/projects/2026-rynochnye-otnosheniya-kuznechnyj.md"
     }
   ],
   "paintings": [
