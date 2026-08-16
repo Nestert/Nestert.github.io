@@ -228,6 +228,12 @@
   display: none;
 }
 
+.series-carousel.is-enabled .series-carousel__caption {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
 .series-carousel__title {
   margin-bottom: $spacing-sm;
   font-size: clamp(1.5rem, 3vw, 2rem);
