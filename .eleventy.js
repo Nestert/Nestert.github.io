@@ -55,6 +55,7 @@ function normalizeContentPath(value) {
 
 function readWorkOrder() {
   const emptyOrder = {
+    projectItems: [],
     series: [],
     ...Object.fromEntries(WORK_ORDER_CATEGORIES.map((category) => [category, []]))
   };
@@ -138,7 +139,82 @@ function readWorkOrder() {
     return key;
   });
 
-  return { series, ...categoryOrder };
+  const hasProjectItems = Object.prototype.hasOwnProperty.call(data, "project_items");
+  let projectItems;
+
+  if (hasProjectItems) {
+    if (!Array.isArray(data.project_items)) {
+      throw new Error("В порядке работ поле «project_items» должно быть массивом.");
+    }
+
+    const seenProjectItems = new Set();
+
+    projectItems = data.project_items.map((entry, index) => {
+      if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+        throw new Error(
+          `В порядке проектов запись ${index + 1} должна быть серией или отдельным проектом.`
+        );
+      }
+
+      if (entry.type === "series") {
+        const key = normalizeSeriesName(entry.series);
+
+        if (!key) {
+          throw new Error(`В порядке проектов у серии ${index + 1} не указано название.`);
+        }
+
+        const identity = `series:${key}`;
+
+        if (seenProjectItems.has(identity)) {
+          throw new Error(`В порядке проектов серия «${entry.series}» добавлена дважды.`);
+        }
+
+        seenProjectItems.add(identity);
+        return { type: "series", value: key };
+      }
+
+      if (entry.type === "project") {
+        const projectPath = normalizeContentPath(entry.project);
+
+        if (!projectPath.startsWith("src/content/projects/") || !projectPath.endsWith(".md")) {
+          throw new Error(
+            `В порядке проектов указан некорректный файл: «${entry.project || ""}».`
+          );
+        }
+
+        const identity = `project:${projectPath}`;
+
+        if (seenProjectItems.has(identity)) {
+          throw new Error(
+            `В порядке проектов файл «${entry.project}» добавлен дважды.`
+          );
+        }
+
+        seenProjectItems.add(identity);
+        return { type: "project", value: projectPath };
+      }
+
+      throw new Error(
+        `В порядке проектов у записи ${index + 1} неизвестный тип «${entry.type || ""}».`
+      );
+    });
+
+    series.splice(
+      0,
+      series.length,
+      ...projectItems.filter((entry) => entry.type === "series").map((entry) => entry.value)
+    );
+    categoryOrder.projects = projectItems
+      .filter((entry) => entry.type === "project")
+      .map((entry) => entry.value);
+  } else {
+    projectItems = [
+      ...series.map((value) => ({ type: "series", value })),
+      ...categoryOrder.projects.map((value) => ({ type: "project", value }))
+    ];
+  }
+
+  return { projectItems, series, ...categoryOrder };
 }
 
 function sortByConfiguredWorkOrder(items, category) {
@@ -190,6 +266,36 @@ function sortSeriesByConfiguredOrder(items) {
   return fallbackItems.sort((a, b) => {
     const aRank = ranks.get(normalizeSeriesName(a?.data?.title));
     const bRank = ranks.get(normalizeSeriesName(b?.data?.title));
+    const aIsConfigured = aRank !== undefined;
+    const bIsConfigured = bRank !== undefined;
+
+    if (aIsConfigured && bIsConfigured) return aRank - bRank;
+    if (aIsConfigured) return -1;
+    if (bIsConfigured) return 1;
+    return 0;
+  });
+}
+
+function sortProjectIndexItems(seriesItems, projectItems) {
+  const fallbackItems = [
+    ...(seriesItems || []),
+    ...sortByConfiguredWorkOrder(projectItems, "projects")
+  ];
+  const configuredOrder = readWorkOrder().projectItems || [];
+  const ranks = new Map(configuredOrder.map((entry, index) => [
+    `${entry.type}:${entry.value}`,
+    index
+  ]));
+
+  return fallbackItems.sort((a, b) => {
+    const aIdentity = a?.data?.isGeneratedSeries
+      ? `series:${normalizeSeriesName(a?.data?.title)}`
+      : `project:${normalizeContentPath(a?.inputPath)}`;
+    const bIdentity = b?.data?.isGeneratedSeries
+      ? `series:${normalizeSeriesName(b?.data?.title)}`
+      : `project:${normalizeContentPath(b?.inputPath)}`;
+    const aRank = ranks.get(aIdentity);
+    const bRank = ranks.get(bIdentity);
     const aIsConfigured = aRank !== undefined;
     const bIsConfigured = bRank !== undefined;
 
@@ -494,13 +600,10 @@ module.exports = function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection("projectIndexItems", function (collectionApi) {
-    return [
-      ...createSeriesProjects(collectionApi),
-      ...sortByConfiguredWorkOrder(
-        collectionApi.getFilteredByGlob("src/content/projects/**/*.md"),
-        "projects"
-      )
-    ];
+    return sortProjectIndexItems(
+      createSeriesProjects(collectionApi),
+      collectionApi.getFilteredByGlob("src/content/projects/**/*.md")
+    );
   });
 
   eleventyConfig.addFilter("sortByYearDesc", function (items) {

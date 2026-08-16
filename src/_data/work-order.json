@@ -1,12 +1,37 @@
 {
-  "series": [
-    "Хирургия",
-    "Шкуры",
-    "Организм 1",
-    "Организм 2",
-    "Девяткино",
-    "Ездили где-то",
-    "Праздник"
+  "project_items": [
+    {
+      "type": "series",
+      "series": "Хирургия"
+    },
+    {
+      "type": "series",
+      "series": "Шкуры"
+    },
+    {
+      "type": "series",
+      "series": "Организм 1"
+    },
+    {
+      "type": "series",
+      "series": "Организм 2"
+    },
+    {
+      "type": "series",
+      "series": "Девяткино"
+    },
+    {
+      "type": "series",
+      "series": "Ездили где-то"
+    },
+    {
+      "type": "series",
+      "series": "Праздник"
+    },
+    {
+      "type": "project",
+      "project": "src/content/projects/2026-rynochnye-otnosheniya-kuznechnyj.md"
+    }
   ],
   "paintings": [
     "src/content/paintings/2025-preparat.md",
@@ -58,8 +83,5 @@
     "src/content/objects/2025-padla.md",
     "src/content/objects/2025-shpilki.md",
     "src/content/objects/2024-vanka-vstanka.md"
-  ],
-  "projects": [
-    "src/content/projects/2026-rynochnye-otnosheniya-kuznechnyj.md"
   ]
 }

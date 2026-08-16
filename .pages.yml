@@ -408,20 +408,33 @@ content:
       delete: false
       rename: false
     fields:
-      - name: series
-        label: Серии в «Проектах»
-        type: string
+      - name: project_items
+        label: Порядок на странице «Проекты»
+        type: block
         list: true
-        description: Перетаскивайте названия за маркер слева. Название должно совпадать с полем «Серия работ»; новые серии добавляйте в список вручную.
-      - name: projects
-        label: Ручные проекты
-        type: reference
-        list: true
-        description: Перетаскивайте строки за маркер слева. Ручные проекты показываются после автоматических серий.
-        options:
-          collection: projects
-          value: "{path}"
-          label: "{primary} — {fields.year}"
+        blockKey: type
+        description: Перетаскивайте серии и отдельные проекты в общем списке. При добавлении элемента сначала выберите его тип.
+        blocks:
+          - name: series
+            label: Серия
+            fields:
+              - name: series
+                label: Название серии
+                type: string
+                required: true
+                description: Должно совпадать с полем «Серия работ». Регистр и лишние пробелы не учитываются.
+          - name: project
+            label: Отдельный проект
+            fields:
+              - name: project
+                label: Проект
+                type: reference
+                required: true
+                options:
+                  collection: projects
+                  search: "title,year,series"
+                  value: "{path}"
+                  label: "{year} — {primary}"
       - name: paintings
         label: Живопись
         type: reference
@@ -429,8 +442,9 @@ content:
         description: Перетаскивайте строки за маркер слева. Новую работу добавьте в список через кнопку «Добавить элемент».
         options:
           collection: paintings
+          search: "title,year,series"
           value: "{path}"
-          label: "{primary} — {fields.year}"
+          label: "{year} — {primary}"
       - name: drawings
         label: Графика
         type: reference
@@ -438,8 +452,9 @@ content:
         description: Перетаскивайте строки за маркер слева. Новую работу добавьте в список через кнопку «Добавить элемент».
         options:
           collection: drawings
+          search: "title,year,series"
           value: "{path}"
-          label: "{primary} — {fields.year}"
+          label: "{year} — {primary}"
       - name: objects
         label: Объекты
         type: reference
@@ -447,8 +462,9 @@ content:
         description: Перетаскивайте строки за маркер слева. Новую работу добавьте в список через кнопку «Добавить элемент».
         options:
           collection: objects
+          search: "title,year,series"
           value: "{path}"
-          label: "{primary} — {fields.year}"
+          label: "{year} — {primary}"
 
   - name: pages
     label: Текстовые страницы
