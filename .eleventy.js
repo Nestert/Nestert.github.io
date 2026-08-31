@@ -277,9 +277,16 @@ function sortSeriesByConfiguredOrder(items) {
 }
 
 function sortProjectIndexItems(seriesItems, projectItems) {
+  const seriesKeys = new Set((seriesItems || []).map((item) => (
+    normalizeSeriesName(item?.data?.title)
+  )));
+  const standaloneProjects = (projectItems || []).filter((item) => {
+    const seriesKey = normalizeSeriesName(item?.data?.series);
+    return !seriesKey || !seriesKeys.has(seriesKey);
+  });
   const fallbackItems = [
     ...(seriesItems || []),
-    ...sortByConfiguredWorkOrder(projectItems, "projects")
+    ...sortByConfiguredWorkOrder(standaloneProjects, "projects")
   ];
   const configuredOrder = readWorkOrder().projectItems || [];
   const ranks = new Map(configuredOrder.map((entry, index) => [
@@ -288,14 +295,23 @@ function sortProjectIndexItems(seriesItems, projectItems) {
   ]));
 
   return fallbackItems.sort((a, b) => {
-    const aIdentity = a?.data?.isGeneratedSeries
-      ? `series:${normalizeSeriesName(a?.data?.title)}`
-      : `project:${normalizeContentPath(a?.inputPath)}`;
-    const bIdentity = b?.data?.isGeneratedSeries
-      ? `series:${normalizeSeriesName(b?.data?.title)}`
-      : `project:${normalizeContentPath(b?.inputPath)}`;
-    const aRank = ranks.get(aIdentity);
-    const bRank = ranks.get(bIdentity);
+    const getConfiguredRank = (item) => {
+      const identities = item?.data?.isGeneratedSeries
+        ? [
+          `series:${normalizeSeriesName(item?.data?.title)}`,
+          ...(item?.data?.projectPaths || []).map((projectPath) => (
+            `project:${normalizeContentPath(projectPath)}`
+          ))
+        ]
+        : [`project:${normalizeContentPath(item?.inputPath)}`];
+      const configuredRanks = identities
+        .map((identity) => ranks.get(identity))
+        .filter((rank) => rank !== undefined);
+
+      return configuredRanks.length > 0 ? Math.min(...configuredRanks) : undefined;
+    };
+    const aRank = getConfiguredRank(a);
+    const bRank = getConfiguredRank(b);
     const aIsConfigured = aRank !== undefined;
     const bIsConfigured = bRank !== undefined;
 
@@ -395,19 +411,34 @@ function createSeriesProjects(collectionApi) {
     ...collectionApi.getFilteredByGlob("src/content/drawings/**/*.md"),
     ...collectionApi.getFilteredByGlob("src/content/objects/**/*.md")
   ];
+  const projectItems = sortByConfiguredWorkOrder(
+    collectionApi.getFilteredByGlob("src/content/projects/**/*.md"),
+    "projects"
+  );
   const groups = new Map();
 
-  sourceItems.forEach((item) => {
-    const title = String(item.data.series || "").trim().replace(/\s+/g, " ");
+  const getOrCreateGroup = (item) => {
+    const title = String(item?.data?.series || "").trim().replace(/\s+/g, " ");
     const key = normalizeSeriesName(title);
 
-    if (!key) return;
+    if (!key) return null;
 
     if (!groups.has(key)) {
-      groups.set(key, { title, members: [] });
+      groups.set(key, { title, members: [], projects: [] });
     }
 
-    groups.get(key).members.push(item);
+    return groups.get(key);
+  };
+
+  sourceItems.forEach((item) => {
+    const group = getOrCreateGroup(item);
+    if (group) group.members.push(item);
+  });
+
+  projectItems.forEach((item) => {
+    const key = normalizeSeriesName(item?.data?.series);
+    const group = groups.get(key);
+    if (group) group.projects.push(item);
   });
 
   const seriesSettings = readSeriesCovers();
@@ -415,12 +446,42 @@ function createSeriesProjects(collectionApi) {
 
   const seriesProjects = [...groups.entries()].map(([key, group]) => {
     const members = sortByOrderThenYear(group.members);
-    const years = members
+    const projects = sortByConfiguredWorkOrder(group.projects, "projects");
+    const slides = [
+      ...projects.flatMap((project) => {
+        const images = [
+          project?.data?.image,
+          ...(Array.isArray(project?.data?.gallery) ? project.data.gallery : [])
+        ].filter(Boolean);
+
+        return images.map((image, index) => ({
+          image,
+          alt: images.length > 1
+            ? `${project.data.title} — изображение ${index + 1}`
+            : project.data.title,
+          source: project,
+          sourceType: "project"
+        }));
+      }),
+      ...members
+        .filter((member) => member?.data?.image)
+        .map((member) => ({
+          image: member.data.image,
+          alt: member.data.title,
+          source: member,
+          sourceType: "work"
+        }))
+    ];
+    const years = [...projects, ...members]
       .map(getItemYear)
       .filter(Number.isFinite);
-    const newestYear = Math.max(...years);
-    const oldestYear = Math.min(...years);
-    const yearLabel = newestYear === oldestYear ? String(newestYear) : `${oldestYear}–${newestYear}`;
+    const newestYear = years.length > 0 ? Math.max(...years) : undefined;
+    const oldestYear = years.length > 0 ? Math.min(...years) : undefined;
+    const yearLabel = years.length === 0
+      ? ""
+      : newestYear === oldestYear
+        ? String(newestYear)
+        : `${oldestYear}–${newestYear}`;
     const slug = slugifySeriesName(group.title);
 
     if (!slug) {
@@ -436,12 +497,16 @@ function createSeriesProjects(collectionApi) {
     usedSlugs.set(slug, group.title);
 
     const settings = seriesSettings.get(key);
+    const primaryProject = projects[0];
     const newestMember = sortByYearDesc(group.members)[0];
-    const automaticCover = newestMember?.data?.thumbnail || newestMember?.data?.image;
+    const automaticCover = primaryProject?.data?.thumbnail
+      || primaryProject?.data?.image
+      || newestMember?.data?.thumbnail
+      || newestMember?.data?.image;
     const image = settings?.image || automaticCover;
     const thumbnailPosition = settings
       ? settings.thumbnail_position
-      : newestMember?.data?.thumbnail_position;
+      : primaryProject?.data?.thumbnail_position || newestMember?.data?.thumbnail_position;
 
     if (!image) {
       throw new Error(`Для серии «${group.title}» не удалось определить обложку.`);
@@ -458,6 +523,9 @@ function createSeriesProjects(collectionApi) {
         thumbnail: image,
         thumbnail_position: thumbnailPosition,
         members,
+        projects,
+        projectPaths: projects.map((project) => normalizeContentPath(project.inputPath)),
+        slides,
         isGeneratedSeries: true
       }
     };
