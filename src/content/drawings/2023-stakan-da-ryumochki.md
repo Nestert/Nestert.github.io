@@ -1,7 +1,7 @@
 ---
 title: СТАКАН ДА РЮМОЧКИ
 year: 2023
-dimensions: каркас, кожа овцы, шкура овцы
+dimensions: 75х56 см, 70х100 см
 materials: Шелкография
 series: Пословицы и поговорки
 image: /assets/images/drawings/img1403.png
