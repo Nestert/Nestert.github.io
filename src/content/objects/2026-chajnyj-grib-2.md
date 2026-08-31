@@ -12,4 +12,5 @@ thumbnail_position:
   y: 50
   zoom: 100
 order: 0
+series: Чайные грибы
 ---
