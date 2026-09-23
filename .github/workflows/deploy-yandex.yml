@@ -1,0 +1,60 @@
+name: Deploy to Yandex Object Storage
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Finish an upload before starting the newest pending CMS update.
+concurrency:
+  group: yandex-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SITE_URL: https://omanovar.ru
+      ASSET_VERSION: ${{ github.sha }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check and build site
+        run: npm run check
+
+      - name: Publish site
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.YC_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ru-central1
+          AWS_EC2_METADATA_DISABLED: 'true'
+          AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+          AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+        run: bash scripts/deploy-yandex.sh
+
+      - name: Verify published version
+        shell: bash
+        run: |
+          curl --fail --silent --show-error --retry 5 --retry-all-errors \
+            "$SITE_URL/deployment.json?revision=$GITHUB_SHA" -o /tmp/deployment.json
+          node -e 'const fs = require("node:fs"); const deployed = JSON.parse(fs.readFileSync("/tmp/deployment.json", "utf8")); if (deployed.commit !== process.env.GITHUB_SHA) throw new Error("Published commit does not match this build");'
+          curl --fail --silent --show-error --retry 5 --retry-all-errors \
+            "$SITE_URL/projects/" -o /dev/null
+          echo "Published [$GITHUB_SHA]($SITE_URL)" >> "$GITHUB_STEP_SUMMARY"
