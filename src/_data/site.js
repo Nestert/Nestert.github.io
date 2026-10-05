@@ -7,8 +7,8 @@ module.exports = {
   url: defaultSiteUrl.replace(/\/$/, ""),
   assetVersion,
   preview: {
-    image: "/assets/images/site-preview-v1.jpg",
-    wideImage: "/assets/images/site-preview-wide-v1.jpg",
+    image: "/assets/images/site-preview-v2.jpg",
+    wideImage: "/assets/images/site-preview-wide-v2.jpg",
     width: 1200,
     height: 1200,
     wideHeight: 630,
