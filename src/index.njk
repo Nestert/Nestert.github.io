@@ -11,6 +11,10 @@ eleventyExcludeFromCollections: true
   <meta name="robots" content="noindex,follow">
   <title>Проекты | {{ site.title }}</title>
   <link rel="canonical" href="{{ site.url }}/projects/">
+  {% set pageTitle = "Проекты | " ~ site.title %}
+  {% set pageDescription = site.description %}
+  {% set canonicalUrl = site.url ~ "/" %}
+  {% include "components/social-meta.njk" %}
   <script>window.location.replace('/projects/');</script>
 </head>
 <body>

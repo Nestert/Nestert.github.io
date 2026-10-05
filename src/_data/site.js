@@ -6,6 +6,15 @@ module.exports = {
   description: "Портфолио художницы Екатерины Романовой",
   url: defaultSiteUrl.replace(/\/$/, ""),
   assetVersion,
+  preview: {
+    image: "/assets/images/site-preview-v1.jpg",
+    wideImage: "/assets/images/site-preview-wide-v1.jpg",
+    width: 1200,
+    height: 1200,
+    wideHeight: 630,
+    type: "image/jpeg",
+    alt: "Екатерина Романова — рукописная надпись из шапки сайта"
+  },
   language: "ru",
   author: "Екатерина Романова"
 };
