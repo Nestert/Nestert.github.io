@@ -155,6 +155,7 @@
     let pinchStartDistance = 0;
     let pinchStartScale = minimumScale;
     let activeTrigger = null;
+    let keyboardInteraction = false;
     let ignoreNextViewportClick = false;
 
     function clamp(value, minimum, maximum) {
@@ -222,6 +223,7 @@
 
       if (activeTrigger) {
         activeTrigger.focus({ preventScroll: true });
+        if (!keyboardInteraction) activeTrigger.blur();
         activeTrigger = null;
       }
     }
@@ -243,6 +245,7 @@
 
       const sourceImage = trigger.querySelector('img');
       activeTrigger = trigger;
+      keyboardInteraction = event.detail === 0;
       resetTransform();
       zoomImage.alt = sourceImage ? sourceImage.alt : '';
       zoomImage.dataset.fallbackSource = sourceImage ? (sourceImage.currentSrc || sourceImage.src) : '';
@@ -305,13 +308,20 @@
     });
 
     dialog.addEventListener('close', cleanUpDialog);
+    dialog.addEventListener('pointerdown', function() {
+      keyboardInteraction = false;
+    });
     dialog.addEventListener('click', function(event) {
+      keyboardInteraction = event.detail === 0;
+
       if (event.target === dialog) {
         closeZoom();
       }
-    });
+    }, true);
 
     dialog.addEventListener('keydown', function(event) {
+      keyboardInteraction = true;
+
       if (event.key === 'Escape') {
         event.preventDefault();
         closeZoom();
