@@ -65,8 +65,7 @@
   }
 
   &:focus-visible {
-    outline: 1px solid $color-text;
-    outline-offset: -4px;
+    outline: none;
   }
 }
 
@@ -98,6 +97,10 @@
 .work-detail__zoom-trigger:focus-visible .work-detail__zoom-icon {
   opacity: 1;
   transform: translate(0.125rem, -0.125rem);
+}
+
+.work-detail__zoom-trigger:focus-visible .work-detail__zoom-icon {
+  border-bottom: 2px solid currentColor;
 }
 
 .work-detail__image {
