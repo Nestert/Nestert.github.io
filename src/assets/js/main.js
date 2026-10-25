@@ -49,6 +49,10 @@
       let touchStartX = null;
 
       function showSlide(nextIndex) {
+        const focusedSlide = slides.find(function(slide) {
+          return slide.contains(document.activeElement);
+        });
+
         currentIndex = (nextIndex + slides.length) % slides.length;
         track.style.transform = `translate3d(-${currentIndex * 100}%, 0, 0)`;
 
@@ -66,6 +70,11 @@
 
         if (currentCounter) {
           currentCounter.textContent = String(currentIndex + 1);
+        }
+
+        if (focusedSlide && focusedSlide !== slides[currentIndex]) {
+          const activeTrigger = slides[currentIndex].querySelector('[data-image-zoom-trigger]');
+          if (activeTrigger) activeTrigger.focus({ preventScroll: true });
         }
       }
 
