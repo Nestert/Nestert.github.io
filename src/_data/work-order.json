@@ -96,6 +96,7 @@
     "src/content/drawings/2023-tishe-edesh.md"
   ],
   "objects": [
+    "src/content/objects/2026-sam-vypadet.md",
     "src/content/objects/2026-predsedateli-zemnogo-shara.md",
     "src/content/objects/2026-shlyapa.md",
     "src/content/objects/2026-chajnyj-grib-2.md",
@@ -112,7 +113,6 @@
     "src/content/objects/2025-len.md",
     "src/content/objects/2025-padla.md",
     "src/content/objects/2025-shpilki.md",
-    "src/content/objects/2024-vanka-vstanka.md",
-    "src/content/objects/2026-sam-vypadet.md"
+    "src/content/objects/2024-vanka-vstanka.md"
   ]
 }
