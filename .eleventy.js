@@ -244,19 +244,28 @@ function normalizeSeriesName(value) {
 }
 
 function groupWorksBySeries(items) {
-  const groups = new Map();
+  const groups = [];
+  const seriesGroups = new Map();
 
-  (items || []).forEach((item) => {
+  for (const item of items || []) {
     const seriesKey = normalizeSeriesName(item?.data?.series);
+    const year = getItemYear(item);
+    let group = seriesGroups.get(seriesKey);
 
-    if (!groups.has(seriesKey)) {
-      groups.set(seriesKey, []);
+    if (!group) {
+      group = { year, works: [] };
+      groups.push(group);
+      if (seriesKey) seriesGroups.set(seriesKey, group);
     }
 
-    groups.get(seriesKey).push(item);
-  });
+    group.year = Math.max(group.year, year);
+    group.works.push(item);
+  }
 
-  return Array.from(groups.values()).flat();
+  // Stable sorting preserves CMS positions when groups have the same year.
+  return groups
+    .sort((a, b) => a.year === b.year ? 0 : b.year - a.year)
+    .flatMap((group) => group.works);
 }
 
 function sortSeriesByConfiguredOrder(items) {
