@@ -4,8 +4,9 @@ year: 2026
 description: |-
   Выставка «Наследие Велимира Хлебникова»
 
-  НИИ «Parazit»
   Куратор: Глеб Ершов
+  НИИ «Parazit»
+  Санкт-Петербург
 image: /assets/images/objects/2026-predsedateli-zemnogo-shara-02.jpg
 gallery:
   - /assets/images/projects/2026-predsedateli-zemnogo-shara-01.jpg
