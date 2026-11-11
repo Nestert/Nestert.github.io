@@ -43,6 +43,10 @@
     {
       "type": "series",
       "series": "Праздник"
+    },
+    {
+      "type": "series",
+      "series": "Пословицы и поговорки"
     }
   ],
   "paintings": [
@@ -77,7 +81,19 @@
     "src/content/drawings/2024-девяткино.md",
     "src/content/drawings/2024-vanka-vstanka.md",
     "src/content/drawings/2023-muhi-u-nas.md",
-    "src/content/drawings/2024-golova-otvalivaetsya.md"
+    "src/content/drawings/2024-golova-otvalivaetsya.md",
+    "src/content/drawings/2023-a-u-nas-v-ryazani.md",
+    "src/content/drawings/2023-voron-voronu-glaz-ne-vyklyuet.md",
+    "src/content/drawings/2023-durakom-na-svete-tuzhit.md",
+    "src/content/drawings/2023-indyuk-tozhe-dumal.md",
+    "src/content/drawings/2023-komar-loshad-ne-povalit.md",
+    "src/content/drawings/2023-lyubov-zla.md",
+    "src/content/drawings/2023-lyubopytnoj-varvare.md",
+    "src/content/drawings/2023-ne-govori-gop.md",
+    "src/content/drawings/2023-pervyj-paren-na-derevne.md",
+    "src/content/drawings/2023-poka-grom-ne-gryanet.md",
+    "src/content/drawings/2023-stakan-da-ryumochki.md",
+    "src/content/drawings/2023-tishe-edesh.md"
   ],
   "objects": [
     "src/content/objects/2026-predsedateli-zemnogo-shara.md",
@@ -96,6 +112,7 @@
     "src/content/objects/2025-len.md",
     "src/content/objects/2025-padla.md",
     "src/content/objects/2025-shpilki.md",
-    "src/content/objects/2024-vanka-vstanka.md"
+    "src/content/objects/2024-vanka-vstanka.md",
+    "src/content/objects/2026-sam-vypadet.md"
   ]
 }
