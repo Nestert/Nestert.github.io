@@ -2,14 +2,13 @@
 title: Рыночные отношения. Кузнечный
 year: 2026
 description: |-
-  Ярмарка-хеппенинг на Кузнечном рынке
+  Ярмарка-хеппенинг
 
   Кураторы: Елизавета Иванова, Константин Козлов, Егор Лебедев
 
   Санкт-Петербург
 image: /assets/images/projects/img4189.jpg
 gallery:
-  - /assets/images/projects/img4174.jpg
   - /assets/images/projects/img4176.jpg
   - /assets/images/projects/img4180.jpg
   - /assets/images/projects/img4181-1.jpg
