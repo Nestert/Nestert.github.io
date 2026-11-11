@@ -55,6 +55,7 @@ function normalizeContentPath(value) {
 
 function readWorkOrder() {
   const emptyOrder = {
+    source: {},
     projectItems: [],
     series: [],
     ...Object.fromEntries(WORK_ORDER_CATEGORIES.map((category) => [category, []]))
@@ -214,7 +215,7 @@ function readWorkOrder() {
     ];
   }
 
-  return { projectItems, series, ...categoryOrder };
+  return { source: data, projectItems, series, ...categoryOrder };
 }
 
 function sortByConfiguredWorkOrder(items, category) {
@@ -276,6 +277,16 @@ function sortSeriesByConfiguredOrder(items) {
   });
 }
 
+function getProjectOrderIdentities(item) {
+  if (item.data.isGeneratedSeries) {
+    return [
+      `series:${normalizeSeriesName(item.data.title)}`,
+      ...item.data.projectPaths.map((projectPath) => `project:${projectPath}`)
+    ];
+  }
+  return [`project:${normalizeContentPath(item.inputPath)}`];
+}
+
 function sortProjectIndexItems(seriesItems, projectItems) {
   const seriesKeys = new Set((seriesItems || []).map((item) => (
     normalizeSeriesName(item?.data?.title)
@@ -294,22 +305,14 @@ function sortProjectIndexItems(seriesItems, projectItems) {
     index
   ]));
 
-  return fallbackItems.sort((a, b) => {
-    const getConfiguredRank = (item) => {
-      const identities = item?.data?.isGeneratedSeries
-        ? [
-          `series:${normalizeSeriesName(item?.data?.title)}`,
-          ...(item?.data?.projectPaths || []).map((projectPath) => (
-            `project:${normalizeContentPath(projectPath)}`
-          ))
-        ]
-        : [`project:${normalizeContentPath(item?.inputPath)}`];
-      const configuredRanks = identities
-        .map((identity) => ranks.get(identity))
-        .filter((rank) => rank !== undefined);
+  const getConfiguredRank = (item) => {
+    const configuredRanks = getProjectOrderIdentities(item)
+      .map((identity) => ranks.get(identity))
+      .filter((rank) => rank !== undefined);
+    return configuredRanks.length > 0 ? Math.min(...configuredRanks) : undefined;
+  };
 
-      return configuredRanks.length > 0 ? Math.min(...configuredRanks) : undefined;
-    };
+  return fallbackItems.sort((a, b) => {
     const aRank = getConfiguredRank(a);
     const bRank = getConfiguredRank(b);
     const aIsConfigured = aRank !== undefined;
@@ -534,6 +537,36 @@ function createSeriesProjects(collectionApi) {
   return sortSeriesByConfiguredOrder(seriesProjects);
 }
 
+function completeWorkOrder(collectionApi) {
+  const { source, projectItems } = readWorkOrder();
+  const series = createSeriesProjects(collectionApi);
+  const projects = collectionApi.getFilteredByGlob("src/content/projects/**/*.md");
+  const indexItems = sortProjectIndexItems(series, projects);
+  const activeIdentities = new Set(indexItems.flatMap(getProjectOrderIdentities));
+  const configuredIdentities = new Set(projectItems.map(({ type, value }) => `${type}:${value}`));
+  const seriesTitles = new Map(series.map(({ data }) => [normalizeSeriesName(data.title), data.title]));
+
+  const existingItems = projectItems.flatMap(({ type, value }, index) => {
+    if (!activeIdentities.has(`${type}:${value}`)) return [];
+    const original = source.project_items?.[index];
+    if (original) return [original];
+    return [type === "series" ? { type, series: seriesTitles.get(value) } : { type, project: value }];
+  });
+  const newItems = indexItems
+    .filter((item) => !getProjectOrderIdentities(item).some((identity) => configuredIdentities.has(identity)))
+    .map(({ data, inputPath }) => data.isGeneratedSeries
+      ? { type: "series", series: data.title }
+      : { type: "project", project: normalizeContentPath(inputPath) });
+
+  const completed = { ...source, project_items: [...existingItems, ...newItems] };
+  for (const category of ["paintings", "drawings", "objects"]) {
+    const items = collectionApi.getFilteredByGlob(`src/content/${category}/**/*.md`);
+    completed[category] = sortByConfiguredWorkOrder(items, category)
+      .map(({ inputPath }) => normalizeContentPath(inputPath));
+  }
+  return completed;
+}
+
 function resolveImageSource(src) {
   if (!src) {
     throw new Error("Missing image source.");
@@ -673,6 +706,21 @@ module.exports = function (eleventyConfig) {
       collectionApi.getFilteredByGlob("src/content/projects/**/*.md")
     );
   });
+
+  const snapshotPath = process.env.WORK_ORDER_SNAPSHOT;
+  if (snapshotPath) {
+    let snapshot;
+    eleventyConfig.addCollection("workOrderSnapshot", (collectionApi) => {
+      snapshot = completeWorkOrder(collectionApi);
+      return [];
+    });
+    eleventyConfig.on("eleventy.after", () => {
+      const current = readWorkOrder().source;
+      if (JSON.stringify(snapshot) !== JSON.stringify(current)) {
+        fs.writeFileSync(snapshotPath, JSON.stringify(snapshot, null, 2) + "\n");
+      }
+    });
+  }
 
   eleventyConfig.addFilter("sortByYearDesc", function (items) {
     return sortByYearDesc(items);

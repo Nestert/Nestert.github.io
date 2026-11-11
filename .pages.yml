@@ -413,7 +413,7 @@ content:
         type: block
         list: true
         blockKey: type
-        description: Перетаскивайте серии и отдельные проекты в общем списке. При добавлении элемента сначала выберите его тип.
+        description: Перетаскивайте серии и отдельные проекты. Новые строки появятся после сборки сайта. Затем заново откройте этот раздел.
         blocks:
           - name: series
             label: Серия
@@ -439,7 +439,7 @@ content:
         label: Живопись
         type: reference
         list: true
-        description: Перетаскивайте строки за маркер слева. Новую работу добавьте в список через кнопку «Добавить элемент».
+        description: Перетаскивайте строки за маркер слева. Новые работы появятся после сборки сайта.
         options:
           collection: paintings
           search: "title,year,series"
@@ -449,7 +449,7 @@ content:
         label: Графика
         type: reference
         list: true
-        description: Перетаскивайте строки за маркер слева. Новую работу добавьте в список через кнопку «Добавить элемент».
+        description: Перетаскивайте строки за маркер слева. Новые работы появятся после сборки сайта.
         options:
           collection: drawings
           search: "title,year,series"
@@ -459,7 +459,7 @@ content:
         label: Объекты
         type: reference
         list: true
-        description: Перетаскивайте строки за маркер слева. Новую работу добавьте в список через кнопку «Добавить элемент».
+        description: Перетаскивайте строки за маркер слева. Новые работы появятся после сборки сайта.
         options:
           collection: objects
           search: "title,year,series"

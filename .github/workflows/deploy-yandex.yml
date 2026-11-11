@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 # Finish an upload before starting the newest pending CMS update.
 concurrency:
@@ -37,6 +37,9 @@ jobs:
         run: npm ci
 
       - name: Check and build site
+        id: build
+        env:
+          WORK_ORDER_SNAPSHOT: ${{ runner.temp }}/work-order.json
         run: npm run check
 
       - name: Publish site
@@ -58,3 +61,35 @@ jobs:
           curl --fail --silent --show-error --retry 5 --retry-all-errors \
             "$SITE_URL/projects/" -o /dev/null
           echo "Published [$GITHUB_SHA]($SITE_URL)" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Update the Pages CMS work order
+        if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WORK_ORDER_SNAPSHOT: ${{ runner.temp }}/work-order.json
+        shell: bash
+        run: |
+          if [[ ! -f "$WORK_ORDER_SNAPSHOT" ]]; then
+            echo 'Pages CMS already has the complete work order.'
+            exit 0
+          fi
+
+          # Only update the revision that supplied the order, so concurrent CMS edits win.
+          if commit=$(jq -n --arg repo "$GITHUB_REPOSITORY" --arg sha "$GITHUB_SHA" \
+            --rawfile order "$WORK_ORDER_SNAPSHOT" '{
+              query: "mutation($input: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $input) { commit { oid } } }",
+              variables: {input: {
+                branch: {repositoryNameWithOwner: $repo, branchName: "main"},
+                expectedHeadOid: $sha,
+                message: {headline: "chore(content): sync work order"},
+                fileChanges: {additions: [{path: "src/_data/work-order.json", contents: ($order | @base64)}]}
+              }}
+            }' | gh api graphql --input - --jq '.data.createCommitOnBranch.commit.oid'); then
+            echo "Updated the Pages CMS work order in $commit."
+          else
+            current_head=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/main" --jq '.object.sha')
+            if [[ "$current_head" == "$GITHUB_SHA" ]]; then
+              exit 1
+            fi
+            echo "A newer revision is available. Its workflow will update the work order."
+          fi
