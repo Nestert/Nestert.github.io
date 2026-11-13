@@ -1,5 +1,5 @@
 ---
-title: ЧАЙНЫЕ ГРИБЫ
+title: Чайные грибы
 year: 2026
 series: Чайные грибы
 description: |-

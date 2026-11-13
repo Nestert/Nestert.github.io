@@ -1,5 +1,5 @@
 ---
-title: ТИШЕ ЕДЕШЬ
+title: Тише едешь
 year: 2023
 dimensions: 75х56 см, 70х100 см
 materials: Шелкография

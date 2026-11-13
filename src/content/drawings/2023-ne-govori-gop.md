@@ -1,5 +1,5 @@
 ---
-title: НЕ ГОВОРИ ГОП
+title: Не говори гоп
 year: 2023
 dimensions: 75х56 см, 70х100 см
 materials: Шелкография

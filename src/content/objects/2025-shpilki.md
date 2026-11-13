@@ -1,5 +1,5 @@
 ---
-title: ШПИЛЬКИ
+title: Шпильки
 year: 2025
 materials: Глина, смешанная техника
 image: /assets/images/objects/romanovashpilkibok-2.jpg

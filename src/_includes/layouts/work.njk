@@ -39,7 +39,7 @@ layout: layouts/base.njk
       <section
         class="work-carousel{% if imageCount > 1 %} work-carousel--multiple{% endif %}"
         data-work-carousel
-        aria-label="Изображения работы «{{ title }}»"
+        aria-label="Изображения работы {{ title }}"
         aria-roledescription="карусель"
       >
         <div class="work-carousel__viewport" data-carousel-viewport>
@@ -56,7 +56,7 @@ layout: layouts/base.njk
                 href="{{ image }}"
                 class="work-detail__zoom-trigger"
                 data-image-zoom-trigger
-                aria-label="Увеличить изображение работы «{{ title }}»"
+                aria-label="Увеличить изображение работы {{ title }}"
               >
                 {% detailImage image, title, "work-detail__image" %}
                 <span class="work-detail__zoom-icon" aria-hidden="true">
@@ -82,7 +82,7 @@ layout: layouts/base.njk
                     class="work-detail__zoom-trigger"
                     data-image-zoom-trigger
                     tabindex="-1"
-                    aria-label="Увеличить изображение работы «{{ title }}», {{ galleryIndex }} из {{ imageCount }}"
+                    aria-label="Увеличить изображение работы {{ title }}, {{ galleryIndex }} из {{ imageCount }}"
                   >
                     {% detailImage galleryImage, galleryAlt, "work-detail__image work-detail__image--additional", "lazy", "" %}
                     <span class="work-detail__zoom-icon" aria-hidden="true">
@@ -127,7 +127,7 @@ layout: layouts/base.njk
           <p class="work-detail__meta-item">{{ materials }}</p>
         {% endif %}
         {% if series %}
-          <p class="work-detail__meta-item">Серия «{{ series }}»</p>
+          <p class="work-detail__meta-item">Серия {{ series }}</p>
         {% endif %}
       </div>
     {% endif %}

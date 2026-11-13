@@ -1,5 +1,5 @@
 ---
-title: СТОПА
+title: Стопа
 year: 2026
 dimensions: 71 х 133
 materials: шкура козы, масляная пастель, лак

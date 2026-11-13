@@ -1,5 +1,5 @@
 ---
-title: ВАНЬКА-ВСТАНЬКА
+title: Ванька-встанька
 year: 2024
 dimensions: 36 х 30
 materials: литография

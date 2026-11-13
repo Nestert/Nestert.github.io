@@ -1,5 +1,5 @@
 ---
-title: СЕРДЦЕ И ЛУНА
+title: Сердце и луна
 year: 2025
 dimensions: 100 х 70
 materials: линогравюра

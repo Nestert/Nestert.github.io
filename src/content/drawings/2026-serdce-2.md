@@ -1,5 +1,5 @@
 ---
-title: СЕРДЦЕ 2
+title: Сердце 2
 year: 2026
 dimensions: 75 х 62
 materials: шкура козы, масляная пастель, лак

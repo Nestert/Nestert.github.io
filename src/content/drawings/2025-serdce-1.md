@@ -1,5 +1,5 @@
 ---
-title: СЕРДЦЕ 1
+title: Сердце 1
 year: 2025
 dimensions: 100 х 70
 materials: линогравюра

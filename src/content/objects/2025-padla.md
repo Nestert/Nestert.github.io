@@ -1,5 +1,5 @@
 ---
-title: ПАДЛА!
+title: Падла!
 year: 2025
 materials: стекло, бумага, смешанная техника
 image: /assets/images/objects/img4096.png

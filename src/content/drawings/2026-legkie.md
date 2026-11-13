@@ -1,5 +1,5 @@
 ---
-title: ЛЕГКИЕ
+title: Легкие
 year: 2026
 dimensions: 88 х 73
 materials: "шкура козы, масляная пастель, лак "

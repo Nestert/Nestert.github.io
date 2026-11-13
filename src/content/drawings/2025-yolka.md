@@ -1,5 +1,5 @@
 ---
-title: ЁЛКА
+title: Ёлка
 year: 2025
 dimensions: 100 х 70
 materials: линогравюра

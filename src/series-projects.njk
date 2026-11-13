@@ -9,7 +9,7 @@
     <section
       class="work-carousel series-carousel{% if imageCount > 1 %} work-carousel--multiple{% endif %}"
       data-work-carousel
-      aria-label="Работы серии «{{ seriesProject.data.title }}»"
+      aria-label="Работы серии {{ seriesProject.data.title }}"
       aria-roledescription="карусель"
     >
       <div class="work-carousel__viewport" data-carousel-viewport>
@@ -35,7 +35,7 @@
                 class="work-detail__zoom-trigger"
                 data-image-zoom-trigger
                 {% if not loop.first %}tabindex="-1"{% endif %}
-                aria-label="Увеличить изображение «{{ slide.alt }}»"
+                aria-label="Увеличить изображение {{ slide.alt }}"
               >
                 {% detailImage slide.image, slide.alt, "work-detail__image", slideLoading, slidePriority %}
                 <span class="work-detail__zoom-icon" aria-hidden="true">

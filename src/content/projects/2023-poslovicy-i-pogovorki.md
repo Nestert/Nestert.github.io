@@ -1,5 +1,5 @@
 ---
-title: ПОСЛОВИЦЫ И ПОГОВОРКИ
+title: Пословицы и поговорки
 year: 2023
 series: Пословицы и поговорки
 image: /assets/images/projects/img4754.jpg

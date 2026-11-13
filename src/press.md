@@ -2,7 +2,7 @@
 layout: layouts/text-page.njk
 title: СМИ
 ---
-## УПОМИНАНИЯ В СМИ
+## Упоминания в СМИ
 
 [«Дураки и дуры» в Борее](https://www.sobaka.ru/entertainment/art/214400)
 
@@ -14,4 +14,4 @@ title: СМИ
 
 [Академия художеств и фонд «Антон тут рядом» готовят выставку «Смотрю в человека»](https://www.sobaka.ru/entertainment/art/190423?fbclid=PAQ0xDSwLTOBFleHRuA2FlbQIxMQABp_SBMasdgW_HLVdDZOhfZXZTa9qj-qe5eZpmJma3nqYuZuD4mn7w2X8q8vm5_aem_h_b56_CqTho4m9b_5qXItw)
 
-[«ИЗ ПРОФЕССОРСКОЙ КВАРТИРЫ» by KGallery](https://1703af.ru/participants/galerei/osnova/iz_professorskoy_kvartiry_by_kgallery_2024/?backurl=%2Fparticipants%2Fgalerei%2F%3Fyear%3D2024)
+[«Из профессорской квартиры» by KGallery](https://1703af.ru/participants/galerei/osnova/iz_professorskoy_kvartiry_by_kgallery_2024/?backurl=%2Fparticipants%2Fgalerei%2F%3Fyear%3D2024)

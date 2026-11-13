@@ -1,5 +1,5 @@
 ---
-title: МУХИ У НАС
+title: Мухи у нас
 year: 2023
 dimensions: 53 х 45
 materials: литография

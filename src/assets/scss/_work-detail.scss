@@ -44,7 +44,6 @@
   color: $color-text-light;
   font-size: $font-size-sm;
   text-align: center;
-  text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
@@ -279,7 +278,6 @@
   margin-bottom: $spacing-md;
   color: $color-text-light;
   font-size: $font-size-sm;
-  text-transform: uppercase;
   letter-spacing: 0.1em;
 
   p {
@@ -297,7 +295,6 @@
 .series-carousel__work-link {
   color: $color-text-light;
   font-size: 0.7rem;
-  text-transform: uppercase;
   letter-spacing: 0.1em;
   transition: color $transition-base;
 
@@ -360,7 +357,6 @@
 .work-detail__pagination-direction,
 .work-detail__back {
   font-size: 0.7rem;
-  text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
