@@ -6,6 +6,10 @@
   padding: 0 0 clamp($spacing-lg, 5vw, $spacing-xl);
 }
 
+[data-work-swipe] {
+  touch-action: pan-y pinch-zoom;
+}
+
 .work-detail__header {
   text-align: center;
   margin-bottom: clamp($spacing-md, 4vw, $spacing-lg);
@@ -127,7 +131,7 @@
 .work-carousel.is-enabled {
   .work-carousel__viewport {
     overflow: hidden;
-    touch-action: pan-y;
+    touch-action: pan-y pinch-zoom;
   }
 
   .work-carousel__track {

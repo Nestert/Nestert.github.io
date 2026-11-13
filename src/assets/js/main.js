@@ -4,6 +4,7 @@
   document.addEventListener('DOMContentLoaded', function() {
     initImageReveal();
     initWorkCarousels();
+    initWorkSwipeNavigation();
     initImageZoom();
     initMobileMenu();
     initBackToTop();
@@ -33,6 +34,50 @@
     });
   }
 
+  function onHorizontalSwipe(surface, onSwipe, canStart = () => true) {
+    let start = null;
+
+    surface.addEventListener('touchstart', function(event) {
+      start = event.touches.length === 1 && canStart(event.target) ? event.touches[0] : null;
+    }, { passive: true });
+
+    surface.addEventListener('touchcancel', function() {
+      start = null;
+    }, { passive: true });
+
+    surface.addEventListener('touchend', function(event) {
+      const from = start;
+      start = null;
+      if (!from || event.touches.length || !event.cancelable) return;
+
+      const to = event.changedTouches[0];
+      if (!to || to.identifier !== from.identifier) return;
+
+      const dx = to.clientX - from.clientX;
+      const dy = to.clientY - from.clientY;
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+
+      event.preventDefault();
+      onSwipe(dx < 0 ? 1 : -1);
+    }, { passive: false });
+  }
+
+  function initWorkSwipeNavigation() {
+    const work = document.querySelector('[data-work-swipe]');
+    if (!work) return;
+
+    const previous = work.querySelector('.work-detail__pagination-link--previous');
+    const next = work.querySelector('.work-detail__pagination-link--next');
+    if (!previous && !next) return;
+
+    onHorizontalSwipe(work, function(direction) {
+      const link = direction === 1 ? next : previous;
+      if (link) window.location.assign(link.href);
+    }, function(target) {
+      return !target.closest('.work-carousel.is-enabled [data-carousel-viewport], a:not([data-image-zoom-trigger]), button, input, select, textarea, [contenteditable]');
+    });
+  }
+
   function initWorkCarousels() {
     document.querySelectorAll('[data-work-carousel]').forEach(function(carousel) {
       const viewport = carousel.querySelector('[data-carousel-viewport]');
@@ -46,7 +91,6 @@
       if (!viewport || !track || slides.length < 2 || !previousButton || !nextButton) return;
 
       let currentIndex = 0;
-      let touchStartX = null;
 
       function showSlide(nextIndex) {
         const focusedSlide = slides.find(function(slide) {
@@ -101,31 +145,9 @@
         }
       });
 
-      viewport.addEventListener('touchstart', function(event) {
-        if (event.touches.length === 1) {
-          touchStartX = event.touches[0].clientX;
-        }
-      }, { passive: true });
-
-      viewport.addEventListener('touchend', function(event) {
-        if (touchStartX === null || !event.changedTouches.length) return;
-
-        const distance = event.changedTouches[0].clientX - touchStartX;
-        touchStartX = null;
-
-        if (Math.abs(distance) < 50) return;
-
-        carousel.dataset.suppressZoom = 'true';
-        window.setTimeout(function() {
-          delete carousel.dataset.suppressZoom;
-        }, 0);
-
-        if (distance > 0) {
-          showSlide(currentIndex - 1);
-        } else {
-          showSlide(currentIndex + 1);
-        }
-      }, { passive: true });
+      onHorizontalSwipe(viewport, function(direction) {
+        showSlide(currentIndex + direction);
+      });
     });
   }
 
@@ -237,9 +259,6 @@
 
     function openZoom(trigger, event) {
       event.preventDefault();
-
-      const carousel = trigger.closest('[data-work-carousel]');
-      if (carousel && carousel.dataset.suppressZoom === 'true') return;
 
       const sourceImage = trigger.querySelector('img');
       activeTrigger = trigger;

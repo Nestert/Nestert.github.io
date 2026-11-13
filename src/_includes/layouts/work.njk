@@ -26,7 +26,7 @@ layout: layouts/base.njk
 {% set nextWork = categoryItems | getAdjacentWork(page.url, "next") %}
 
 <div class="container">
-  <article class="work-detail">
+  <article class="work-detail" data-work-swipe>
     <header class="work-detail__header">
       <h1 class="work-detail__title">{{ title }}</h1>
     </header>
