@@ -34,28 +34,48 @@
     });
   }
 
-  function onHorizontalSwipe(surface, onSwipe, canStart = () => true) {
+  function onHorizontalSwipe(surface, onSwipe, { canStart = () => true, onDrag } = {}) {
     let start = null;
 
     surface.addEventListener('touchstart', function(event) {
       start = event.touches.length === 1 && canStart(event.target) ? event.touches[0] : null;
+      if (!start) onDrag?.(0);
     }, { passive: true });
 
     surface.addEventListener('touchcancel', function() {
       start = null;
+      onDrag?.(0);
     }, { passive: true });
+
+    if (onDrag) {
+      surface.addEventListener('touchmove', function(event) {
+        if (!start || event.touches.length !== 1) return;
+
+        const touch = event.touches[0];
+        if (touch.identifier !== start.identifier) return;
+
+        const dx = touch.clientX - start.clientX;
+        const dy = touch.clientY - start.clientY;
+        onDrag(Math.abs(dx) >= 12 && Math.abs(dx) >= Math.abs(dy) * 1.5 ? dx : 0);
+      }, { passive: true });
+    }
 
     surface.addEventListener('touchend', function(event) {
       const from = start;
       start = null;
-      if (!from || event.touches.length || !event.cancelable) return;
 
       const to = event.changedTouches[0];
-      if (!to || to.identifier !== from.identifier) return;
+      if (!from || !to || to.identifier !== from.identifier || event.touches.length || !event.cancelable) {
+        onDrag?.(0);
+        return;
+      }
 
       const dx = to.clientX - from.clientX;
       const dy = to.clientY - from.clientY;
-      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) {
+        onDrag?.(0);
+        return;
+      }
 
       event.preventDefault();
       onSwipe(dx < 0 ? 1 : -1);
@@ -70,11 +90,57 @@
     const next = work.querySelector('.work-detail__pagination-link--next');
     if (!previous && !next) return;
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let exitAnimation = null;
+
+    function clearDrag() {
+      work.classList.remove('work-detail--swiping');
+      work.style.removeProperty('--work-swipe-transform');
+    }
+
+    window.addEventListener('pageshow', function(event) {
+      if (!event.persisted || !exitAnimation) return;
+      exitAnimation.cancel();
+      exitAnimation = null;
+      clearDrag();
+    });
+
     onHorizontalSwipe(work, function(direction) {
       const link = direction === 1 ? next : previous;
-      if (link) window.location.assign(link.href);
-    }, function(target) {
-      return !target.closest('.work-carousel.is-enabled [data-carousel-viewport], a:not([data-image-zoom-trigger]), button, input, select, textarea, [contenteditable]');
+      if (!link) {
+        clearDrag();
+        return;
+      }
+
+      if (reducedMotion.matches || typeof work.animate !== 'function') {
+        window.location.assign(link.href);
+        return;
+      }
+
+      exitAnimation = work.animate([
+        { transform: getComputedStyle(work).transform, opacity: 1 },
+        { transform: `translateX(${direction * -76}px)`, opacity: 0.25 }
+      ], { duration: 180, easing: 'ease-out', fill: 'forwards' });
+      exitAnimation.onfinish = function() {
+        window.location.assign(link.href);
+      };
+    }, {
+      canStart(target) {
+        return !exitAnimation && !target.closest('.work-carousel.is-enabled [data-carousel-viewport], a:not([data-image-zoom-trigger]), button, input, select, textarea, [contenteditable]');
+      },
+      onDrag(distance) {
+        if (exitAnimation) return;
+        if (!distance || reducedMotion.matches) {
+          clearDrag();
+          return;
+        }
+
+        const hasNeighbor = distance < 0 ? next : previous;
+        const limit = hasNeighbor ? 44 : 14;
+        const offset = Math.sign(distance) * Math.min(Math.abs(distance) * 0.4, limit);
+        work.classList.add('work-detail--swiping');
+        work.style.setProperty('--work-swipe-transform', `translateX(${offset}px)`);
+      }
     });
   }
 

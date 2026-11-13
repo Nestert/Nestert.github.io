@@ -1,5 +1,9 @@
 @use 'variables' as *;
 
+.work-detail-shell {
+  overflow-x: clip;
+}
+
 .work-detail {
   max-width: 900px;
   margin: 0 auto;
@@ -8,6 +12,17 @@
 
 [data-work-swipe] {
   touch-action: pan-y pinch-zoom;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-work-swipe] {
+    transform: var(--work-swipe-transform, none);
+    transition: transform 160ms ease-out;
+  }
+
+  .work-detail--swiping {
+    transition: none;
+  }
 }
 
 .work-detail__header {
