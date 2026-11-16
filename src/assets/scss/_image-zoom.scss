@@ -99,8 +99,13 @@ body.image-zoom-open {
   }
 
   &:focus-visible {
-    outline: 1px solid currentColor;
-    outline-offset: -0.25rem;
+    outline: none;
+
+    span {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+    }
   }
 }
 
